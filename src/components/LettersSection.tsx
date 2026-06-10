@@ -135,7 +135,7 @@ export default function LettersSection({ theme }: { theme: string }) {
     <div className="flex flex-col gap-4">
       {/* Hidden container for image export - Always rendered at root to avoid missing reference when switching tabs */}
       <div style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}>
-         <div ref={downloadRef} className={`theme-${theme} w-[800px] p-20 text-left border-[8px] relative overflow-hidden`} style={{ minHeight: '1131px', background: 'linear-gradient(145deg, var(--bg-top) 0%, var(--bg-bottom) 100%)', borderColor: 'var(--card-border)' }}>
+         <div ref={downloadRef} className={`theme-${theme} w-[800px] p-20 text-left border-[8px] relative overflow-hidden`} style={{ minHeight: '1131px', background: 'linear-gradient(145deg, var(--bg-top) 0%, var(--bg-bottom) 100%)', borderColor: 'var(--accent-color)' }}>
             
             {/* Background glowing gradients for richer aesthetics */}
             <div className="absolute inset-0 opacity-40 pointer-events-none" style={{ background: 'radial-gradient(circle at 20% 20%, var(--accent-light), transparent 50%), radial-gradient(circle at 80% 85%, var(--accent-light), transparent 50%)' }}></div>

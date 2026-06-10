@@ -323,8 +323,8 @@ export default function SettingsSection({
     { id: 'hearts', name: 'Floating Hearts', icon: '💖' },
     { id: 'heartPulse', name: 'Pulsing Hearts', icon: '💞' },
     { id: 'blossoms', name: 'Cherry Blossoms', icon: '🌸' },
-    { id: 'stars', name: 'Floating Stars', icon: '⭐' },
-    { id: 'magic', name: 'Magic Dust', icon: '✨' },
+    { id: 'stars', name: 'Sweet Kisses', icon: '💋' },
+    { id: 'magic', name: 'Sweet Treats', icon: '🍬' },
     { id: 'bubbles', name: 'Soft Bubbles', icon: '🫧' },
     { id: 'none', name: 'Minimal (No Effects)', icon: '💨' }
   ];

@@ -316,8 +316,22 @@ export default function App() {
 
   const getEffectIcon = ({ id, ...rest }: any) => {
     if (currentEffect === 'none') return null;
-    if (currentEffect === 'magic') return <span key={id} {...rest} className={`${rest.className} flex items-center justify-center text-xs opacity-70 drop-shadow-md`} style={{...rest.style, color: undefined}}>✨</span>;
-    if (currentEffect === 'stars') return <span key={id} {...rest} className={`${rest.className} flex items-center justify-center text-xs opacity-70 drop-shadow-md`} style={{...rest.style, color: undefined}}>⭐</span>;
+    if (currentEffect === 'magic') {
+      const items = ['🍬', '🍫', '💋', '❤️', '💝'];
+      const item = items[Math.floor(id * 1000) % items.length];
+      if (item === '❤️' || item === '💝') {
+        return <Heart key={id} {...rest} strokeWidth={1.5} className={`${rest.className} fill-current`} style={rest.style} />;
+      }
+      return <span key={id} {...rest} className={`${rest.className} flex items-center justify-center text-xs`} style={{...rest.style, color: undefined}}>{item}</span>;
+    }
+    if (currentEffect === 'stars') {
+      const items = ['💋', '💖', '🍫', '💝', '🍬'];
+      const item = items[Math.floor(id * 1000) % items.length];
+      if (item === '💖' || item === '💝') {
+        return <Heart key={id} {...rest} strokeWidth={1.5} className={`${rest.className} fill-current`} style={rest.style} />;
+      }
+      return <span key={id} {...rest} className={`${rest.className} flex items-center justify-center text-xs`} style={{...rest.style, color: undefined}}>{item}</span>;
+    }
     if (currentEffect === 'blossoms') return <span key={id} {...rest} className={`${rest.className} flex items-center justify-center text-xs opacity-70 drop-shadow-md`} style={{...rest.style, color: undefined}}>🌸</span>;
     if (currentEffect === 'heartPulse') return <HeartPulse key={id} {...rest} strokeWidth={1.5} className={`${rest.className} fill-rose-500`} />;
     if (currentEffect === 'bubbles') return <Circle key={id} {...rest} strokeWidth={1} className={`${rest.className} bg-current rounded-full`} />;
