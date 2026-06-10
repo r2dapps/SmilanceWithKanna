@@ -135,36 +135,41 @@ export default function LettersSection({ theme }: { theme: string }) {
     <div className="flex flex-col gap-4">
       {/* Hidden container for image export - Always rendered at root to avoid missing reference when switching tabs */}
       <div style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}>
-         <div ref={downloadRef} className={`theme-${theme} w-[800px] p-12 text-left border-[8px] relative overflow-hidden`} style={{ minHeight: '1131px', background: 'linear-gradient(145deg, var(--bg-top) 0%, var(--bg-bottom) 100%)', borderColor: 'var(--card-border)' }}>
+         <div ref={downloadRef} className={`theme-${theme} w-[800px] p-20 text-left border-[8px] relative overflow-hidden`} style={{ minHeight: '1131px', background: 'linear-gradient(145deg, var(--bg-top) 0%, var(--bg-bottom) 100%)', borderColor: 'var(--card-border)' }}>
             
             {/* Background glowing gradients for richer aesthetics */}
             <div className="absolute inset-0 opacity-40 pointer-events-none" style={{ background: 'radial-gradient(circle at 20% 20%, var(--accent-light), transparent 50%), radial-gradient(circle at 80% 85%, var(--accent-light), transparent 50%)' }}></div>
             
-            {/* Background Hearts */}
-            <Heart className="absolute top-10 left-10 w-32 h-32 -rotate-12 pointer-events-none" style={{ color: 'var(--accent-color)', fill: 'var(--accent-light)', opacity: 0.12 }} strokeWidth={1.5} />
-            <Heart className="absolute bottom-20 right-10 w-48 h-48 rotate-12 pointer-events-none" style={{ color: 'var(--accent-color)', fill: 'var(--accent-light)', opacity: 0.12 }} strokeWidth={1.5} />
-            <Heart className="absolute top-[55%] right-[22%] w-24 h-24 rotate-45 pointer-events-none" style={{ color: 'var(--accent-color)', fill: 'var(--accent-light)', opacity: 0.12 }} strokeWidth={1.5} />
+            {/* Scattered Background Hearts (Watermarks) */}
+            <Heart className="absolute top-10 left-10 w-32 h-32 -rotate-12 pointer-events-none" style={{ color: 'var(--accent-color)', fill: 'var(--accent-light)', opacity: 0.1 }} strokeWidth={1.5} />
+            <Heart className="absolute bottom-20 right-10 w-48 h-48 rotate-12 pointer-events-none" style={{ color: 'var(--accent-color)', fill: 'var(--accent-light)', opacity: 0.1 }} strokeWidth={1.5} />
+            <Heart className="absolute top-1/3 left-12 w-20 h-20 rotate-45 pointer-events-none" style={{ color: 'var(--accent-color)', fill: 'var(--accent-light)', opacity: 0.08 }} strokeWidth={1.5} />
+            <Heart className="absolute top-[55%] right-12 w-28 h-28 -rotate-12 pointer-events-none" style={{ color: 'var(--accent-color)', fill: 'var(--accent-light)', opacity: 0.08 }} strokeWidth={1.5} />
+            <Heart className="absolute top-16 right-24 w-16 h-16 rotate-12 pointer-events-none" style={{ color: 'var(--accent-color)', fill: 'var(--accent-light)', opacity: 0.08 }} strokeWidth={1.5} />
+            <Heart className="absolute bottom-12 left-16 w-36 h-36 -rotate-45 pointer-events-none" style={{ color: 'var(--accent-color)', fill: 'var(--accent-light)', opacity: 0.1 }} strokeWidth={1.5} />
             
-            {/* Translucent Glassmorphic Letter Card Frame */}
-            <div className="flex flex-col h-full border-[1.5px] rounded-[2.5rem] p-16 backdrop-blur-md shadow-2xl relative z-10" style={{ backgroundColor: 'rgba(255, 255, 255, 0.02)', borderColor: 'var(--card-border)' }}>
-              <div className="flex justify-between items-end border-b-2 mb-10 pb-6" style={{ borderColor: 'var(--card-border)' }}>
-                <div>
-                  <h2 className="font-bold text-2xl tracking-widest uppercase font-sans" style={{ color: 'var(--text-primary)' }}>{printDateStr}</h2>
-                  {printTimeStr && <p className="font-sans font-bold text-lg tracking-widest mt-2 opacity-80" style={{ color: 'var(--text-primary)' }}>{printTimeStr}</p>}
+            {/* Clean content structure directly aligned to page border */}
+            <div className="relative z-10 flex flex-col h-full justify-between" style={{ minHeight: '971px' }}>
+              <div>
+                <div className="flex justify-between items-end border-b-2 mb-10 pb-6" style={{ borderColor: 'var(--card-border)' }}>
+                  <div>
+                    <h2 className="font-bold text-2xl tracking-widest uppercase font-sans" style={{ color: 'var(--text-primary)' }}>{printDateStr}</h2>
+                    {printTimeStr && <p className="font-sans font-bold text-lg tracking-widest mt-2 opacity-80" style={{ color: 'var(--text-primary)' }}>{printTimeStr}</p>}
+                  </div>
+                  
+                  {/* "Smilance Diary" in two rows */}
+                  <div className="text-right pointer-events-none font-sans opacity-25 flex flex-col items-end leading-none">
+                    <span className="text-[28px] uppercase tracking-[0.2em] font-black" style={{ color: 'var(--text-primary)' }}>Smilance</span>
+                    <span className="text-[28px] uppercase tracking-[0.3em] font-black mt-1.5" style={{ color: 'var(--text-primary)' }}>Diary</span>
+                  </div>
                 </div>
                 
-                {/* "Smilance Diary" in two rows */}
-                <div className="text-right pointer-events-none font-sans opacity-25 flex flex-col items-end leading-none">
-                  <span className="text-[28px] uppercase tracking-[0.2em] font-black" style={{ color: 'var(--text-primary)' }}>Smilance</span>
-                  <span className="text-[28px] uppercase tracking-[0.3em] font-black mt-1.5" style={{ color: 'var(--text-primary)' }}>Diary</span>
-                </div>
+                <h3 className="text-6xl font-bold mb-10 leading-snug" style={{ fontFamily: "'Caveat', cursive", color: 'var(--text-primary)' }}>{printTitle || 'Dear Kanna,'}</h3>
+                
+                <p className="text-[36px] leading-[1.8] whitespace-pre-wrap break-words opacity-95" style={{ fontFamily: "'Caveat', cursive", color: 'var(--text-primary)' }}>
+                  {printContent || '...'}
+                </p>
               </div>
-              
-              <h3 className="text-6xl font-bold mb-10 leading-snug" style={{ fontFamily: "'Caveat', cursive", color: 'var(--text-primary)' }}>{printTitle || 'Dear Kanna,'}</h3>
-              
-              <p className="text-[36px] leading-[1.8] whitespace-pre-wrap break-words flex-1 opacity-95" style={{ fontFamily: "'Caveat', cursive", color: 'var(--text-primary)' }}>
-                {printContent || '...'}
-              </p>
               
               <div className="mt-20 pt-10 text-right text-4xl font-bold opacity-90" style={{ fontFamily: "'Caveat', cursive", color: 'var(--text-primary)' }}>
                 Always & Forever, <br/>
