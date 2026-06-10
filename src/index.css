@@ -144,6 +144,22 @@
   --text-primary: #fff;
 }
 
+.theme-lavender {
+  --bg-top: #10061a;
+  --bg-bottom: #1c092e;
+  --card-bg: rgba(16, 6, 26, 0.65);
+  --card-border: rgba(192, 132, 252, 0.15);
+  --text-primary: #fff;
+}
+
+.theme-candy {
+  --bg-top: #1a0208;
+  --bg-bottom: #300410;
+  --card-bg: rgba(26, 2, 8, 0.65);
+  --card-border: rgba(244, 63, 94, 0.2);
+  --text-primary: #fff;
+}
+
 body {
   background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
   background-attachment: fixed;
@@ -343,3 +359,51 @@ input:focus, textarea:focus, select:focus {
 .animate-heartBeat {
   animation: heartBeat 1.2s infinite;
 }
+
+/* Lub-dub Double-Pulse Heartbeat */
+@keyframes lubdub {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.25); }
+  28% { transform: scale(1.05); }
+  42% { transform: scale(1.4); }
+  70% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+.animate-lubdub {
+  animation: lubdub 1.8s infinite ease-in-out;
+}
+
+/* Expanding Concentric Heart Echo Rings matching Lub & Dub peaks */
+@keyframes lubEcho {
+  0% { transform: scale(0.9); opacity: 0; }
+  14% { transform: scale(0.9); opacity: 0.5; }
+  32% { transform: scale(1.6); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes dubEcho {
+  0% { transform: scale(0.9); opacity: 0; }
+  42% { transform: scale(0.9); opacity: 0.7; }
+  68% { transform: scale(2.5); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.animate-lubEcho {
+  animation: lubEcho 1.8s infinite ease-out;
+}
+
+.animate-dubEcho {
+  animation: dubEcho 1.8s infinite ease-out;
+}
+
+/* ECG Heart Monitor Trace Scan line */
+@keyframes ecgScan {
+  0% { stroke-dashoffset: 600; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.animate-ecgScan {
+  animation: ecgScan 3.5s linear infinite;
+}
+

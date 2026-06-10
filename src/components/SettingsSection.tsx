@@ -311,6 +311,8 @@ export default function SettingsSection({
   const THEMES = [
     { id: 'dark', name: 'Dark Rose (Classic)', colors: 'from-rose-500 to-rose-900', icon: '🌹' },
     { id: 'midnight', name: 'Midnight Violet', colors: 'from-violet-600 to-purple-900', icon: '🌌' },
+    { id: 'lavender', name: 'Lavender Mist', colors: 'from-fuchsia-400 to-violet-800', icon: '🪻' },
+    { id: 'candy', name: 'Candy Hearts', colors: 'from-rose-400 to-red-800', icon: '🍬' },
     { id: 'sunset', name: 'Sunset Romance', colors: 'from-orange-400 to-rose-600', icon: '🌅' },
     { id: 'sakura', name: 'Sakura Bloom', colors: 'from-pink-300 to-pink-500', icon: '🌸' },
     { id: 'ocean', name: 'Deep Ocean', colors: 'from-cyan-600 to-blue-900', icon: '🌊' }
@@ -330,12 +332,12 @@ export default function SettingsSection({
   if (activeView === 'letters') {
     return (
       <div className="flex flex-col gap-4 relative">
-        <div className="sticky top-0 z-30 pt-2 pb-2 -mx-4 px-4 bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm pointer-events-none">
+        <div className="sticky top-0 z-30 pt-2 pb-2 -mx-4 px-4 backdrop-blur-sm pointer-events-none" style={{ backgroundImage: 'linear-gradient(to bottom, var(--bg-top) 85%, transparent)' }}>
           <button onClick={() => setActiveView('menu')} className="text-[11px] font-bold text-gray-300 hover:text-white inline-flex items-center transition-colors uppercase tracking-widest bg-black/60 border border-white/10 px-3 py-2 rounded-xl backdrop-blur-md pointer-events-auto">
             <ChevronLeft className="w-4 h-4 mr-1" /> Back to Settings
           </button>
         </div>
-        <LettersSection />
+        <LettersSection theme={theme} />
       </div>
     );
   }
@@ -343,7 +345,7 @@ export default function SettingsSection({
   if (activeView === 'themes') {
     return (
       <div className="flex flex-col gap-4 text-left relative">
-        <div className="sticky top-0 z-30 pt-2 pb-2 -mx-4 px-4 bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm pointer-events-none">
+        <div className="sticky top-0 z-30 pt-2 pb-2 -mx-4 px-4 backdrop-blur-sm pointer-events-none" style={{ backgroundImage: 'linear-gradient(to bottom, var(--bg-top) 85%, transparent)' }}>
           <button onClick={() => setActiveView('menu')} className="text-[11px] font-bold text-gray-300 hover:text-white inline-flex items-center transition-colors uppercase tracking-widest bg-black/60 border border-white/10 px-3 py-2 rounded-xl backdrop-blur-md pointer-events-auto">
             <ChevronLeft className="w-4 h-4 mr-1" /> Back to Settings
           </button>
@@ -377,7 +379,7 @@ export default function SettingsSection({
   if (activeView === 'effects') {
     return (
       <div className="flex flex-col gap-4 text-left relative">
-        <div className="sticky top-0 z-30 pt-2 pb-2 -mx-4 px-4 bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm pointer-events-none">
+        <div className="sticky top-0 z-30 pt-2 pb-2 -mx-4 px-4 backdrop-blur-sm pointer-events-none" style={{ backgroundImage: 'linear-gradient(to bottom, var(--bg-top) 85%, transparent)' }}>
           <button onClick={() => setActiveView('menu')} className="text-[11px] font-bold text-gray-300 hover:text-white inline-flex items-center transition-colors uppercase tracking-widest bg-black/60 border border-white/10 px-3 py-2 rounded-xl backdrop-blur-md pointer-events-auto">
             <ChevronLeft className="w-4 h-4 mr-1" /> Back to Settings
           </button>

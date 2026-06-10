@@ -236,6 +236,20 @@ export default function App() {
        root.style.setProperty('--accent-color', '#db2777');
        root.style.setProperty('--accent-light', 'rgba(244, 114, 182, 0.15)');
        root.style.setProperty('--accent-text', '#f9a8d4');
+    } else if (theme === 'lavender') {
+       root.style.setProperty('--bg-top', '#10061a');
+       root.style.setProperty('--bg-bottom', '#1c092e');
+       root.style.setProperty('--card-border', 'rgba(192, 132, 252, 0.15)');
+       root.style.setProperty('--accent-color', '#c084fc');
+       root.style.setProperty('--accent-light', 'rgba(192, 132, 252, 0.15)');
+       root.style.setProperty('--accent-text', '#e9d5ff');
+    } else if (theme === 'candy') {
+       root.style.setProperty('--bg-top', '#1a0208');
+       root.style.setProperty('--bg-bottom', '#300410');
+       root.style.setProperty('--card-border', 'rgba(244, 63, 94, 0.2)');
+       root.style.setProperty('--accent-color', '#e11d48');
+       root.style.setProperty('--accent-light', 'rgba(244, 63, 94, 0.15)');
+       root.style.setProperty('--accent-text', '#fecdd3');
     } else if (theme === 'light') {
        root.style.setProperty('--bg-top', '#ffffff');
        root.style.setProperty('--bg-bottom', '#ffe4e6');
@@ -310,11 +324,40 @@ export default function App() {
     
     // Auto match logic based on theme
     if (currentEffect === 'themeSync') {
-      if (theme === 'sakura') return <span key={id} {...rest} className={`${rest.className} flex items-center justify-center text-xs drop-shadow-md opacity-80`} style={{...rest.style, color: undefined}}>🌸</span>;
-      if (theme === 'dark' || theme === 'midnight') return <span key={id} {...rest} className={`${rest.className} flex items-center justify-center text-[10px] drop-shadow-[0_0_5px_rgba(255,255,255,0.7)]`} style={{...rest.style, color: undefined}}>✨</span>;
-      if (theme === 'ocean') return <Circle key={id} {...rest} strokeWidth={1} className={`${rest.className} bg-current rounded-full opacity-60`} />;
-      if (theme === 'gold' || theme === 'sunset') return <span key={id} {...rest} className={`${rest.className} flex items-center justify-center text-xs drop-shadow-[0_0_5px_rgba(251,191,36,0.5)] opacity-70`} style={{...rest.style, color: undefined}}>✨</span>;
-      return <Heart key={id} {...rest} strokeWidth={1.5} className={`${rest.className} fill-current`} />;
+      if (theme === 'sakura') {
+        const isHeart = Math.floor(id * 1000) % 2 === 0;
+        return isHeart ? (
+          <Heart key={id} {...rest} strokeWidth={1.5} className={`${rest.className} fill-current`} />
+        ) : (
+          <span key={id} {...rest} className={`${rest.className} flex items-center justify-center text-xs drop-shadow-md opacity-80`} style={{...rest.style, color: undefined}}>🌸</span>
+        );
+      }
+      if (theme === 'ocean') {
+        return <Circle key={id} {...rest} strokeWidth={1} className={`${rest.className} bg-current rounded-full opacity-60`} />;
+      }
+      if (theme === 'candy') {
+        const items = ['🍬', '🍫', '💋', '❤️', '💝'];
+        const item = items[Math.floor(id * 1000) % items.length];
+        if (item === '❤️' || item === '💝') {
+          return <Heart key={id} {...rest} strokeWidth={1.5} className={`${rest.className} fill-current`} style={rest.style} />;
+        }
+        return <span key={id} {...rest} className={`${rest.className} flex items-center justify-center text-xs`} style={{...rest.style, color: undefined}}>{item}</span>;
+      }
+      if (theme === 'lavender') {
+        const items = ['💜', '💖', '💋', '❤️'];
+        const item = items[Math.floor(id * 1000) % items.length];
+        if (item === '❤️') {
+          return <Heart key={id} {...rest} strokeWidth={1.5} className={`${rest.className} fill-current`} style={rest.style} />;
+        }
+        return <span key={id} {...rest} className={`${rest.className} flex items-center justify-center text-xs`} style={{...rest.style, color: undefined}}>{item}</span>;
+      }
+      // default / dark / midnight / sunset / gold
+      const items = ['❤️', '💝', '🍫', '💋', '💖'];
+      const item = items[Math.floor(id * 1000) % items.length];
+      if (item === '❤️' || item === '💝' || item === '💖') {
+        return <Heart key={id} {...rest} strokeWidth={1.5} className={`${rest.className} fill-current`} style={rest.style} />;
+      }
+      return <span key={id} {...rest} className={`${rest.className} flex items-center justify-center text-xs`} style={{...rest.style, color: undefined}}>{item}</span>;
     }
 
     return <Heart key={id} {...rest} strokeWidth={1.5} className={`${rest.className} fill-current`} />;
@@ -450,8 +493,36 @@ export default function App() {
           <div className="absolute -left-10 -top-10 w-24 h-24 bg-rose-500/10 rounded-full blur-2xl"></div>
 
           <div className="flex items-center gap-2.5 z-10">
-            <Heart className="w-5 h-5 text-rose-500 fill-rose-500 drop-shadow-[0_0_8px_rgba(244,63,94,0.8)]" />
+            <div className="relative flex items-center justify-center shrink-0 w-6 h-6 mr-0.5">
+              {/* Concentric expanding background pulse rings matching Lub & Dub beats */}
+              <div className="absolute w-4 h-4 bg-rose-500/35 rounded-full animate-lubEcho pointer-events-none"></div>
+              <div className="absolute w-4 h-4 bg-rose-500/20 rounded-full animate-dubEcho pointer-events-none"></div>
+              <Heart className="w-5 h-5 text-rose-500 fill-rose-500 drop-shadow-[0_0_8px_rgba(244,63,94,0.8)] animate-lubdub z-10" />
+            </div>
             <h1 className="font-serif text-[20px] text-rose-200 font-bold tracking-wide mt-0.5">Smilance</h1>
+          </div>
+
+          {/* ECG Heartbeat Line Scanner */}
+          <div className="absolute bottom-0 left-0 right-0 h-3 overflow-hidden pointer-events-none opacity-40">
+            <svg className="w-full h-full" viewBox="0 0 400 12" preserveAspectRatio="none">
+              {/* Background faint path */}
+              <path
+                d="M 0 6 L 70 6 L 76 3 L 80 9 L 84 0 L 88 12 L 92 4 L 96 8 L 100 6 L 150 6 L 156 3 L 160 9 L 164 0 L 168 12 L 172 4 L 176 8 L 180 6 L 230 6 L 236 3 L 240 9 L 244 0 L 248 12 L 252 4 L 256 8 L 260 6 L 310 6 L 316 3 L 320 9 L 324 0 L 328 12 L 332 4 L 336 8 L 340 6 L 400 6"
+                fill="none"
+                stroke="var(--accent-light, rgba(244,63,94,0.15))"
+                strokeWidth="1.2"
+              />
+              {/* Glowing animated path */}
+              <path
+                d="M 0 6 L 70 6 L 76 3 L 80 9 L 84 0 L 88 12 L 92 4 L 96 8 L 100 6 L 150 6 L 156 3 L 160 9 L 164 0 L 168 12 L 172 4 L 176 8 L 180 6 L 230 6 L 236 3 L 240 9 L 244 0 L 248 12 L 252 4 L 256 8 L 260 6 L 310 6 L 316 3 L 320 9 L 324 0 L 328 12 L 332 4 L 336 8 L 340 6 L 400 6"
+                fill="none"
+                stroke="var(--accent-color, #e11d48)"
+                strokeWidth="1.6"
+                strokeDasharray="100 500"
+                className="animate-ecgScan"
+                style={{ filter: 'drop-shadow(0 0 2px var(--accent-color, #e11d48))' }}
+              />
+            </svg>
           </div>
 
           <div className="flex flex-col items-end z-10">
