@@ -434,7 +434,7 @@ export default function App() {
       {/* Global Audio Player */}
       <audio
         ref={audioRef}
-        src={`/music/Love (${currentSongIdx}).mp3`}
+        src={`music/Love (${currentSongIdx}).mp3`}
         onTimeUpdate={() => audioRef.current && setCurrentTimeProgress(audioRef.current.currentTime)}
         onLoadedMetadata={() => audioRef.current && setDuration(audioRef.current.duration)}
         onEnded={handleNextTrack}

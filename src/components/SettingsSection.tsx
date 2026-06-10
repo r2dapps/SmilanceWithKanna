@@ -184,8 +184,8 @@ export default function SettingsSection({
       const testPayload = {
         title: 'Smilance Handshake Verified! 💖',
         body: `Local notification verified at ${new Date().toLocaleTimeString()}! Cross-platform PWA notification channels are active! 🥰`,
-        icon: '/smilance-192.png',
-        badge: '/smilance-192.png',
+        icon: 'smilance-192.png',
+        badge: 'smilance-192.png',
         vibrate: [100, 50, 100],
         data: { url: '/' }
       };
