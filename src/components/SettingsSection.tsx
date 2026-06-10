@@ -26,7 +26,9 @@ export default function SettingsSection({
   theme,
   setTheme,
   currentEffect,
-  setCurrentEffect
+  setCurrentEffect,
+  deferredPrompt,
+  onInstall
 }: any) {
   const [activeView, setActiveView] = useState<'menu'|'letters'|'themes'|'effects'>('menu');
   const [reminders, setReminders] = useState(true);
@@ -450,6 +452,29 @@ export default function SettingsSection({
                <Heart className="w-4 h-4" />
              </div>
              <span className="font-bold text-white text-sm">Visual Effects</span>
+          </div>
+          <ChevronRight className="w-4 h-4 text-gray-500" />
+        </button>
+
+        <div className="h-px w-[90%] mx-auto bg-white/5" />
+
+        <button 
+          onClick={() => {
+            if (deferredPrompt) {
+              onInstall();
+            } else {
+              alert("To install Smilance:\n\n• On iOS Safari: Tap the Share button, scroll down and select 'Add to Home Screen'.\n\n• On Chrome/Edge/Firefox: Look for the install icon in the address bar or select 'Install Smilance' in the browser menu.");
+            }
+          }} 
+          className="w-full flex items-center justify-between p-4 bg-transparent border-white/5 hover:bg-white/5 rounded-xl transition"
+        >
+          <div className="flex items-center gap-3">
+             <div className="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center">
+               <Download className="w-4 h-4" />
+             </div>
+             <span className="font-bold text-white text-sm">
+               {deferredPrompt ? "Install Smilance PWA" : "How to Install App"}
+             </span>
           </div>
           <ChevronRight className="w-4 h-4 text-gray-500" />
         </button>

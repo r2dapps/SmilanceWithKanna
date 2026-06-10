@@ -789,6 +789,8 @@ export default function App() {
             setTheme={setTheme}
             currentEffect={currentEffect}
             setCurrentEffect={setCurrentEffect}
+            deferredPrompt={deferredPrompt}
+            onInstall={handleInstallClick}
           />
         )}
 
