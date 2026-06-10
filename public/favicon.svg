@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Deep romantic dark-purple gradient background -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#09090b" />
+      <stop offset="50%" stop-color="#180828" />
+      <stop offset="100%" stop-color="#2e082c" />
+    </linearGradient>
+    <!-- Heart pink-gold glowing gradient -->
+    <linearGradient id="heart-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#d946ef" />
+    </linearGradient>
+    <!-- Text glowing effect -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Rounded App Icon Background -->
+  <rect width="512" height="512" rx="110" fill="url(#bg-grad)" stroke="rgba(244, 63, 94, 0.15)" stroke-width="4" />
+
+  <!-- Glowing background heart aura -->
+  <path d="M256,370 L232,348 C156,278 106,232 106,177 C106,132 140,98 185,98 C211,98 236,111 256,132 C276,111 301,98 327,98 C372,98 406,132 406,177 C406,232 356,278 280,348 L256,370 Z" fill="rgba(244, 63, 94, 0.08)" transform="scale(1.1) translate(-23, -25)" />
+
+  <!-- Main Romantic Heart -->
+  <path d="M256,360 L233,338 C160,272 112,228 112,175 C112,130 145,97 190,97 C215,97 240,110 256,130 C272,110 297,97 322,97 C367,97 400,130 400,175 C400,228 352,272 279,338 L256,360 Z" fill="url(#heart-grad)" />
+
+  <!-- Sparkling stars inside the icon -->
+  <path d="M160,140 L163,148 L171,151 L163,154 L160,162 L157,154 L149,151 L157,148 Z" fill="#ffffff" opacity="0.9" />
+  <path d="M340,220 L342,225 L347,227 L342,229 L340,234 L338,229 L333,227 L338,225 Z" fill="#fbbf24" opacity="0.8" />
+
+  <!-- Beautiful "Smilance" Labeled Text -->
+  <text x="256" y="435" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="46" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="4" filter="url(#glow)">SMILANCE</text>
+  <text x="256" y="465" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#a1a1aa" text-anchor="middle" letter-spacing="6">SWEET WISHES</text>
+</svg>

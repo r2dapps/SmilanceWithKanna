@@ -1,0 +1,6 @@
+{
+  "name": "Smilance",
+  "description": "A private companion app designed for Smiley, featuring menstrual cycle tracking, mood log, scriptures, pre-written letters, and a secure health vault.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
