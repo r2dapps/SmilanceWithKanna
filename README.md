@@ -1,8 +1,10 @@
 # 🌸 Smilance 
 
-> A deeply personalized, offline-first sanctuary crafted with precision. Features period tracking, an immersive music lounge, and an encrypted diary—all styled with high-fidelity animations and fluid interactions.
+<p align="center">
+  <img src="public/smilance-192.png" alt="Smilance Logo" width="120" style="border-radius: 24px; box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);" />
+</p>
 
-![Smilance Aesthetics](https://via.placeholder.com/1000x350/11050A/F43F5E?text=Smilance:+A+Sanctuary+For+Smiley)
+> A deeply personalized, offline-first sanctuary crafted with precision. Features period tracking, an immersive music lounge, and an encrypted diary—all styled with high-fidelity animations and fluid interactions.
 
 ---
 
