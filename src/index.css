@@ -407,3 +407,39 @@ input:focus, textarea:focus, select:focus {
   animation: ecgScan 3.5s linear infinite;
 }
 
+/* Animated Audio Equalizer Visualizer Bars */
+.audio-visualizer-bar {
+  width: 2.5px;
+  border-radius: 1px;
+  background-color: var(--accent-color, #e11d48);
+  animation: bounceVisualizer 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes bounceVisualizer {
+  0% { height: 3px; }
+  100% { height: 14px; }
+}
+
+/* Header Text Shimmer & Glow Gradient Animation */
+.text-shimmer-glow {
+  background: linear-gradient(
+    to right,
+    var(--accent-text, #fda4af) 0%,
+    #ffffff 25%,
+    var(--accent-text, #fda4af) 50%,
+    #ffffff 75%,
+    var(--accent-text, #fda4af) 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: textShimmer 4s linear infinite;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.1));
+}
+
+@keyframes textShimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: 0% center; }
+}
+

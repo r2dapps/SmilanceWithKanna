@@ -87,6 +87,14 @@ export default function App() {
   const [showWish, setShowWish] = useState(false);
   const [wish, setWish] = useState('');
   
+  const [showAltTitle, setShowAltTitle] = useState(false);
+  useEffect(() => {
+    const t = setInterval(() => {
+      setShowAltTitle(prev => !prev);
+    }, 6000);
+    return () => clearInterval(t);
+  }, []);
+  
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem('smilance_theme_color') || 'dark';
     return saved === 'light' ? 'dark' : saved;
@@ -374,7 +382,41 @@ export default function App() {
       return <span key={id} {...rest} className={`${rest.className} flex items-center justify-center text-xs`} style={{...rest.style, color: undefined}}>{item}</span>;
     }
 
-    return <Heart key={id} {...rest} strokeWidth={1.5} className={`${rest.className} fill-current`} />;
+  };
+
+  const getSecondsIcon = (id: string) => {
+    let items = ['❤️', '💝', '🍫', '💋', '💖'];
+    if (theme === 'candy') {
+      items = ['🍬', '🍫', '💋', '❤️', '💝'];
+    } else if (theme === 'lavender') {
+      items = ['💜', '💖', '💋', '❤️'];
+    } else if (theme === 'sakura') {
+      items = ['🌸', '💖', '❤️', '💝'];
+    } else if (theme === 'ocean') {
+      items = ['🫧', '💧', '💙', '✨'];
+    }
+    
+    const index = Math.abs(parseInt(id, 10) || 0) % items.length;
+    const item = items[index];
+    
+    if (item === '❤️' || item === '💝' || item === '💖' || item === '💜' || item === '💙') {
+      return (
+        <Heart 
+          key={id}
+          className="absolute right-2 bottom-1 w-2.5 h-2.5 animate-floatUpAndFade pointer-events-none" 
+          style={{ color: 'var(--accent-color)', fill: 'var(--accent-light)', opacity: 0.7 }}
+        />
+      );
+    }
+    return (
+      <span 
+        key={id}
+        className="absolute right-2 bottom-1 text-[10px] animate-floatUpAndFade pointer-events-none"
+        style={{ opacity: 0.8 }}
+      >
+        {item}
+      </span>
+    );
   };
 
   if (isAppLoading) {
@@ -500,7 +542,7 @@ export default function App() {
 
       {/* Global Header */}
       <div className="sticky top-2 z-40 mx-4 mt-2">
-        <div className="dark-card flex items-center justify-between p-3.5 bg-gradient-to-r from-[#1a0b12]/95 to-[#12050A]/95 backdrop-blur-xl border border-rose-500/20 rounded-[2rem] shadow-[0_8px_30px_rgba(244,63,94,0.15)] overflow-hidden relative">
+        <div className="dark-card flex items-center justify-between p-3.5 backdrop-blur-xl border rounded-[2rem] shadow-[0_8px_30px_rgba(244,63,94,0.15)] overflow-hidden relative" style={{ background: 'linear-gradient(to right, var(--bg-top) 0%, var(--bg-bottom) 100%)', borderColor: 'var(--card-border)' }}>
           
           {/* Subtle light/glow effect */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-rose-400/30 to-transparent"></div>
@@ -509,11 +551,23 @@ export default function App() {
           <div className="flex items-center gap-2.5 z-10">
             <div className="relative flex items-center justify-center shrink-0 w-6 h-6 mr-0.5">
               {/* Concentric expanding background pulse rings matching Lub & Dub beats */}
-              <div className="absolute w-4 h-4 bg-rose-500/35 rounded-full animate-lubEcho pointer-events-none"></div>
-              <div className="absolute w-4 h-4 bg-rose-500/20 rounded-full animate-dubEcho pointer-events-none"></div>
-              <Heart className="w-5 h-5 text-rose-500 fill-rose-500 drop-shadow-[0_0_8px_rgba(244,63,94,0.8)] animate-lubdub z-10" />
+              <div className="absolute w-4 h-4 rounded-full animate-lubEcho pointer-events-none" style={{ backgroundColor: 'var(--accent-color)', opacity: 0.35 }}></div>
+              <div className="absolute w-4 h-4 rounded-full animate-dubEcho pointer-events-none" style={{ backgroundColor: 'var(--accent-color)', opacity: 0.2 }}></div>
+              <Heart className="w-5 h-5 animate-lubdub z-10" style={{ color: 'var(--accent-color)', fill: 'var(--accent-color)', filter: 'drop-shadow(0 0 8px var(--accent-color))' }} />
             </div>
-            <h1 className="font-serif text-[20px] text-rose-200 font-bold tracking-wide mt-0.5">Smilance</h1>
+            
+            <div className="flex items-center gap-1.5 select-none">
+              <h1 className="font-serif text-[20px] font-bold tracking-wide mt-0.5 text-shimmer-glow transition-all duration-700 min-w-[100px] overflow-hidden whitespace-nowrap">
+                {showAltTitle ? "Smiley & Kanna 💖" : "Smilance"}
+              </h1>
+              {isPlaying && (
+                <div className="flex items-end gap-0.5 h-3.5 mb-1 px-1 opacity-80" title="Radio playing">
+                  <div className="audio-visualizer-bar" style={{ animationDelay: '0.1s' }}></div>
+                  <div className="audio-visualizer-bar" style={{ animationDelay: '0.3s' }}></div>
+                  <div className="audio-visualizer-bar" style={{ animationDelay: '0.5s' }}></div>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* ECG Heartbeat Line Scanner */}
@@ -539,23 +593,21 @@ export default function App() {
             </svg>
           </div>
 
-          <div className="flex flex-col items-end z-10">
+          <div className="flex flex-col items-end z-10 select-none">
             <div className="flex items-end gap-1">
               <div className="flex items-center gap-1 font-sans font-bold text-white tracking-tight leading-none text-[1.35rem]">
                 {displayHours}
                 <span className="animate-pulse duration-1000 mb-0.5">
-                  <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 drop-shadow-[0_0_5px_rgba(244,63,94,0.5)]" />
+                  <Heart className="w-3.5 h-3.5 animate-heartBeat" style={{ color: 'var(--accent-color)', fill: 'var(--accent-color)', filter: 'drop-shadow(0 0 5px var(--accent-color))' }} />
                 </span>
                 {displayMinutes}
               </div>
               <div className="flex flex-col pb-0.5 ml-0.5 items-start">
-                <span className="text-rose-400 font-black text-[9px] uppercase tracking-widest leading-none">{displayAmPm}</span>
+                <span className="font-black text-[9px] uppercase tracking-widest leading-none" style={{ color: 'var(--accent-color)' }}>{displayAmPm}</span>
                 <span className="text-gray-400 font-bold text-[9px] tracking-wider leading-none mt-0.5">{displaySeconds}s</span>
               </div>
             </div>
-            {secondHearts.map(h => (
-              <Heart key={h.id} className="absolute right-2 bottom-1 w-2 h-2 text-rose-500/50 fill-rose-500/50 animate-floatUpAndFade" />
-            ))}
+            {secondHearts.map(h => getSecondsIcon(h.id))}
           </div>
         </div>
       </div>
