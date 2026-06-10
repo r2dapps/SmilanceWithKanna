@@ -557,8 +557,8 @@ export default function App() {
             </div>
             
             <div className="flex items-center gap-1.5 select-none">
-              <h1 className="font-serif text-[20px] font-bold tracking-wide mt-0.5 text-shimmer-glow transition-all duration-700 min-w-[100px] overflow-hidden whitespace-nowrap">
-                {showAltTitle ? "Smiley & Kanna 💖" : "Smilance"}
+              <h1 className="font-serif text-[18px] sm:text-[20px] font-bold tracking-wide mt-0.5 text-shimmer-glow transition-all duration-700 min-w-[100px] overflow-hidden whitespace-nowrap">
+                {showAltTitle ? "Nanna lucid heart Kanna" : "Smilance"}
               </h1>
               {isPlaying && (
                 <div className="flex items-end gap-0.5 h-3.5 mb-1 px-1 opacity-80" title="Radio playing">
