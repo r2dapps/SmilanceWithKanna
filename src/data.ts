@@ -695,7 +695,65 @@ export const MORNING_MESSAGES = [
   "Sending you morning hugs to start your day right! You mean the world to me. 😘",
   "Rise and shine! The world is ready for your beautiful smile today. 🌻",
   "Good morning! Just dropping by to remind you that you are my favorite thought. ❤️",
-  "Wake up sleepyhead! A brand new day awaits, filled with love and endless smiles. 🌷"
+  "Wake up sleepyhead! A brand new day awaits, filled with love and endless smiles. 🌷",
+  
+  // Custom Morning Additions
+  "Good morning, my love! May your day be as bright and beautiful as the smile you give to the world. 🌟",
+  "Rise and shine, bangaram! Sending you a pocketful of sunshine and a heart full of love for your day ahead. ☀️💛",
+  "Wake up with that gorgeous smile! I hope today brings you nothing but happiness and success. You've got this! 🚀",
+  "Good morning to the most hardworking and beautiful soul I know. Go conquer the day! 👑💞",
+  "Sending you a warm virtual coffee and the biggest morning hug to kickstart your day. Miss you already! ☕🤗",
+  "A brand new day to chase your dreams! Just remember I am always in your corner, cheering the loudest. 🎉❤️",
+  "Good morning! Open those beautiful eyes and look forward to a day filled with endless possibilities and love. 🌈✨",
+  "Rise and shine, my love! Sending you all the strength and courage you need for a wonderful day ahead. 💪❤️",
+  "Good morning! May your day be filled with joy, laughter, and sweet moments, just like every moment spent with you. 😊💞",
+  "Wake up and embrace the beauty of this new day! Remember, I'm always here cheering you on every step of the way. 🌅💖",
+  "Good morning to the most precious person in my life! May your day be as radiant and lovely as your smile. 🌟💕",
+  "Rise and shine, sleepyhead! Your presence makes every morning brighter and every day more special. ☀️💜",
+  "Good morning! Just a reminder that you are loved more than words can say. Have a beautiful day! 😘🌸",
+  "Wake up, my everything! Today is another chance to shine bright and chase your dreams. I believe in you! ✨🏆",
+  "Good morning! Sending you a virtual bouquet of flowers and a heart full of love. Have a wonderful day! 💐❤️",
+  "Rise and shine, my treasure! May your day be filled with success, happiness, and endless reasons to smile. 💎😊",
+  "Good morning! Let's start this day with love in our hearts and smiles on our faces. You mean the world to me! 🥰🌍",
+
+  // Extra Morning Messages
+  "Dawn has arrived, bringing fresh chances, bright hopes, and countless reasons for happiness. 🌅",
+  "A golden sunrise is painting the sky just for someone as wonderful as you. 🌞",
+  "May every step today lead toward something beautiful and meaningful. 🌷",
+  "The birds have started singing; now it's your turn to make today amazing. 🐦",
+  "Wishing you calm thoughts, cheerful moments, and endless positivity from the very start. 🌸",
+  "A fresh page has opened in the story of today. Make it unforgettable. 📖✨",
+  "Sending gentle sunshine and cheerful vibes across the distance. ☀️💌",
+  "May confidence guide every decision and happiness follow every achievement. 💛",
+  "Here's to laughter, victories, and pleasant surprises waiting around every corner. 🎊",
+  "The morning breeze carries warm wishes for success, peace, and joy. 🍃",
+  "May every challenge become an opportunity and every effort bring rewards. 🌈",
+  "The world feels brighter knowing you're part of it. 🌻",
+  "Today holds new adventures, exciting discoveries, and memorable experiences. 🚀",
+  "Start strong, stay focused, and finish proud. 🌟",
+  "May positivity accompany every hour and kindness fill every interaction. 💕",
+  "Sending a basket full of encouragement for everything ahead today. 🧺✨",
+  "Another sunrise means another opportunity to shine brilliantly. 🌞",
+  "May your path be smooth, your spirit cheerful, and your heart content. 🌺",
+  "Wishing you a productive schedule and plenty of reasons to smile. 😊",
+  "A beautiful day begins with a beautiful mindset. You've already won half the battle. 💪",
+
+  // Additional Morning Messages
+  "May this morning bring fresh inspiration and endless possibilities. 🌅",
+  "Wake up with confidence and let your positivity lead the way. ☀️",
+  "A new day is a gift filled with opportunities waiting to be discovered. 🎁",
+  "May today's efforts bring tomorrow's rewards. 🌱",
+  "Rise with determination and rest tonight with satisfaction. 🌟",
+  "Every sunrise is proof that new beginnings are always possible. 🌄",
+  "Hope today greets you with success, happiness, and peace. 💛",
+  "Step into the day knowing great things can happen. 🚀",
+  "Your potential is limitless; make the most of today. ✨",
+  "Wishing you a day full of meaningful moments and joyful surprises. 🌸",
+  "Start the day with gratitude and watch positivity multiply. 🌻",
+  "The world is ready for your talents and ideas today. 💡",
+  "Good morning! May your energy stay high and your worries stay low. 😊",
+  "A bright morning for a bright mind and a bright future. 🌞",
+  "Today's success starts with today's first step. 👣"
 ];
 
 export const REMINDER_MESSAGES = [
@@ -705,7 +763,41 @@ export const REMINDER_MESSAGES = [
   "Don't worry too much about Conservative Dentistry and Endodontics today, you've got this handled! 💪",
   "Pedodontics can be tricky, but making kids smile is what you do best! Keep going! 🧸",
   "Orthodontics might be about fixing teeth, but your smile is already perfect to me! ✨",
-  "Sending you some extra focus for Public Health Dentistry. You're doing amazing! 🌍"
+  "Sending you some extra focus for Public Health Dentistry. You're doing amazing! 🌍",
+
+  // Extra Reminder Messages
+  "One chapter at a time, one task at a time, one victory at a time. 📚",
+  "Progress matters more than perfection. Keep moving forward. 🌱",
+  "Every note reviewed today is another step toward mastery. ✨",
+  "Trust the preparation you've already completed. 💯",
+  "Keep your head high and your focus steady. 🎯",
+  "Challenges build expertise; you're growing stronger with every lesson. 🦷",
+  "A little persistence today creates big achievements tomorrow. 🚀",
+  "Stay curious, stay determined, and keep learning. 📖",
+  "Remember how far you've already come. 🌟",
+  "Your dedication never goes unnoticed. Keep shining. 💛",
+  "Small efforts repeated consistently create remarkable outcomes. 🏆",
+  "You've overcome tougher things before; this is no different. 💪",
+  "Take each topic piece by piece and success will follow. 📘",
+  "Believe in your abilities as much as others believe in you. ❤️",
+  "Every question solved strengthens your confidence. ✨",
+
+  // Additional Reminder Messages
+  "Consistency beats intensity when it comes to long-term success. 📈",
+  "Keep showing up; progress is happening even when it's hard to see. 🌱",
+  "Every minute invested today is building a stronger future. ⏳",
+  "Stay focused on the goal, not the obstacles. 🎯",
+  "Learning is a journey, and every step counts. 📚",
+  "Success is often the result of many small efforts combined. 🏆",
+  "Keep going—you are closer than you were yesterday. 🚀",
+  "Patience and persistence create remarkable results. 💯",
+  "Growth happens outside the comfort zone. 🌟",
+  "Every challenge is an opportunity to learn something valuable. ✨",
+  "Believe in the process and trust your hard work. 💛",
+  "Your future self will thank you for today's effort. 🙌",
+  "Stay disciplined, even when motivation takes a break. 📖",
+  "One productive session can make a huge difference. ⚡",
+  "Progress is progress, no matter how small. 🌿"
 ];
 
 export const LUNCH_MESSAGES = [
@@ -713,7 +805,41 @@ export const LUNCH_MESSAGES = [
   "Lunch time! 🍱 Enjoy your food and take a well-deserved break! You earned it.",
   "Hope you are having a yummy lunch! Missing you so much right now! 💕",
   "Don't skip your meals! Eat well so you have energy for the rest of your classes. 🥗",
-  "Just a midday check-in to say I love you! Enjoy your lunch break! 🥤"
+  "Just a midday check-in to say I love you! Enjoy your lunch break! 🥤",
+
+  // Extra Lunch Messages
+  "Midday pause activated. Recharge, refresh, and enjoy every bite. 🍲",
+  "A satisfying meal can work wonders for energy and concentration. 🥗",
+  "Take a moment away from responsibilities and simply relax. 🌿",
+  "Refuel now so the second half of the day feels easier. 🍛",
+  "Good food, good mood, and good energy for the afternoon ahead. 🍱",
+  "Enjoy this break and give your mind some breathing room. 🧘",
+  "A delicious lunch and a peaceful moment can change everything. ✨",
+  "Slow down for a little while and savor the present moment. 🌸",
+  "Hope today's menu brings a smile along with nourishment. 😋",
+  "Sending cheerful lunchtime vibes your way. 💛",
+  "May every bite bring comfort and renewed motivation. 🍽️",
+  "Rest, recharge, and return stronger than before. ⚡",
+  "A well-fed brain learns better. Enjoy your meal. 🧠",
+  "Wishing you a pleasant break filled with tasty food and relaxation. 🌼",
+  "Take care of yourself first; everything else can wait a few minutes. 💕",
+
+  // Additional Lunch Messages
+  "Take this lunch break as a reward for your hard work so far. 🍽️",
+  "Enjoy your meal and give yourself permission to relax. 🌼",
+  "A balanced lunch fuels a productive afternoon. 🥗",
+  "Hope your food is delicious and your break is refreshing. 😋",
+  "Pause, breathe, eat, and recharge. 🌿",
+  "Your afternoon self will appreciate this energy boost. ⚡",
+  "Take a moment to enjoy something tasty and satisfying. 🍛",
+  "Good food and a peaceful break make a great combination. 💛",
+  "May your lunch be as pleasant as your goals are ambitious. 🌟",
+  "A short break now can improve the rest of your day. 🌸",
+  "Treat yourself kindly and enjoy every bite. 🍱",
+  "Step away from the rush and savor the moment. 🧘",
+  "Recharge your body and refresh your mind. 💫",
+  "Enjoy a well-deserved pause in the middle of the day. 🌞",
+  "Wishing you comfort, nourishment, and renewed energy. 🍲"
 ];
 
 export const EVENING_MESSAGES = [
@@ -721,7 +847,41 @@ export const EVENING_MESSAGES = [
   "You survived another long day! Take some rest and know that I love you very much! 🌅",
   "Evening is here! Time to unwind and smile. Can't wait to hear all about your day! 🥰",
   "Leave the college stress behind. You're home now, and I am sending you the biggest hug! 🤗",
-  "The sun is setting, and I'm just here thinking about how proud I am of your hard work today. 🌇"
+  "The sun is setting, and I'm just here thinking about how proud I am of your hard work today. 🌇",
+
+  // Extra Evening Messages
+  "The day is winding down; now comes the well-earned relaxation. 🌙",
+  "Take pride in everything accomplished today, big or small. ⭐",
+  "Leave unfinished worries for tomorrow and enjoy the present evening. 🌆",
+  "The sky is changing colors, signaling time for rest and comfort. 🌇",
+  "May tonight bring calm thoughts and a peaceful heart. 💜",
+  "You've worked hard enough; now it's time to unwind. 🍃",
+  "Wrap yourself in comfort and celebrate today's efforts. 🛋️",
+  "Another day completed, another reason to feel proud. 🎉",
+  "Hope the evening treats you with serenity and warmth. ✨",
+  "Relax, recharge, and let the stress slowly fade away. 🌌",
+  "The stars are preparing their appearance; your job for today is done. ⭐",
+  "Take this opportunity to rest your mind and refresh your spirit. 🌺",
+  "May tranquility fill every corner of your evening. 🕯️",
+  "Today's accomplishments deserve recognition, no matter how small. 🏅",
+  "Wishing you comfort, peace, and countless pleasant moments tonight. 💫",
+
+  // Additional Evening Messages
+  "Take a moment to appreciate how much you've accomplished today. 🌙",
+  "May your evening be filled with comfort and contentment. ✨",
+  "Allow yourself to relax—you've earned it. 🛋️",
+  "Slow down and enjoy the peaceful rhythm of the evening. 🌆",
+  "The best way to end the day is with gratitude and calm. 💜",
+  "Leave today's stress behind and welcome a restful evening. 🍃",
+  "May your evening be gentle, relaxing, and full of warmth. 🌺",
+  "Enjoy the quiet moments that make life special. 🌌",
+  "Rest is productive too—don't forget that. ⭐",
+  "Celebrate your effort, regardless of the outcome. 🏅",
+  "The day may be ending, but tomorrow brings new opportunities. 🌠",
+  "Take care of yourself and enjoy the slower pace tonight. 💫",
+  "Wishing you a peaceful evening and a restful night ahead. 🌙",
+  "Wrap up the day with kindness toward yourself. 💕",
+  "Let the evening refresh your mind and renew your energy. 🌿"
 ];
 
 export const WATER_MESSAGES = [
@@ -730,5 +890,39 @@ export const WATER_MESSAGES = [
   "Hydration check! Drink a glass of water, chinnoda. 💧",
   "Don't forget to drink water! Studies and clinics can make you forget, so take a sip now. 🥛",
   "Here is your friendly water reminder! Drink up, bujji nannalu! 💦",
-  "Stay hydrated! Take a quick break and drink a glass of water. 🧊"
+  "Stay hydrated! Take a quick break and drink a glass of water. 🧊",
+
+  // Extra Water Messages
+  "Friendly hydration alert: a refreshing glass would be perfect right now. 💧",
+  "Your body loves water; treat it kindly. 🥤",
+  "Quick wellness check: have you hydrated recently? 💙",
+  "Refresh, replenish, and keep feeling great. 💦",
+  "A few sips now can make a big difference later. 🌊",
+  "Water break incoming. Grab a glass and enjoy. 🧊",
+  "Staying refreshed helps everything run more smoothly. ✨",
+  "Hydration is self-care in its simplest form. 🌿",
+  "Keep energy levels balanced with a nice drink of water. 💧",
+  "A tiny reminder with a big purpose: hydrate. 🥛",
+  "Give your body the refreshment it deserves. 💙",
+  "Don't let thirst sneak up on you. 🌊",
+  "Take a moment, grab a bottle, and stay refreshed. 🧴",
+  "Healthy habits start with simple actions like this one. ✨",
+  "Another hydration checkpoint has arrived. Drink up. 💦",
+
+  // Additional Water Messages
+  "Hydration check: your future self will appreciate it. 💧",
+  "A quick sip of water can be surprisingly refreshing. 🥤",
+  "Keep your body happy and hydrated. 💙",
+  "Water is one of the easiest ways to support your wellbeing. 🌊",
+  "Take a hydration break before getting back to work. ✨",
+  "Refill your glass and keep the good habits going. 🧊",
+  "Your body works hard for you—give it some water. 💦",
+  "Hydrate now and thank yourself later. 🌿",
+  "Fresh water, fresh energy, fresh focus. 💧",
+  "Time for another quick hydration checkpoint. 🥛",
+  "Stay cool, stay refreshed, stay hydrated. ❄️",
+  "A small sip now can help keep you feeling your best. 💙",
+  "Water first, then continue conquering the day. 🚀",
+  "Healthy routines are built one glass at a time. 🌱",
+  "Don't forget your daily hydration goals. 💦"
 ];
