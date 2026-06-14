@@ -3,7 +3,7 @@
 import webpush from 'web-push';
 import { DAILY_QUOTES } from './src/data';
 
-const KVDB_URL = 'https://kvdb.io/smileywishes_sub_v1_987654321/subscription';
+const KVDB_URL = 'https://kvdb.io/ZP1mwWeRkfGeafHJtg3yA/subscription';
 
 async function run() {
   // 1. Fetch Subscription from Database

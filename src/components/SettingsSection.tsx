@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Settings, Lock, Palette, Mail, ChevronRight, BellRing, Heart, Check, ChevronLeft, Download, Trash2, Cpu, CheckCircle2, XCircle, Volume2, Upload } from 'lucide-react';
 import LettersSection from './LettersSection';
 import { db } from '../db';
@@ -16,8 +16,8 @@ const urlB64ToUint8Array = (base64String: string) => {
   return outputArray;
 };
 
-const VAPID_PUBLIC_KEY = 'BEl62iUYgUivxIkv69yViEuiBIa-Ib9-SkvMeAtA3LFgDzkrxZJjSgSnfckjBJuB-5L6NE1O7uGvow5I4zM7J98'; // Mock key or environment config
-const KVDB_URL = 'https://kvdb.io/smileywishes_sub_v1_987654321/subscription';
+const VAPID_PUBLIC_KEY = (import.meta as any).env.VITE_VAPID_PUBLIC_KEY || 'BHpbJJPWCjx_tee8Ep9CLwCTzdmHKV4H086ualf8vHZxYyi70dvhMQh8nVIKGt1ZB-1c2ldbRFP3TSmWHcR_kHk';
+const KVDB_URL = 'https://kvdb.io/ZP1mwWeRkfGeafHJtg3yA/subscription';
 
 export default function SettingsSection({
   lastPeriodDate,
@@ -31,9 +31,27 @@ export default function SettingsSection({
   onInstall
 }: any) {
   const [activeView, setActiveView] = useState<'menu'|'letters'|'themes'|'effects'>('menu');
-  const [reminders, setReminders] = useState(true);
+  const [reminders, setReminders] = useState(false);
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [showClearToast, setShowClearToast] = useState(false);
+
+  useEffect(() => {
+    const checkSubscriptionStatus = async () => {
+      if ('serviceWorker' in navigator && 'PushManager' in window) {
+        try {
+          const registration = await navigator.serviceWorker.ready;
+          const subscription = await registration.pushManager.getSubscription();
+          setReminders(!!subscription && Notification.permission === 'granted');
+        } catch (e) {
+          console.error('Error checking push subscription:', e);
+          setReminders(false);
+        }
+      } else {
+        setReminders(false);
+      }
+    };
+    checkSubscriptionStatus();
+  }, []);
   const [pinEnabled, setPinEnabled] = useState(() => localStorage.getItem('smilance_pin_enabled') !== 'false');
   const [currentPin, setCurrentPin] = useState(() => localStorage.getItem('smilance_pin') || '0809');
 
@@ -55,7 +73,7 @@ export default function SettingsSection({
     subscribed: null,
   });
 
-  const handleSubscribe = async () => {
+  const handleToggleReminders = async () => {
     if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
       alert('Push Notifications not supported by this browser.');
       return;
@@ -63,36 +81,52 @@ export default function SettingsSection({
 
     try {
       setIsSubscribing(true);
-      const permission = await Notification.requestPermission();
-      if (permission !== 'granted') {
-        alert('Notification permission denied.');
-        setIsSubscribing(false);
-        return;
-      }
-
       const registration = await navigator.serviceWorker.ready;
-      
-      const subscribeOptions = {
-        userVisibleOnly: true,
-        applicationServerKey: urlB64ToUint8Array(VAPID_PUBLIC_KEY)
-      };
+      const subscription = await registration.pushManager.getSubscription();
 
-      const subscription = await registration.pushManager.subscribe(subscribeOptions);
+      if (subscription) {
+        // Unsubscribe
+        await subscription.unsubscribe();
+        try {
+          await fetch(KVDB_URL, {
+            method: 'DELETE'
+          });
+        } catch (e) {
+          console.error('Error deleting subscription from KVDB:', e);
+        }
+        setReminders(false);
+        (window as any).showSmilanceToast?.("🔔 Daily reminders disabled.");
+      } else {
+        // Subscribe
+        const permission = await Notification.requestPermission();
+        if (permission !== 'granted') {
+          alert('Notification permission denied.');
+          setIsSubscribing(false);
+          return;
+        }
 
-      await fetch(KVDB_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(subscription)
-      });
-      
-      registration.showNotification('Subscribed! 🎉', {
-        body: 'You are now ready to receive daily updates.',
-        icon: 'smilance-192.png'
-      });
-      setReminders(true);
+        const subscribeOptions = {
+          userVisibleOnly: true,
+          applicationServerKey: urlB64ToUint8Array(VAPID_PUBLIC_KEY)
+        };
+
+        const newSubscription = await registration.pushManager.subscribe(subscribeOptions);
+
+        await fetch(KVDB_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newSubscription)
+        });
+        
+        registration.showNotification('Subscribed! 🎉', {
+          body: 'You are now ready to receive daily updates.',
+          icon: 'smilance-192.png'
+        });
+        setReminders(true);
+        (window as any).showSmilanceToast?.("🔔 Daily reminders enabled!");
+      }
     } catch (err) {
-      console.error('Subscription failed:', err);
-      // alert('Subscription failed. Could be invalid VAPID keys.');
+      console.error('Subscription toggle failed:', err);
     } finally {
       setIsSubscribing(false);
     }
@@ -492,7 +526,7 @@ export default function SettingsSection({
              </div>
            </div>
            <button 
-             onClick={handleSubscribe}
+             onClick={handleToggleReminders}
              disabled={isSubscribing}
              className={`w-12 h-6 rounded-full transition-colors relative ${reminders ? 'bg-emerald-500' : 'bg-gray-700'}`}
            >

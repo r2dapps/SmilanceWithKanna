@@ -26,6 +26,8 @@ jobs:
         run: npm ci
 
       - name: Build project
+        env:
+          VITE_VAPID_PUBLIC_KEY: ${{ secrets.VAPID_PUBLIC_KEY }}
         run: npm run build
 
       - name: Deploy to GitHub Pages

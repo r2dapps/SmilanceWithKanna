@@ -5,14 +5,11 @@ const CACHE_NAME = 'smilance-offline-cache-v2';
 
 // Core static assets to precache immediately on install
 const PRECACHE_ASSETS = [
-  '/',
-  '/index.html',
-  '/favicon.svg',
-  '/smilance-192.png',
-  '/smilance-512.png',
-  '/public/favicon.svg',
-  '/public/smilance-192.png',
-  '/public/smilance-512.png'
+  './',
+  'index.html',
+  'favicon.svg',
+  'smilance-192.png',
+  'smilance-512.png'
 ];
 
 self.addEventListener('install', (event) => {
