@@ -1,7 +1,14 @@
 // Backend push script to be executed out-of-band via GitHub Actions
 
 import webpush from 'web-push';
-import { DAILY_QUOTES } from './src/data';
+import { 
+  DAILY_QUOTES, 
+  NICKNAMES, 
+  MORNING_MESSAGES, 
+  REMINDER_MESSAGES, 
+  LUNCH_MESSAGES, 
+  EVENING_MESSAGES 
+} from './src/data';
 
 const KVDB_URL = 'https://kvdb.io/ZP1mwWeRkfGeafHJtg3yA/subscription';
 
@@ -42,10 +49,38 @@ async function run() {
   const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
   const dailyQuote = DAILY_QUOTES[dayOfYear % DAILY_QUOTES.length];
 
+  const nickname = NICKNAMES[Math.floor(Math.random() * NICKNAMES.length)];
+
+  const hour = nowIst.getHours();
+  let title = 'Hello Smiley! 💖';
+  let body = 'Thinking of you!';
+
+  if (hour === 5) {
+    // 5:40 AM IST
+    title = `Good morning ${nickname}! ☀️💖`;
+    body = MORNING_MESSAGES[Math.floor(Math.random() * MORNING_MESSAGES.length)];
+  } else if (hour === 8) {
+    // 8:45 AM IST
+    title = `Morning Reminder ${nickname}! 📚`;
+    body = REMINDER_MESSAGES[Math.floor(Math.random() * REMINDER_MESSAGES.length)];
+  } else if (hour === 13) {
+    // 1:10 PM IST
+    title = `Lunch time ${nickname}! 🍱`;
+    body = LUNCH_MESSAGES[Math.floor(Math.random() * LUNCH_MESSAGES.length)];
+  } else if (hour === 18 || hour === 17) {
+    // 6:00 PM IST
+    title = `Evening ${nickname}! 🌅`;
+    body = EVENING_MESSAGES[Math.floor(Math.random() * EVENING_MESSAGES.length)];
+  } else {
+    // default
+    title = `Hey ${nickname}! 💖`;
+    body = dailyQuote;
+  }
+
   // 4. Payload Content
   const payload = {
-    title: 'Good morning, Smiley! ☀️💖',
-    body: dailyQuote,
+    title,
+    body,
     icon: 'smilance-192.png',
     badge: 'smilance-192.png',
     url: './'

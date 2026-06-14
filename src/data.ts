@@ -682,3 +682,44 @@ export const INSTAGRAM_MOCK_POSTS = [
     ]
   }
 ];
+
+// Push Notification Custom Data
+export const NICKNAMES = [
+  "nanna", "chinnoda", "bujji nannalu", "bujjoda", "smiloda", "smileedhanaa", "bulli muddi"
+];
+
+export const MORNING_MESSAGES = [
+  "Wakey wakey! Wishing you a very sweet and beautiful day ahead. Keep smiling always! 🥰",
+  "Good morning! Hope you woke up with a beautiful smile on your face! ☀️",
+  "Another beautiful morning just because you are in my life. Have a wonderful day! 💖",
+  "Sending you morning hugs to start your day right! You mean the world to me. 😘",
+  "Rise and shine! The world is ready for your beautiful smile today. 🌻",
+  "Good morning! Just dropping by to remind you that you are my favorite thought. ❤️",
+  "Wake up sleepyhead! A brand new day awaits, filled with love and endless smiles. 🌷"
+];
+
+export const REMINDER_MESSAGES = [
+  "Hope your classes are going well! Don't let Oral Maxillofacial Surgery stress you out, you're doing great! ❤️",
+  "Just a quick reminder that you are amazing! Keep rocking that Oral Medicine and Radiology! 📚",
+  "Take a deep breath and keep smiling! You're going to be the best dentist ever! 🦷",
+  "Don't worry too much about Conservative Dentistry and Endodontics today, you've got this handled! 💪",
+  "Pedodontics can be tricky, but making kids smile is what you do best! Keep going! 🧸",
+  "Orthodontics might be about fixing teeth, but your smile is already perfect to me! ✨",
+  "Sending you some extra focus for Public Health Dentistry. You're doing amazing! 🌍"
+];
+
+export const LUNCH_MESSAGES = [
+  "Take a break from Endodontics and relax a bit. Drink some water, I'm thinking of you! 😘",
+  "Lunch time! 🍱 Enjoy your food and take a well-deserved break! You earned it.",
+  "Hope you are having a yummy lunch! Missing you so much right now! 💕",
+  "Don't skip your meals! Eat well so you have energy for the rest of your classes. 🥗",
+  "Just a midday check-in to say I love you! Enjoy your lunch break! 🥤"
+];
+
+export const EVENING_MESSAGES = [
+  "How was your day? Whether it was Prosthodontics or Periodontics today, I'm proud of you. Relax now! 💕",
+  "You survived another long day! Take some rest and know that I love you very much! 🌅",
+  "Evening is here! Time to unwind and smile. Can't wait to hear all about your day! 🥰",
+  "Leave the college stress behind. You're home now, and I am sending you the biggest hug! 🤗",
+  "The sun is setting, and I'm just here thinking about how proud I am of your hard work today. 🌇"
+];
