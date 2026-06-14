@@ -7,7 +7,9 @@ import {
   MORNING_MESSAGES, 
   REMINDER_MESSAGES, 
   LUNCH_MESSAGES, 
-  EVENING_MESSAGES 
+  EVENING_MESSAGES,
+  BIBLE_VERSES,
+  WATER_MESSAGES
 } from './src/data';
 
 const KVDB_URL = 'https://kvdb.io/ZP1mwWeRkfGeafHJtg3yA/subscription';
@@ -58,13 +60,20 @@ async function run() {
 
   if (hour === 5) {
     // 5:40 AM IST
-    title = `Good morning ${nickname}! ☀️💖`;
-    body = MORNING_MESSAGES[Math.floor(Math.random() * MORNING_MESSAGES.length)];
-    url = './';
+    const dailyVerse = BIBLE_VERSES[dayOfYear % BIBLE_VERSES.length];
+    const morningMsg = MORNING_MESSAGES[Math.floor(Math.random() * MORNING_MESSAGES.length)];
+    title = `Good morning ${nickname}! ☀️📖`;
+    body = `${morningMsg}\nToday's Verse: ${dailyVerse.ref} - "${dailyVerse.eng}"`;
+    url = './?tab=bible';
   } else if (hour === 8) {
     // 8:45 AM IST
     title = `Morning Reminder ${nickname}! 📚`;
     body = REMINDER_MESSAGES[Math.floor(Math.random() * REMINDER_MESSAGES.length)];
+    url = './';
+  } else if ([10, 12, 14, 16, 20, 22].includes(hour)) {
+    // Water reminders every 2 hours: 10 AM, 12 PM, 2 PM, 4 PM, 8 PM, 10 PM IST
+    title = `Hydration Check ${nickname}! 💧`;
+    body = WATER_MESSAGES[Math.floor(Math.random() * WATER_MESSAGES.length)];
     url = './';
   } else if (hour === 13) {
     // 1:10 PM IST
@@ -82,8 +91,15 @@ async function run() {
     // default
     title = `Hey ${nickname}! 💖`;
     body = dailyQuote;
-    // Default fallback alternates between games and radio to make manual tests interesting!
-    url = Math.random() > 0.5 ? './?tab=games' : './?tab=radio';
+    // Default fallback alternates between games, radio, and bible to make manual tests interesting!
+    const r = Math.random();
+    if (r < 0.33) {
+      url = './?tab=games';
+    } else if (r < 0.66) {
+      url = './?tab=radio';
+    } else {
+      url = './?tab=bible';
+    }
   }
 
   // 4. Payload Content

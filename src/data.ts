@@ -723,3 +723,12 @@ export const EVENING_MESSAGES = [
   "Leave the college stress behind. You're home now, and I am sending you the biggest hug! 🤗",
   "The sun is setting, and I'm just here thinking about how proud I am of your hard work today. 🌇"
 ];
+
+export const WATER_MESSAGES = [
+  "Time to drink water! Keep your skin glowing and your energy high. 💧✨",
+  "Take a sip of water right now. Your body and brain will thank you! 🥤💙",
+  "Hydration check! Drink a glass of water, chinnoda. 💧",
+  "Don't forget to drink water! Studies and clinics can make you forget, so take a sip now. 🥛",
+  "Here is your friendly water reminder! Drink up, bujji nannalu! 💦",
+  "Stay hydrated! Take a quick break and drink a glass of water. 🧊"
+];
