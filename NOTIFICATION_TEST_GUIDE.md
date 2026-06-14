@@ -9,6 +9,10 @@ Before you start the call, make sure you have logged into the GitHub CLI. You on
    ```bash
    gh auth login
    ```
+   *Note: If you get a "command not recognized" error, either restart your terminal/VS Code to refresh your system PATH, or run the command using the direct path:*
+   ```powershell
+   & "C:\Program Files\GitHub CLI\gh.exe" auth login
+   ```
 3. Press **Enter** to accept the default options (GitHub.com -> HTTPS -> Login with a web browser).
 4. Follow the prompts in the browser to authorize.
 
@@ -20,6 +24,10 @@ Wait for the perfect moment during the conversation, then quickly type this comm
 
 ```bash
 gh workflow run daily-push.yml
+```
+*Note: If the `gh` command is still not recognized, use the direct path:*
+```powershell
+& "C:\Program Files\GitHub CLI\gh.exe" workflow run daily-push.yml
 ```
 
 Within a few seconds, she will receive a surprise notification on her phone! It will randomly pick a cute nickname ("chinnoda", "bujjoda", etc.) and a message related to her dental subjects depending on the time of day.
