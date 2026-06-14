@@ -146,8 +146,220 @@ const COUPLE_QUIZ = [
   "Who is more likely to forget an important date?"
 ];
 
+// 🦷 Dental Viva Study Flashcards Database
+const DENTAL_FLASHCARDS = [
+  {
+    id: 1,
+    subject: "Oral Medicine & Radiology",
+    difficulty: "Easy",
+    question: "What is the primary diagnostic use of Bitewing radiography?",
+    answer: "To detect interproximal dental caries (decay between teeth) and evaluate alveolar crestal bone levels."
+  },
+  {
+    id: 2,
+    subject: "Oral Medicine & Radiology",
+    difficulty: "Medium",
+    question: "What is the classic radiographic appearance of Ameloblastoma on a panoramic X-ray?",
+    answer: "A multilocular radiolucency with a 'soap bubble' or 'honeycomb' appearance."
+  },
+  {
+    id: 3,
+    subject: "Oral Medicine & Radiology",
+    difficulty: "Hard",
+    question: "Classify mucosal lesions and name the primary etiologic agent of Oral Hairy Leukoplakia.",
+    answer: "Epstein-Barr Virus (EBV). It occurs primarily on the lateral borders of the tongue in immunocompromised individuals."
+  },
+  {
+    id: 4,
+    subject: "Oral Maxillofacial Surgery",
+    difficulty: "Easy",
+    question: "What is dry socket scientifically known as, and when does it typically occur?",
+    answer: "Alveolar Osteitis. It usually occurs 3-4 days post-extraction due to premature dissolution or loss of the blood clot."
+  },
+  {
+    id: 5,
+    subject: "Oral Maxillofacial Surgery",
+    difficulty: "Medium",
+    question: "Which nerve is at highest risk of injury during mandibular third molar extraction, and what are the symptoms?",
+    answer: "Inferior Alveolar Nerve (IAN). Symptoms include temporary or permanent numbness of the lower lip, chin, and anterior teeth on the affected side."
+  },
+  {
+    id: 6,
+    subject: "Oral Maxillofacial Surgery",
+    difficulty: "Hard",
+    question: "Define Ludwig's Angina, its typical origin, and the key space involvements.",
+    answer: "A bilateral, rapidly spreading cellulitis of the submandibular, sublingual, and submental spaces, usually originating from an infected mandibular molar. Airway compromise is the chief danger."
+  },
+  {
+    id: 7,
+    subject: "Conservative Dentistry & Endodontics",
+    difficulty: "Easy",
+    question: "What is the primary irrigant used to dissolve organic tissue and disinfect root canals?",
+    answer: "Sodium Hypochlorite (NaOCl), typically used in concentrations of 0.5% to 6.0%."
+  },
+  {
+    id: 8,
+    subject: "Conservative Dentistry & Endodontics",
+    difficulty: "Medium",
+    question: "What is the smear layer and what chemical is used to remove its inorganic component?",
+    answer: "A microcrystalline layer of dentinal debris, plaque, and organic matter created during root canal instrumentation. EDTA (17%) is used to remove the inorganic portion."
+  },
+  {
+    id: 9,
+    subject: "Conservative Dentistry & Endodontics",
+    difficulty: "Hard",
+    question: "Differentiate between reversible pulpitis, irreversible pulpitis, and pulpal necrosis based on thermal pulp testing.",
+    answer: "Reversible: Sharp pain that resolves immediately when stimulus is removed. Irreversible: Lingering throbbing pain after stimulus removal. Necrosis: No response to thermal testing."
+  },
+  {
+    id: 10,
+    subject: "Prosthodontics",
+    difficulty: "Easy",
+    question: "What is the main function of the Facebow in complete denture fabrication?",
+    answer: "To record the spatial relationship of the maxillary arch to the temporomandibular joints and transfer this record to an articulator."
+  },
+  {
+    id: 11,
+    subject: "Prosthodontics",
+    difficulty: "Medium",
+    question: "Explain the 'snowshoe principle' in complete denture design.",
+    answer: "It refers to distributing the occlusal forces over a wide denture-bearing area to minimize load per unit area and reduce tissue resorption."
+  },
+  {
+    id: 12,
+    subject: "Prosthodontics",
+    difficulty: "Hard",
+    question: "Define 'Balanced Occlusion' in complete dentures and explain why it is essential.",
+    answer: "The simultaneous contacting of the maxillary and mandibular teeth in the right and left posterior segments and in the anterior segment in centric and eccentric positions. It prevents tipping of dentures during movement."
+  },
+  {
+    id: 13,
+    subject: "Periodontics",
+    difficulty: "Easy",
+    question: "What is the primary difference between dental plaque and calculus?",
+    answer: "Plaque is a soft, sticky, unmineralized biofilm of bacteria. Calculus is dental plaque that has mineralized (hardened) by calcium phosphate salts."
+  },
+  {
+    id: 14,
+    subject: "Periodontics",
+    difficulty: "Medium",
+    question: "Classify periodontal pockets based on the position of the pocket bottom relative to the alveolar crest.",
+    answer: "Suprabony (pocket bottom is coronal to the alveolar crest) and Infrabony (pocket bottom is apical to the alveolar crest)."
+  },
+  {
+    id: 15,
+    subject: "Periodontics",
+    difficulty: "Hard",
+    question: "Identify the 'red complex' bacteria and explain their clinical significance in periodontal disease.",
+    answer: "Porphyromonas gingivalis, Tannerella forsythia, and Treponema denticola. They are highly virulent pathogens strongly associated with severe, active periodontitis and attachment loss."
+  },
+  {
+    id: 16,
+    subject: "Pedodontics",
+    difficulty: "Easy",
+    question: "What is the storage media of choice for transport of an avulsed permanent tooth?",
+    answer: "Hank's Balanced Salt Solution (HBSS), cold milk, saline, or saliva. Water should be avoided because it causes cell lysis."
+  },
+  {
+    id: 17,
+    subject: "Pedodontics",
+    difficulty: "Medium",
+    question: "What is the significance of Primate Spaces in primary dentition, and where are they located?",
+    answer: "Spacings that help accommodate larger permanent teeth. Located mesial to the maxillary canine, and distal to the mandibular canine."
+  },
+  {
+    id: 18,
+    subject: "Pedodontics",
+    difficulty: "Hard",
+    question: "What is the classification of traumatic dental injuries according to Ellis & Davey, and what does Class III represent?",
+    answer: "Class I: Enamel fracture. Class II: Enamel and dentin fracture (no pulp). Class III: Enamel and dentin fracture with pulp exposure."
+  },
+  {
+    id: 19,
+    subject: "Orthodontics",
+    difficulty: "Easy",
+    question: "Define orthodontic 'anchorage' and why it is critical.",
+    answer: "The resistance to unwanted reactionary tooth movement. It is critical to ensure only target teeth move while supporting teeth remain stable."
+  },
+  {
+    id: 20,
+    subject: "Orthodontics",
+    difficulty: "Medium",
+    question: "Define the Leeway Space of Nance and state its average value in the mandibular arch.",
+    answer: "The difference in width between primary canine/molars and permanent canine/premolars. Average is 1.7 to 2.0 mm per quadrant in the mandible."
+  },
+  {
+    id: 21,
+    subject: "Orthodontics",
+    difficulty: "Hard",
+    question: "Explain the difference between skeletal malocclusion and dental malocclusion.",
+    answer: "Skeletal malocclusion is caused by discrepancy in jaw size or position (maxilla vs mandible). Dental malocclusion is purely a misalignment of the teeth within normally positioned jaws."
+  },
+  {
+    id: 22,
+    subject: "Public Health Dentistry",
+    difficulty: "Easy",
+    question: "What is the optimal concentration of fluoride in drinking water recommended for dental caries prevention?",
+    answer: "0.7 parts per million (ppm) or mg/L."
+  },
+  {
+    id: 23,
+    subject: "Public Health Dentistry",
+    difficulty: "Medium",
+    question: "What does the DMFT index stand for, and what are its components?",
+    answer: "Decayed, Missing, Filled Teeth index. It measures cumulative caries experience in permanent teeth by counting decayed, missing (due to caries), and filled teeth."
+  },
+  {
+    id: 24,
+    subject: "Public Health Dentistry",
+    difficulty: "Hard",
+    question: "Differentiate between Primordial, Primary, Secondary, and Tertiary levels of prevention in public health.",
+    answer: "Primordial: Avoid risk factor emergence. Primary: Action before disease onset. Secondary: Early detection & treatment. Tertiary: Limit disability (e.g. dentures)."
+  }
+];
+
+const DENTAL_ENCOURAGEMENTS = [
+  "Future dentist energy detected! 🦷✨",
+  "One more card down, future doctor! 👑🩺",
+  "Your dedication is beautiful. Proud of your hard work! 💖",
+  "Keep going, chinnoda! You're going to be the best dentist. 🌟",
+  "Studying hard looks so good on you, smiloda! 🥰",
+  "Don't worry, you've got this exam in the bag! 💪🎒",
+  "Just a quick reminder: your smile is brighter than a dental curing light! 💡💕",
+  "Take a deep breath. You're doing amazing! 🌸",
+  "Rooting for you every single step of the way! 📣❤️",
+  "One step closer to graduation. Keep shining, bujjoda! 💎",
+  "Excellent recall! Your clinical brain is top-tier. 🧠🩺",
+  "You've got that diagnostic instinct, smileedhanaa! ⚡🦷",
+  "Classifications are tough, but you are tougher. Go crush it! 🏆",
+  "No caries in your knowledge pool! Flawless! 💯",
+  "Dentistry is an art, and you're the master. 🎨🦷"
+];
+
 export default function GamesSection() {
-  const [activeGame, setActiveGame] = useState<'menu' | 'memory' | 'tictactoe' | 'truthdare' | 'guessing' | 'wordscramble' | 'reactionspeed' | 'oddemoji' | 'moviecharades' | 'passthephone' | 'howwelldoyouknowme'>('menu');
+  const [activeGame, setActiveGame] = useState<'menu' | 'memory' | 'tictactoe' | 'truthdare' | 'guessing' | 'wordscramble' | 'reactionspeed' | 'oddemoji' | 'moviecharades' | 'passthephone' | 'howwelldoyouknowme' | 'dentalflashcards'>('menu');
+
+  // Dental Flashcards States
+  const [fcMode, setFcMode] = useState<'menu' | 'study' | 'exam' | 'results'>('menu');
+  const [fcSubjectFilter, setFcSubjectFilter] = useState<string>('All');
+  const [fcDifficultyFilter, setFcDifficultyFilter] = useState<string>('All');
+  const [fcDeck, setFcDeck] = useState<any[]>([]);
+  const [fcCurrentIdx, setFcCurrentIdx] = useState<number>(0);
+  const [fcFlipped, setFcFlipped] = useState<boolean>(false);
+  const [fcEncouragement, setFcEncouragement] = useState<string>('');
+  
+  // Spaced Repetition (Study Mode)
+  const [fcReviewList, setFcReviewList] = useState<number[]>([]); // indexes of cards to review again
+  const [fcKnownList, setFcKnownList] = useState<number[]>([]);   // indexes of cards marked as known
+  
+  // Streak & Exam States
+  const [fcStreak, setFcStreak] = useState<number>(() => {
+    return parseInt(localStorage.getItem('smilance_fc_streak') || '0', 10);
+  });
+  const [fcBestStreak, setFcBestStreak] = useState<number>(() => {
+    return parseInt(localStorage.getItem('smilance_fc_best_streak') || '0', 10);
+  });
+  const [fcExamAnswers, setFcExamAnswers] = useState<boolean[]>([]); // true for correct, false for incorrect
 
   // Memory Match State
   const [cards, setCards] = useState<any[]>([]);
@@ -218,6 +430,17 @@ export default function GamesSection() {
       nextSimplePrompt(PASS_PHONE_PROMPTS);
     } else if (activeGame === 'howwelldoyouknowme') {
       nextSimplePrompt(COUPLE_QUIZ);
+    } else if (activeGame === 'dentalflashcards') {
+      setFcMode('menu');
+      setFcSubjectFilter('All');
+      setFcDifficultyFilter('All');
+      setFcDeck([]);
+      setFcCurrentIdx(0);
+      setFcFlipped(false);
+      setFcEncouragement('');
+      setFcReviewList([]);
+      setFcKnownList([]);
+      setFcExamAnswers([]);
     }
     
     // Clear reaction timer on unmount/switch
@@ -408,6 +631,111 @@ export default function GamesSection() {
     setTodCard({ type, text: randomItem });
   };
 
+  // Dental Flashcards logic
+  const initializeDentalFlashcards = (mode: 'study' | 'exam') => {
+    let filtered = DENTAL_FLASHCARDS.filter(card => {
+      const matchSub = fcSubjectFilter === 'All' || card.subject === fcSubjectFilter;
+      const matchDiff = fcDifficultyFilter === 'All' || card.difficulty === fcDifficultyFilter;
+      return matchSub && matchDiff;
+    });
+
+    if (filtered.length === 0) {
+      alert("No flashcards found matching the selected subject and difficulty filters.");
+      return;
+    }
+
+    setFcDeck(filtered);
+    setFcCurrentIdx(0);
+    setFcFlipped(false);
+    setFcExamAnswers([]);
+    setFcReviewList([]);
+    setFcKnownList([]);
+    setFcEncouragement(DENTAL_ENCOURAGEMENTS[Math.floor(Math.random() * DENTAL_ENCOURAGEMENTS.length)]);
+    setFcMode(mode);
+  };
+
+  const flipDentalFlashcard = () => {
+    setFcFlipped(!fcFlipped);
+    if (!fcFlipped && fcMode === 'study') {
+      setFcEncouragement(DENTAL_ENCOURAGEMENTS[Math.floor(Math.random() * DENTAL_ENCOURAGEMENTS.length)]);
+    }
+  };
+
+  const handleDentalCardGrade = (isCorrectOrKnown: boolean) => {
+    const cardId = fcDeck[fcCurrentIdx].id;
+
+    if (fcMode === 'study') {
+      if (isCorrectOrKnown) {
+        setFcKnownList(prev => [...prev, cardId]);
+        setFcReviewList(prev => prev.filter(id => id !== cardId));
+        
+        const newStreak = fcStreak + 1;
+        setFcStreak(newStreak);
+        localStorage.setItem('smilance_fc_streak', newStreak.toString());
+        if (newStreak > fcBestStreak) {
+          setFcBestStreak(newStreak);
+          localStorage.setItem('smilance_fc_best_streak', newStreak.toString());
+        }
+      } else {
+        setFcReviewList(prev => prev.includes(cardId) ? prev : [...prev, cardId]);
+        setFcKnownList(prev => prev.filter(id => id !== cardId));
+        
+        setFcStreak(0);
+        localStorage.setItem('smilance_fc_streak', '0');
+      }
+      
+      if (fcCurrentIdx < fcDeck.length - 1) {
+        setFcFlipped(false);
+        setFcCurrentIdx(prev => prev + 1);
+      } else {
+        setFcMode('results');
+      }
+    } else {
+      setFcExamAnswers(prev => [...prev, isCorrectOrKnown]);
+      
+      if (isCorrectOrKnown) {
+        const newStreak = fcStreak + 1;
+        setFcStreak(newStreak);
+        localStorage.setItem('smilance_fc_streak', newStreak.toString());
+        if (newStreak > fcBestStreak) {
+          setFcBestStreak(newStreak);
+          localStorage.setItem('smilance_fc_best_streak', newStreak.toString());
+        }
+      } else {
+        setFcStreak(0);
+        localStorage.setItem('smilance_fc_streak', '0');
+      }
+
+      if (fcCurrentIdx < fcDeck.length - 1) {
+        setFcFlipped(false);
+        setFcCurrentIdx(prev => prev + 1);
+      } else {
+        setFcMode('results');
+      }
+    }
+  };
+
+  const nextDentalFlashcard = () => {
+    if (fcCurrentIdx < fcDeck.length - 1) {
+      setFcFlipped(false);
+      setFcCurrentIdx(prev => prev + 1);
+    }
+  };
+
+  const prevDentalFlashcard = () => {
+    if (fcCurrentIdx > 0) {
+      setFcFlipped(false);
+      setFcCurrentIdx(prev => prev - 1);
+    }
+  };
+
+  const shuffleDentalFlashcards = () => {
+    const shuffled = [...fcDeck].sort(() => Math.random() - 0.5);
+    setFcDeck(shuffled);
+    setFcCurrentIdx(0);
+    setFcFlipped(false);
+  };
+
   if (activeGame === 'menu') {
     return (
       <div className="flex flex-col gap-4 pb-8">
@@ -420,6 +748,17 @@ export default function GamesSection() {
              <Circle className="w-3 h-3 fill-rose-500 stroke-rose-500" /> Solo Games
            </h3>
            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+              <button onClick={() => setActiveGame('dentalflashcards')} className="flex items-center p-3 bg-gradient-to-br from-amber-500/10 to-rose-500/10 border border-amber-500/30 hover:border-amber-500/60 hover:bg-white/10 rounded-xl transition-all shadow-[0_0_15px_rgba(245,158,11,0.05)] hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] group">
+                 <div className="w-10 h-10 bg-amber-500/20 rounded-full flex items-center justify-center mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                    <HelpCircle className="w-5 h-5 text-amber-400" />
+                 </div>
+                 <div className="text-left">
+                    <h3 className="text-white font-bold text-base leading-tight flex items-center gap-1">
+                      Dental Viva Cards <span className="animate-pulse text-[9px] bg-rose-500/30 text-rose-300 border border-rose-500/50 px-1 py-0.5 rounded">NEW</span>
+                    </h3>
+                    <p className="text-[10px] text-amber-300/80">8 subjects study & quiz</p>
+                 </div>
+              </button>
               <button onClick={() => setActiveGame('memory')} className="flex items-center p-3 bg-white/5 border border-white/10 hover:bg-white/10 rounded-xl transition-colors">
                  <div className="w-10 h-10 bg-rose-500/20 rounded-full flex items-center justify-center mr-4 shrink-0">
                     <Heart className="w-5 h-5 text-rose-500" />
@@ -536,7 +875,8 @@ export default function GamesSection() {
     (activeGame === 'guessing' && guessingWon) ||
     (activeGame === 'tictactoe' && tttWinner) ||
     (activeGame === 'wordscramble' && scrambleWon) ||
-    (activeGame === 'oddemoji' && oddTargetIdx === -1);
+    (activeGame === 'oddemoji' && oddTargetIdx === -1) ||
+    (activeGame === 'dentalflashcards' && fcMode === 'results' && (fcExamAnswers.length === 0 || fcExamAnswers.filter(Boolean).length === fcDeck.length));
 
   return (
     <div className="flex flex-col gap-4 relative">
@@ -898,6 +1238,336 @@ export default function GamesSection() {
            >
               <Shuffle className="w-5 h-5" /> {activeGame === 'passthephone' ? 'Next Prompt' : 'Next Question'}
            </button>
+         </div>
+       )}
+
+      {activeGame === 'dentalflashcards' && (
+        <div className="dark-card text-center p-6 bg-black/40">
+          <h2 className="heading-title text-amber-500 mb-2 font-sans tracking-tight flex justify-center items-center gap-2">
+            <HelpCircle className="w-6 h-6 text-amber-400" /> Dental Viva Cards
+          </h2>
+          <p className="text-white/60 text-xs mb-6 font-sans">Master your 8 dental subjects with study cards & mock exams.</p>
+
+          {/* Setup Menu */}
+          {fcMode === 'menu' && (
+            <div className="flex flex-col gap-6 animate-fadeIn">
+              {/* Streak Board */}
+              <div className="flex justify-around items-center bg-white/5 border border-white/10 rounded-2xl p-4 font-sans">
+                <div className="text-center">
+                  <span className="block text-white/50 text-[10px] uppercase font-bold tracking-wider">Current Streak</span>
+                  <span className="text-2xl font-black text-amber-400">🔥 {fcStreak}</span>
+                </div>
+                <div className="w-px h-8 bg-white/10" />
+                <div className="text-center">
+                  <span className="block text-white/50 text-[10px] uppercase font-bold tracking-wider">Best Streak</span>
+                  <span className="text-2xl font-black text-rose-400">🏆 {fcBestStreak}</span>
+                </div>
+              </div>
+
+              {/* Filters */}
+              <div className="flex flex-col gap-4 text-left">
+                <div>
+                  <label className="block text-xs font-bold text-rose-300 uppercase tracking-wider mb-2 font-sans">Filter by Subject</label>
+                  <select 
+                    value={fcSubjectFilter}
+                    onChange={(e) => setFcSubjectFilter(e.target.value)}
+                    className="w-full bg-black/80 border border-white/10 hover:border-white/20 rounded-xl p-3 text-sm text-white font-semibold outline-none focus:border-amber-500 transition-colors"
+                  >
+                    <option value="All">All Subjects (8 subjects)</option>
+                    <option value="Oral Medicine & Radiology">Oral Medicine & Radiology</option>
+                    <option value="Oral Maxillofacial Surgery">Oral Maxillofacial Surgery</option>
+                    <option value="Conservative Dentistry & Endodontics">Conservative Dentistry & Endodontics</option>
+                    <option value="Prosthodontics">Prosthodontics</option>
+                    <option value="Periodontics">Periodontics</option>
+                    <option value="Pedodontics">Pedodontics</option>
+                    <option value="Orthodontics">Orthodontics</option>
+                    <option value="Public Health Dentistry">Public Health Dentistry</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-rose-300 uppercase tracking-wider mb-2 font-sans">Difficulty Level</label>
+                  <div className="grid grid-cols-4 gap-2">
+                    {['All', 'Easy', 'Medium', 'Hard'].map((diff) => (
+                      <button
+                        key={diff}
+                        onClick={() => setFcDifficultyFilter(diff)}
+                        className={`p-2 text-xs font-bold rounded-xl border transition-all ${
+                          fcDifficultyFilter === diff 
+                            ? 'bg-amber-500/20 border-amber-500 text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.2)]' 
+                            : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10 hover:text-white'
+                        }`}
+                      >
+                        {diff}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Start Buttons */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                <button
+                  onClick={() => initializeDentalFlashcards('study')}
+                  className="flex flex-col items-center justify-center p-4 bg-gradient-to-br from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 border border-amber-500/30 rounded-2xl transition-all shadow-[0_4px_15px_rgba(245,158,11,0.1)] hover:scale-[1.02]"
+                >
+                  <span className="text-2xl mb-1">📖</span>
+                  <span className="text-white font-bold text-base">Study Mode</span>
+                  <span className="text-[10px] text-amber-300/60 mt-1">Study cards & view sweet notes</span>
+                </button>
+
+                <button
+                  onClick={() => initializeDentalFlashcards('exam')}
+                  className="flex flex-col items-center justify-center p-4 bg-gradient-to-br from-rose-500/20 to-rose-600/20 hover:from-rose-500/30 hover:to-rose-600/30 border border-rose-500/30 rounded-2xl transition-all shadow-[0_4px_15px_rgba(244,63,94,0.1)] hover:scale-[1.02]"
+                >
+                  <span className="text-2xl mb-1">✍️</span>
+                  <span className="text-white font-bold text-base">Exam Mode</span>
+                  <span className="text-[10px] text-rose-300/60 mt-1">Self-grade your recall & score</span>
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Card Study/Exam Screen */}
+          {(fcMode === 'study' || fcMode === 'exam') && fcDeck.length > 0 && (
+            <div className="flex flex-col gap-4 animate-fadeIn">
+              {/* Header Info */}
+              <div className="flex justify-between items-center text-xs">
+                <button 
+                  onClick={() => setFcMode('menu')} 
+                  className="text-white/50 hover:text-white font-bold uppercase tracking-wider flex items-center"
+                >
+                  <ChevronLeft className="w-4 h-4 mr-0.5" /> Options
+                </button>
+                <div className="flex items-center gap-2 font-bold">
+                  <span className="text-amber-400 font-bold">{fcDeck[fcCurrentIdx].subject}</span>
+                  <span className={`px-2 py-0.5 rounded-full text-[9px] uppercase font-black border ${
+                    fcDeck[fcCurrentIdx].difficulty === 'Easy' ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400' :
+                    fcDeck[fcCurrentIdx].difficulty === 'Medium' ? 'bg-amber-500/20 border-amber-500 text-amber-400' :
+                    'bg-rose-500/20 border-rose-500 text-rose-400'
+                  }`}>
+                    {fcDeck[fcCurrentIdx].difficulty}
+                  </span>
+                </div>
+                <span className="text-white/40 font-bold">{fcCurrentIdx + 1} / {fcDeck.length}</span>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-amber-500 to-rose-500 transition-all duration-300"
+                  style={{ width: `${((fcCurrentIdx + 1) / fcDeck.length) * 100}%` }}
+                />
+              </div>
+
+              {/* Streak Tracker during study */}
+              <div className="flex justify-center text-xs font-black text-amber-400 bg-white/5 border border-white/10 rounded-full py-1.5 px-4 self-center">
+                🔥 Current Streak: {fcStreak}
+              </div>
+
+              {/* 3D Flashcard */}
+              <div 
+                onClick={flipDentalFlashcard}
+                className="w-full aspect-[4/3] max-w-[420px] min-h-[260px] mx-auto cursor-pointer relative transition-transform duration-500 preserve-3d animate-fadeIn"
+                style={{ transform: fcFlipped ? 'rotateY(180deg)' : 'none', transformStyle: 'preserve-3d' }}
+              >
+                {/* Question Face (Front) */}
+                <div className="absolute inset-0 backface-hidden bg-white/5 border border-white/10 rounded-3xl p-6 flex flex-col justify-between shadow-lg">
+                  <div className="text-left text-[10px] uppercase font-bold text-rose-300 tracking-widest font-sans">Question</div>
+                  <div className="my-auto text-base md:text-lg text-white font-serif leading-relaxed text-balance">
+                    {fcDeck[fcCurrentIdx].question}
+                  </div>
+                  <div className="text-xs text-white/30 uppercase tracking-widest font-black flex items-center justify-center gap-1.5 font-sans">
+                     🔄 Tap Card to Reveal Answer
+                  </div>
+                </div>
+
+                {/* Answer Face (Back) */}
+                <div 
+                  className="absolute inset-0 backface-hidden bg-gray-900/95 border border-white/20 rounded-3xl p-6 flex flex-col justify-between shadow-2xl overflow-y-auto"
+                  style={{ transform: 'rotateY(180deg)' }}
+                >
+                  <div className="text-left text-[10px] uppercase font-bold text-emerald-400 tracking-widest font-sans">Answer</div>
+                  <div className="my-auto text-xs md:text-sm text-gray-200 leading-relaxed font-sans text-left">
+                    {fcDeck[fcCurrentIdx].answer}
+                  </div>
+
+                  {/* Study Mode: Kanna's Encouragement */}
+                  {fcMode === 'study' && (
+                    <div className="bg-rose-500/10 border border-rose-500/20 rounded-2xl p-3 text-left animate-fadeIn mt-2 shrink-0">
+                      <div className="flex items-center gap-1.5 text-rose-400 text-[10px] font-black uppercase tracking-wider mb-1 font-sans">
+                        <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 animate-pulse" /> Message from Kanna
+                      </div>
+                      <p className="text-xs text-rose-300 italic font-serif leading-snug">
+                        "{fcEncouragement}"
+                      </p>
+                    </div>
+                  )}
+
+                  <div className="text-xs text-white/30 uppercase tracking-widest font-black shrink-0 font-sans">
+                     🔄 Tap Card to flip back
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons (Appears under flipped card) */}
+              {fcFlipped && (
+                <div className="grid grid-cols-2 gap-4 max-w-[420px] w-full mx-auto animate-slideDown">
+                  {fcMode === 'study' ? (
+                    <>
+                      <button 
+                        onClick={() => handleDentalCardGrade(false)}
+                        className="bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 font-bold p-3.5 rounded-2xl transition-colors text-sm flex items-center justify-center gap-1.5 font-sans"
+                      >
+                        🔄 Review Again
+                      </button>
+                      <button 
+                        onClick={() => handleDentalCardGrade(true)}
+                        className="bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/50 text-emerald-300 font-bold p-3.5 rounded-2xl transition-colors text-sm flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.15)] font-sans"
+                      >
+                        ✅ I Know This
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button 
+                        onClick={() => handleDentalCardGrade(false)}
+                        className="bg-rose-600 hover:bg-rose-500 text-white font-bold p-3.5 rounded-2xl transition-colors text-sm flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(244,63,94,0.2)] font-sans"
+                      >
+                        ❌ Incorrect
+                      </button>
+                      <button 
+                        onClick={() => handleDentalCardGrade(true)}
+                        className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold p-3.5 rounded-2xl transition-colors text-sm flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.2)] font-sans"
+                      >
+                        ✔️ Correct
+                      </button>
+                    </>
+                  )}
+                </div>
+              )}
+
+              {/* Bottom Standard Study Navigation (Study Mode only) */}
+              {fcMode === 'study' && (
+                <div className="flex justify-between items-center max-w-[420px] w-full mx-auto border-t border-white/5 pt-4 mt-2 font-sans">
+                  <button 
+                    onClick={prevDentalFlashcard} 
+                    disabled={fcCurrentIdx === 0}
+                    className="text-xs font-bold text-white/50 hover:text-white disabled:opacity-30 disabled:pointer-events-none transition-colors uppercase tracking-wider"
+                  >
+                    Previous
+                  </button>
+                  <button 
+                    onClick={shuffleDentalFlashcards}
+                    className="text-xs font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1 transition-colors uppercase tracking-wider"
+                  >
+                    <Shuffle className="w-3.5 h-3.5" /> Shuffle
+                  </button>
+                  <button 
+                    onClick={nextDentalFlashcard} 
+                    disabled={fcCurrentIdx === fcDeck.length - 1}
+                    className="text-xs font-bold text-white/50 hover:text-white disabled:opacity-30 disabled:pointer-events-none transition-colors uppercase tracking-wider"
+                  >
+                    Next
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Results Screen */}
+          {fcMode === 'results' && (
+            <div className="flex flex-col gap-6 max-w-[420px] mx-auto animate-fadeIn font-sans">
+              <div className="text-center">
+                <span className="text-6xl block mb-2">🎉</span>
+                <h3 className="text-2xl font-black text-white">Deck Finished!</h3>
+                <p className="text-white/60 text-sm mt-1">Excellent job reviewing your material.</p>
+              </div>
+
+              {/* Study Mode Results Summary */}
+              {fcExamAnswers.length === 0 ? (
+                <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col gap-3 text-left text-sm font-semibold">
+                  <div className="flex justify-between text-white border-b border-white/5 pb-2">
+                    <span>Total Cards Studied:</span>
+                    <span className="font-bold">{fcDeck.length}</span>
+                  </div>
+                  <div className="flex justify-between text-emerald-400">
+                    <span>Marked as Known:</span>
+                    <span className="font-bold">{fcKnownList.length}</span>
+                  </div>
+                  <div className="flex justify-between text-rose-400">
+                    <span>Need to Review:</span>
+                    <span className="font-bold">{fcReviewList.length}</span>
+                  </div>
+                </div>
+              ) : (
+                /* Exam Mode Results Summary */
+                <div className="flex flex-col gap-4">
+                  <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
+                    <span className="text-xs uppercase font-black text-rose-300 tracking-widest block mb-2">Final Score</span>
+                    <span className="text-5xl font-black text-amber-400">
+                      {fcExamAnswers.filter(Boolean).length} <span className="text-2xl text-white/40">/ {fcDeck.length}</span>
+                    </span>
+                    <span className="block text-xs text-white/60 mt-3 font-semibold">
+                      {fcExamAnswers.filter(Boolean).length === fcDeck.length 
+                        ? "🏆 Perfect Score! You're a Dental Genius! 👑" 
+                        : "👍 Great effort! Review your mistakes below to lock in the facts."}
+                    </span>
+                  </div>
+
+                  {/* Wrong Answers Review */}
+                  <div className="text-left">
+                    <h4 className="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">Exam Review</h4>
+                    <div className="flex flex-col gap-3 max-h-[220px] overflow-y-auto bg-white/5 border border-white/10 rounded-2xl p-3">
+                      {fcDeck.map((card, idx) => (
+                        <div key={idx} className="border-b border-white/5 pb-2 last:border-b-0">
+                          <div className="flex items-start gap-2 text-xs">
+                            <span className={fcExamAnswers[idx] ? 'text-emerald-400' : 'text-rose-400'}>
+                              {fcExamAnswers[idx] ? '✔️' : '❌'}
+                            </span>
+                            <div className="flex-1">
+                              <p className="text-white font-bold">{card.question}</p>
+                              <p className="text-white/60 mt-1">Ans: {card.answer}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* End Card Encouragement */}
+              <div className="bg-rose-500/10 border border-rose-500/20 rounded-2xl p-4 text-left">
+                <div className="flex items-center gap-1.5 text-rose-400 text-[10px] font-black uppercase tracking-wider mb-1">
+                  <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 animate-pulse" /> End-of-Session Love
+                </div>
+                <p className="text-xs text-rose-300 italic font-serif leading-relaxed">
+                  "Every minute you spend studying is a minute closer to building our dream future. I am so proud of how hard you work, my little doctor! Rest your eyes now. 💕"
+                </p>
+              </div>
+
+              {/* Retry / exit buttons */}
+              <div className="flex flex-col gap-2">
+                <button
+                  onClick={() => {
+                    setFcMode('menu');
+                    setFcStreak(0);
+                    localStorage.setItem('smilance_fc_streak', '0');
+                  }}
+                  className="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold p-4 rounded-xl hover:scale-[1.02] transition-transform shadow-[0_0_20px_rgba(245,158,11,0.2)]"
+                >
+                  Configure New Study Session
+                </button>
+                <button
+                  onClick={() => setActiveGame('menu')}
+                  className="w-full text-xs text-white/50 hover:text-white uppercase font-bold tracking-widest py-2 hover:bg-white/5 rounded-xl transition-all"
+                >
+                  Exit to Arcade Menu
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
