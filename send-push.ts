@@ -54,27 +54,36 @@ async function run() {
   const hour = nowIst.getHours();
   let title = 'Hello Smiley! 💖';
   let body = 'Thinking of you!';
+  let url = './';
 
   if (hour === 5) {
     // 5:40 AM IST
     title = `Good morning ${nickname}! ☀️💖`;
     body = MORNING_MESSAGES[Math.floor(Math.random() * MORNING_MESSAGES.length)];
+    url = './';
   } else if (hour === 8) {
     // 8:45 AM IST
     title = `Morning Reminder ${nickname}! 📚`;
     body = REMINDER_MESSAGES[Math.floor(Math.random() * REMINDER_MESSAGES.length)];
+    url = './';
   } else if (hour === 13) {
     // 1:10 PM IST
     title = `Lunch time ${nickname}! 🍱`;
     body = LUNCH_MESSAGES[Math.floor(Math.random() * LUNCH_MESSAGES.length)];
+    // Route to games during lunch to cheer her up!
+    url = './?tab=games';
   } else if (hour === 18 || hour === 17) {
     // 6:00 PM IST
     title = `Evening ${nickname}! 🌅`;
     body = EVENING_MESSAGES[Math.floor(Math.random() * EVENING_MESSAGES.length)];
+    // Route to radio in the evening so she can relax to music!
+    url = './?tab=radio';
   } else {
     // default
     title = `Hey ${nickname}! 💖`;
     body = dailyQuote;
+    // Default fallback alternates between games and radio to make manual tests interesting!
+    url = Math.random() > 0.5 ? './?tab=games' : './?tab=radio';
   }
 
   // 4. Payload Content
@@ -83,7 +92,7 @@ async function run() {
     body,
     icon: 'smilance-192.png',
     badge: 'smilance-192.png',
-    url: './'
+    url
   };
 
   // 5. Send notification

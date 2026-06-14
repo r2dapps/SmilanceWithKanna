@@ -124,15 +124,26 @@ self.addEventListener('push', (event) => {
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
 
+  const targetUrl = event.notification.data?.url || './';
+
   event.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      // If a window is already open, focus it and tell it to navigate
       for (const client of clientList) {
         if ('focus' in client) {
-          return client.focus();
+          client.focus();
+          if (targetUrl) {
+            client.postMessage({
+              type: 'navigate',
+              url: targetUrl
+            });
+          }
+          return;
         }
       }
+      
+      // If no window is open, open a new one with the targetUrl
       if (self.clients.openWindow) {
-        const targetUrl = event.notification.data?.url || './';
         return self.clients.openWindow(targetUrl);
       }
     })

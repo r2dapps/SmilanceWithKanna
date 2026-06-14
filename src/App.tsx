@@ -55,6 +55,47 @@ export default function App() {
 
   const [activeTab, setActiveTab] = useState<'home' | 'radio' | 'cycle' | 'bible' | 'settings' | 'journey' | 'games'>('home');
 
+  // Handle URL query parameters and Service Worker navigation messages
+  useEffect(() => {
+    const handleUrlNavigation = (urlStr: string) => {
+      try {
+        const url = new URL(urlStr, window.location.href);
+        const tabParam = url.searchParams.get('tab');
+        if (tabParam && ['home', 'radio', 'cycle', 'bible', 'settings', 'journey', 'games'].includes(tabParam)) {
+          setActiveTab(tabParam as any);
+          return true;
+        }
+      } catch (e) {
+        console.error('Failed to parse navigation URL:', e);
+      }
+      return false;
+    };
+
+    // Check on mount (e.g. opened from cold start with ?tab=radio)
+    if (handleUrlNavigation(window.location.href)) {
+      // Clean up the URL query params without refreshing the page
+      const cleanUrl = window.location.pathname + window.location.hash;
+      window.history.replaceState({}, '', cleanUrl);
+    }
+
+    // Listen to messages from active Service Worker
+    const handleSWMessage = (event: MessageEvent) => {
+      if (event.data && event.data.type === 'navigate' && event.data.url) {
+        handleUrlNavigation(event.data.url);
+      }
+    };
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('message', handleSWMessage);
+    }
+
+    return () => {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.removeEventListener('message', handleSWMessage);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
