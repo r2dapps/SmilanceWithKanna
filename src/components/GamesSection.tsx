@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Gamepad2, Heart, RefreshCcw, Users, ChevronLeft, Dices, Circle, X, HelpCircle, Shuffle, Zap, Search, Film, Smartphone, UserPlus } from 'lucide-react';
+import { Gamepad2, Heart, RefreshCcw, Users, ChevronLeft, ChevronDown, Award, BookOpen, Dices, Circle, X, HelpCircle, Shuffle, Zap, Search, Film, Smartphone, UserPlus } from 'lucide-react';
 import Confetti from 'react-confetti';
 
 const EMOJIS = ['🌸', '🌻', '🍫', '🍦', '🍓', '🎀', '💌', '💖'];
@@ -146,8 +146,9 @@ const COUPLE_QUIZ = [
   "Who is more likely to forget an important date?"
 ];
 
-// 🦷 Dental Viva Study Flashcards Database
+// 🦷 Dental Viva Study Flashcards Database (15 cards per subject, 120 total)
 const DENTAL_FLASHCARDS = [
+  // 1. Oral Medicine & Radiology (IDs 1-15)
   {
     id: 1,
     subject: "Oral Medicine & Radiology",
@@ -171,150 +172,836 @@ const DENTAL_FLASHCARDS = [
   },
   {
     id: 4,
+    subject: "Oral Medicine & Radiology",
+    difficulty: "Easy",
+    question: "Which major salivary gland is most commonly affected by sialolithiasis (salivary stones) and why?",
+    answer: "The submandibular gland. Its duct (Wharton's) has a long, tortuous path, and the saliva it produces is highly mucinous and alkaline."
+  },
+  {
+    id: 5,
+    subject: "Oral Medicine & Radiology",
+    difficulty: "Medium",
+    question: "Explain the SLOB rule used in radiographic localization.",
+    answer: "Same Lingual, Opposite Buccal. When shifting the X-ray tube head, if an object moves in the same direction, it lies on the lingual side; if opposite, the buccal side."
+  },
+  {
+    id: 6,
+    subject: "Oral Medicine & Radiology",
+    difficulty: "Hard",
+    question: "What is the diagnostic triad of Sjögren's Syndrome?",
+    answer: "Keratoconjunctivitis sicca (dry eyes), xerostomia (dry mouth), and presence of a connective tissue/rheumatoid disease."
+  },
+  {
+    id: 7,
+    subject: "Oral Medicine & Radiology",
+    difficulty: "Medium",
+    question: "Describe the typical radiographic appearance of fibrous dysplasia.",
+    answer: "A diffuse, radiopaque lesion presenting a classic 'ground-glass' or 'orange peel' appearance blending into normal bone."
+  },
+  {
+    id: 8,
+    subject: "Oral Medicine & Radiology",
+    difficulty: "Hard",
+    question: "Describe the classic 'sunburst' appearance in dental radiography and what it indicates.",
+    answer: "It refers to radiating bone spicules forming a sunburst pattern, characteristic of Osteosarcoma."
+  },
+  {
+    id: 9,
+    subject: "Oral Medicine & Radiology",
+    difficulty: "Easy",
+    question: "What does the inverse square law state regarding X-ray radiation intensity?",
+    answer: "The intensity of the radiation beam is inversely proportional to the square of the distance from the source."
+  },
+  {
+    id: 10,
+    subject: "Oral Medicine & Radiology",
+    difficulty: "Medium",
+    question: "What is the hallmark radiographic feature of a Radicular Cyst?",
+    answer: "A well-circumscribed, round or ovoid radiolucency surrounding the root apex of a non-vital tooth, surrounded by a thin radiopaque border."
+  },
+  {
+    id: 11,
+    subject: "Oral Medicine & Radiology",
+    difficulty: "Easy",
+    question: "What is xerostomia and what is its most common systemic cause?",
+    answer: "Subjective feeling of dry mouth, most commonly caused by medications (anti-cholinergics, anti-histamines, diuretics) or Sjögren's Syndrome."
+  },
+  {
+    id: 12,
+    subject: "Oral Medicine & Radiology",
+    difficulty: "Medium",
+    question: "What does a 'cotton-wool' radiographic appearance of bone indicate?",
+    answer: "Paget's Disease of bone (osteitis deformans) in its late sclerotic stage."
+  },
+  {
+    id: 13,
+    subject: "Oral Medicine & Radiology",
+    difficulty: "Hard",
+    question: "Differentiate between Pemphigus Vulgaris and Mucous Membrane Pemphigoid.",
+    answer: "Pemphigus: Intraepithelial clefting, acantholysis, positive Nikolsky's sign, target is desmoglein 3. Pemphigoid: Subepithelial clefting, target is hemidesmosomes, negative Nikolsky's sign."
+  },
+  {
+    id: 14,
+    subject: "Oral Medicine & Radiology",
+    difficulty: "Medium",
+    question: "What is the radiographic appearance of Stafne's bone defect?",
+    answer: "A well-circumscribed, oval radiolucency below the inferior alveolar nerve canal, near the angle of the mandible, caused by salivary gland indentation."
+  },
+  {
+    id: 15,
+    subject: "Oral Medicine & Radiology",
+    difficulty: "Easy",
+    question: "What is the main clinical difference between leukoplakia and candidiasis?",
+    answer: "Leukoplakia cannot be rubbed/wiped off, whereas pseudomembranous candidiasis (thrush) leaves a red, raw, bleeding surface when scraped off."
+  },
+
+  // 2. Oral Maxillofacial Surgery (IDs 16-30)
+  {
+    id: 16,
     subject: "Oral Maxillofacial Surgery",
     difficulty: "Easy",
     question: "What is dry socket scientifically known as, and when does it typically occur?",
     answer: "Alveolar Osteitis. It usually occurs 3-4 days post-extraction due to premature dissolution or loss of the blood clot."
   },
   {
-    id: 5,
+    id: 17,
     subject: "Oral Maxillofacial Surgery",
     difficulty: "Medium",
     question: "Which nerve is at highest risk of injury during mandibular third molar extraction, and what are the symptoms?",
     answer: "Inferior Alveolar Nerve (IAN). Symptoms include temporary or permanent numbness of the lower lip, chin, and anterior teeth on the affected side."
   },
   {
-    id: 6,
+    id: 18,
     subject: "Oral Maxillofacial Surgery",
     difficulty: "Hard",
     question: "Define Ludwig's Angina, its typical origin, and the key space involvements.",
     answer: "A bilateral, rapidly spreading cellulitis of the submandibular, sublingual, and submental spaces, usually originating from an infected mandibular molar. Airway compromise is the chief danger."
   },
   {
-    id: 7,
+    id: 19,
+    subject: "Oral Maxillofacial Surgery",
+    difficulty: "Hard",
+    question: "Differentiate between Le Fort I, Le Fort II, and Le Fort III midface fractures.",
+    answer: "Le Fort I: Horizontal fracture above teeth roots. Le Fort II: Pyramidal fracture across nose bridge and infraorbital rims. Le Fort III: Craniofacial disjunction separating face bones from the skull."
+  },
+  {
+    id: 20,
+    subject: "Oral Maxillofacial Surgery",
+    difficulty: "Medium",
+    question: "What maneuver is used to reduce a TMJ dislocation, and how is it executed?",
+    answer: "Nelaton's maneuver. The surgeon places thumbs on the mandibular molars, applying downward pressure while pulling the chin upward and backward."
+  },
+  {
+    id: 21,
+    subject: "Oral Maxillofacial Surgery",
+    difficulty: "Easy",
+    question: "What is trismus and what are its common dental causes?",
+    answer: "Inability to open the mouth normally. Causes include infection, TMJ disorders, spasm of masticatory muscles, and local inflammation after extraction."
+  },
+  {
+    id: 22,
+    subject: "Oral Maxillofacial Surgery",
+    difficulty: "Medium",
+    question: "Name three clinical signs of a mandibular body fracture.",
+    answer: "Step deformity in occlusion, sublingual ecchymosis (Coleman's sign), and localized pain/mobility on manual testing."
+  },
+  {
+    id: 23,
+    subject: "Oral Maxillofacial Surgery",
+    difficulty: "Hard",
+    question: "What are the absolute systemic contraindications for a routine tooth extraction?",
+    answer: "Uncontrolled bleeding disorders, severe leukemia/thrombocytopenia, and very recent myocardial infarction (within 6 months)."
+  },
+  {
+    id: 24,
+    subject: "Oral Maxillofacial Surgery",
+    difficulty: "Medium",
+    question: "What is a Gunning splint and when is it utilized?",
+    answer: "A customized acrylic dental splint used to immobilize and stabilize fractures of the mandible or maxilla in completely edentulous patients."
+  },
+  {
+    id: 25,
+    subject: "Oral Maxillofacial Surgery",
+    difficulty: "Easy",
+    question: "What is the maximum recommended dose of 2% Lidocaine with 1:100,000 epinephrine?",
+    answer: "7 mg/kg of body weight for adults, up to a maximum absolute limit of 500 mg (about 13-14 cartridges)."
+  },
+  {
+    id: 26,
+    subject: "Oral Maxillofacial Surgery",
+    difficulty: "Easy",
+    question: "What is the primary reason for using a vasoconstrictor in local anesthesia?",
+    answer: "To prolong duration of action, reduce systemic toxicity, and achieve local hemostasis (reduce bleeding)."
+  },
+  {
+    id: 27,
+    subject: "Oral Maxillofacial Surgery",
+    difficulty: "Medium",
+    question: "What is a cyst, and how does it differ from a pseudocyst?",
+    answer: "A true cyst is a pathological cavity lined by epithelium. A pseudocyst lacks an epithelial lining (e.g., Traumatic/Simple Bone Cyst)."
+  },
+  {
+    id: 28,
+    subject: "Oral Maxillofacial Surgery",
+    difficulty: "Hard",
+    question: "Classify impaction of mandibular third molars according to Pell & Gregory.",
+    answer: "Based on space relative to ramus (Class A/B/C) and depth relative to occlusal plane of second molar (Position I/II/III)."
+  },
+  {
+    id: 29,
+    subject: "Oral Maxillofacial Surgery",
+    difficulty: "Medium",
+    question: "What are the main clinical signs of an oroantral fistula (OAF)?",
+    answer: "Fluid escaping from nose when drinking, air passing into mouth on nose-blowing, unilateral epistaxis, and regurgitation of food."
+  },
+  {
+    id: 30,
+    subject: "Oral Maxillofacial Surgery",
+    difficulty: "Hard",
+    question: "What is the primary management for a patient presenting with an acute submandibular space infection?",
+    answer: "Securing the airway, followed by surgical incision and drainage, and high-dose intravenous empirical antibiotics."
+  },
+
+  // 3. Conservative Dentistry & Endodontics (IDs 31-45)
+  {
+    id: 31,
     subject: "Conservative Dentistry & Endodontics",
     difficulty: "Easy",
     question: "What is the primary irrigant used to dissolve organic tissue and disinfect root canals?",
     answer: "Sodium Hypochlorite (NaOCl), typically used in concentrations of 0.5% to 6.0%."
   },
   {
-    id: 8,
+    id: 32,
     subject: "Conservative Dentistry & Endodontics",
     difficulty: "Medium",
     question: "What is the smear layer and what chemical is used to remove its inorganic component?",
     answer: "A microcrystalline layer of dentinal debris, plaque, and organic matter created during root canal instrumentation. EDTA (17%) is used to remove the inorganic portion."
   },
   {
-    id: 9,
+    id: 33,
     subject: "Conservative Dentistry & Endodontics",
     difficulty: "Hard",
     question: "Differentiate between reversible pulpitis, irreversible pulpitis, and pulpal necrosis based on thermal pulp testing.",
     answer: "Reversible: Sharp pain that resolves immediately when stimulus is removed. Irreversible: Lingering throbbing pain after stimulus removal. Necrosis: No response to thermal testing."
   },
   {
-    id: 10,
+    id: 34,
+    subject: "Conservative Dentistry & Endodontics",
+    difficulty: "Hard",
+    question: "Differentiate between Apexogenesis and Apexification.",
+    answer: "Apexogenesis is vital pulp therapy (like pulpotomy) to encourage root end completion. Apexification is inducing a calcified barrier at the root end of a non-vital tooth."
+  },
+  {
+    id: 35,
+    subject: "Conservative Dentistry & Endodontics",
+    difficulty: "Medium",
+    question: "What is the typical thickness of the smear layer on dentinal walls after instrumentation?",
+    answer: "It typically ranges from 1 to 2 microns in thickness."
+  },
+  {
+    id: 36,
+    subject: "Conservative Dentistry & Endodontics",
+    difficulty: "Medium",
+    question: "What are the primary therapeutic effects of Calcium Hydroxide paste in root canal treatment?",
+    answer: "High alkalinity (pH 12.5) provides potent antibacterial action, dissolves remaining organic tissue, and promotes hard tissue barrier formation."
+  },
+  {
+    id: 37,
+    subject: "Conservative Dentistry & Endodontics",
+    difficulty: "Easy",
+    question: "What are the main components of Gutta-Percha points used in canal obturation?",
+    answer: "60-70% Zinc Oxide (matrix filler), 20% Gutta-Percha (organic polymer), radiopacifiers (heavy metal sulfates), and plasticizing waxes."
+  },
+  {
+    id: 38,
+    subject: "Conservative Dentistry & Endodontics",
+    difficulty: "Hard",
+    question: "Which tooth most commonly exhibits a 'C-shaped' root canal system?",
+    answer: "The mandibular second molar (particularly prevalent in Asian populations)."
+  },
+  {
+    id: 39,
+    subject: "Conservative Dentistry & Endodontics",
+    difficulty: "Medium",
+    question: "What chemical paste is used for the 'Walking Bleach' technique in non-vital teeth?",
+    answer: "A mixture of Sodium Perborate and water or saline (placed in pulp chamber and sealed for 3-7 days)."
+  },
+  {
+    id: 40,
+    subject: "Conservative Dentistry & Endodontics",
+    difficulty: "Easy",
+    question: "Define G.V. Black's Class V classification of dental restorations.",
+    answer: "Cavities occurring in the gingival third of the facial or lingual surfaces of all teeth (non-pit-and-fissure cavities near gums)."
+  },
+  {
+    id: 41,
+    subject: "Conservative Dentistry & Endodontics",
+    difficulty: "Easy",
+    question: "What is the purpose of acid etching with 37% phosphoric acid during bonding?",
+    answer: "To create micro-porosities in enamel (roughness) and remove the smear layer in dentin, enabling micromechanical retention."
+  },
+  {
+    id: 42,
+    subject: "Conservative Dentistry & Endodontics",
+    difficulty: "Medium",
+    question: "What is the composition and function of the hybrid layer in dentin bonding?",
+    answer: "The layer formed by resin monomers interpenetrating and polymerizing within the demineralized collagen network of dentin."
+  },
+  {
+    id: 43,
+    subject: "Conservative Dentistry & Endodontics",
+    difficulty: "Hard",
+    question: "What is 'strip perforation' and where is it most likely to occur?",
+    answer: "A lateral perforation along the thin inner wall (danger zone) of a curved root canal, most commonly in the mesial roots of mandibular molars."
+  },
+  {
+    id: 44,
+    subject: "Conservative Dentistry & Endodontics",
+    difficulty: "Medium",
+    question: "Describe the main difference between K-files and Hedstrom (H-files).",
+    answer: "K-files are made by twisting wire (used in filing/reaming). H-files are ground from round wire with spiral cuts (cut only on withdrawal, aggressive cut)."
+  },
+  {
+    id: 45,
+    subject: "Conservative Dentistry & Endodontics",
+    difficulty: "Easy",
+    question: "What is C-factor (configuration factor) in composite restorations?",
+    answer: "The ratio of bonded surfaces to unbonded surfaces. A higher C-factor (e.g. Class V or Class I) leads to greater polymerization shrinkage stress."
+  },
+
+  // 4. Prosthodontics (IDs 46-60)
+  {
+    id: 46,
     subject: "Prosthodontics",
     difficulty: "Easy",
     question: "What is the main function of the Facebow in complete denture fabrication?",
     answer: "To record the spatial relationship of the maxillary arch to the temporomandibular joints and transfer this record to an articulator."
   },
   {
-    id: 11,
+    id: 47,
     subject: "Prosthodontics",
     difficulty: "Medium",
     question: "Explain the 'snowshoe principle' in complete denture design.",
     answer: "It refers to distributing the occlusal forces over a wide denture-bearing area to minimize load per unit area and reduce tissue resorption."
   },
   {
-    id: 12,
+    id: 48,
     subject: "Prosthodontics",
     difficulty: "Hard",
     question: "Define 'Balanced Occlusion' in complete dentures and explain why it is essential.",
     answer: "The simultaneous contacting of the maxillary and mandibular teeth in the right and left posterior segments and in the anterior segment in centric and eccentric positions. It prevents tipping of dentures during movement."
   },
   {
-    id: 13,
+    id: 49,
+    subject: "Prosthodontics",
+    difficulty: "Hard",
+    question: "What is the Bennett Angle in mandibular kinematics?",
+    answer: "The angle formed by the sagittal plane and the path of the non-working condyle during lateral movement of the mandible."
+  },
+  {
+    id: 50,
+    subject: "Prosthodontics",
+    difficulty: "Easy",
+    question: "What material is most commonly used to construct custom impression trays?",
+    answer: "Autopolymerizing (cold-cure) or light-cured (LC) acrylic resin sheets."
+  },
+  {
+    id: 51,
+    subject: "Prosthodontics",
+    difficulty: "Medium",
+    question: "Which anatomical structures must be relieved in a maxillary denture to prevent soreness or rocking?",
+    answer: "The incisive papilla (prevents nerve compression) and the mid-palatal suture line."
+  },
+  {
+    id: 52,
+    subject: "Prosthodontics",
+    difficulty: "Medium",
+    question: "What is the primary support advantage of retaining roots for an overdenture?",
+    answer: "It preserves alveolar ridge height by maintaining loading signals and preserves periodontal sensory proprioception."
+  },
+  {
+    id: 53,
+    subject: "Prosthodontics",
+    difficulty: "Hard",
+    question: "What is the RPI system in removable partial dentures?",
+    answer: "A clasp system comprising: Rest (mesial), Proximal plate (distal), and I-bar clasp (buccal). Minimizes torque on abutment teeth."
+  },
+  {
+    id: 54,
+    subject: "Prosthodontics",
+    difficulty: "Medium",
+    question: "What is the minimum vertical space required for a mandibular lingual bar connector?",
+    answer: "At least 7-8 mm of vertical height between the gingival margin and the floor of the mouth."
+  },
+  {
+    id: 55,
+    subject: "Prosthodontics",
+    difficulty: "Easy",
+    question: "Define Syneresis and Imbibition in hydrocolloid impressions.",
+    answer: "Syneresis: Exudation of water causing shrinkage. Imbibition: Absorption of water causing expansion."
+  },
+  {
+    id: 56,
+    subject: "Prosthodontics",
+    difficulty: "Easy",
+    question: "What is the difference between an anatomical and a non-anatomical denture tooth?",
+    answer: "Anatomical teeth have cusp angles of 30-33 degrees. Non-anatomical (monoplane) teeth have 0-degree cusps (reduced lateral force, for resorbed ridges)."
+  },
+  {
+    id: 57,
+    subject: "Prosthodontics",
+    difficulty: "Medium",
+    question: "What is the primary function of the posterior palatal seal (post-dam) in maxillary complete dentures?",
+    answer: "To compensate for polymerization shrinkage of acrylic resin, prevent food ingress under the denture, and maintain a peripheral seal."
+  },
+  {
+    id: 58,
+    subject: "Prosthodontics",
+    difficulty: "Hard",
+    question: "What is the 'Christensen's Phenomenon'?",
+    answer: "The posterior separation of denture teeth that occurs during protrusive movement of the mandible, requiring compensating curves to maintain balance."
+  },
+  {
+    id: 59,
+    subject: "Prosthodontics",
+    difficulty: "Medium",
+    question: "Define the 'neutral zone' in complete denture prosthodontics.",
+    answer: "The potential space in the mouth where the forces of the tongue pushing outwards are equal to the forces of the lips and cheeks pushing inwards."
+  },
+  {
+    id: 60,
+    subject: "Prosthodontics",
+    difficulty: "Easy",
+    question: "What is the difference between absolute and relative indicators for a dental implant?",
+    answer: "Absolute: Patient's desire to avoid grinding adjacent teeth. Relative: Inability to tolerate or retain a conventional denture due to bone loss."
+  },
+
+  // 5. Periodontics (IDs 61-75)
+  {
+    id: 61,
     subject: "Periodontics",
     difficulty: "Easy",
     question: "What is the primary difference between dental plaque and calculus?",
     answer: "Plaque is a soft, sticky, unmineralized biofilm of bacteria. Calculus is dental plaque that has mineralized (hardened) by calcium phosphate salts."
   },
   {
-    id: 14,
+    id: 62,
     subject: "Periodontics",
     difficulty: "Medium",
     question: "Classify periodontal pockets based on the position of the pocket bottom relative to the alveolar crest.",
     answer: "Suprabony (pocket bottom is coronal to the alveolar crest) and Infrabony (pocket bottom is apical to the alveolar crest)."
   },
   {
-    id: 15,
+    id: 63,
     subject: "Periodontics",
     difficulty: "Hard",
     question: "Identify the 'red complex' bacteria and explain their clinical significance in periodontal disease.",
-    answer: "Porphyromonas gingivalis, Tannerella forsythia, and Treponema denticola. They are highly virulent pathogens strongly associated with severe, active periodontitis and attachment loss."
+    answer: "Porphyromonas gingivalis, Tannerella forsythia, and Treponema denticola. They are highly virulent pathogens strongly associated with active periodontitis."
   },
   {
-    id: 16,
+    id: 64,
+    subject: "Periodontics",
+    difficulty: "Medium",
+    question: "Which principal fibers of the periodontal ligament (PDL) are most numerous and resist vertical masticatory forces?",
+    answer: "The oblique fibers, which run obliquely from cementum to the alveolar bone."
+  },
+  {
+    id: 65,
+    subject: "Periodontics",
+    difficulty: "Medium",
+    question: "Which area-specific Gracey curettes are indicated for instrumentation of the mesial and distal surfaces of posterior teeth?",
+    answer: "Gracey 11/12 for mesial surfaces; Gracey 13/14 for distal surfaces."
+  },
+  {
+    id: 66,
+    subject: "Periodontics",
+    difficulty: "Hard",
+    question: "Contrast gingivectomy and periodontal flap surgery.",
+    answer: "Gingivectomy: Excisional removal of the pocket wall (soft tissue only). Flap surgery: Incising and reflecting tissue to access bone defects directly."
+  },
+  {
+    id: 67,
+    subject: "Periodontics",
+    difficulty: "Easy",
+    question: "What is the primary etiology of inflammatory periodontal disease?",
+    answer: "Bacterial plaque biofilm accumulating on dental surfaces."
+  },
+  {
+    id: 68,
+    subject: "Periodontics",
+    difficulty: "Easy",
+    question: "What is the first and most common clinical indicator of active gingivitis?",
+    answer: "Bleeding on probing (BOP) from the sulcus."
+  },
+  {
+    id: 69,
+    subject: "Periodontics",
+    difficulty: "Hard",
+    question: "Describe Glickman's Classification of furcation involvement.",
+    answer: "Grade I: Incipient. Grade II: Cul-de-sac (partial probe). Grade III: Through-and-through (covered by gingiva). Grade IV: Clinically exposed through-and-through."
+  },
+  {
+    id: 70,
+    subject: "Periodontics",
+    difficulty: "Medium",
+    question: "Define 'biologic width' and state its average dimension.",
+    answer: "The combined height of the junctional epithelium and connective tissue attachment above the alveolar crest. Average is about 2.04 mm."
+  },
+  {
+    id: 71,
+    subject: "Periodontics",
+    difficulty: "Easy",
+    question: "What is the primary difference between gingivitis and periodontitis?",
+    answer: "Gingivitis is reversible inflammation of soft tissues without attachment loss. Periodontitis involves irreversible destruction of periodontal ligament fibers and alveolar bone."
+  },
+  {
+    id: 72,
+    subject: "Periodontics",
+    difficulty: "Medium",
+    question: "What is the primary component of supragingival calculus?",
+    answer: "Inorganic mineral salts (mainly calcium phosphate, about 70-80%), with hydroxyapatite being the predominant crystalline form."
+  },
+  {
+    id: 73,
+    subject: "Periodontics",
+    difficulty: "Hard",
+    question: "Classify bone defects (infraosseous defects) based on the number of osseous walls remaining.",
+    answer: "One-wall, two-wall, or three-wall defects. Three-wall defects have the best prognosis for periodontal regeneration."
+  },
+  {
+    id: 74,
+    subject: "Periodontics",
+    difficulty: "Medium",
+    question: "What is the purpose of plaque disclosing agents?",
+    answer: "Dye solutions (like erythrosin) that stain bacterial plaque to make it visible to patients, highlighting areas they missed during brushing."
+  },
+  {
+    id: 75,
+    subject: "Periodontics",
+    difficulty: "Easy",
+    question: "What are the main clinical signs of healthy gingiva?",
+    answer: "Coral pink color, firm and resilient consistency, scalloped margin, absence of bleeding on probing, and stippled 'orange-peel' texture."
+  },
+
+  // 6. Pedodontics (IDs 76-90)
+  {
+    id: 76,
     subject: "Pedodontics",
     difficulty: "Easy",
     question: "What is the storage media of choice for transport of an avulsed permanent tooth?",
     answer: "Hank's Balanced Salt Solution (HBSS), cold milk, saline, or saliva. Water should be avoided because it causes cell lysis."
   },
   {
-    id: 17,
+    id: 77,
     subject: "Pedodontics",
     difficulty: "Medium",
     question: "What is the significance of Primate Spaces in primary dentition, and where are they located?",
     answer: "Spacings that help accommodate larger permanent teeth. Located mesial to the maxillary canine, and distal to the mandibular canine."
   },
   {
-    id: 18,
+    id: 78,
     subject: "Pedodontics",
     difficulty: "Hard",
     question: "What is the classification of traumatic dental injuries according to Ellis & Davey, and what does Class III represent?",
     answer: "Class I: Enamel fracture. Class II: Enamel and dentin fracture (no pulp). Class III: Enamel and dentin fracture with pulp exposure."
   },
   {
-    id: 19,
+    id: 79,
+    subject: "Pedodontics",
+    difficulty: "Easy",
+    question: "Which primary tooth typically erupts first in infants and at what age?",
+    answer: "The mandibular central incisor, usually erupting between 6 to 8 months of age."
+  },
+  {
+    id: 80,
+    subject: "Pedodontics",
+    difficulty: "Medium",
+    question: "Describe the typical clinical pattern of Early Childhood Caries (nursing bottle decay).",
+    answer: "Rapidly progresses in maxillary incisors, while mandibular incisors are protected by the tongue and salivary pooling."
+  },
+  {
+    id: 81,
+    subject: "Pedodontics",
+    difficulty: "Medium",
+    question: "Which space maintainer is indicated for premature loss of a unilateral primary mandibular first molar?",
+    answer: "A band-and-loop space maintainer (attached to the second molar, looping to the canine)."
+  },
+  {
+    id: 82,
+    subject: "Pedodontics",
+    difficulty: "Hard",
+    question: "Distinguish between pulpotomy and pulpectomy in primary dentition.",
+    answer: "Pulpotomy: Removal of coronal pulp (keeping radicular pulp vital). Pulpectomy: Complete extirpation of all pulp tissue (coronal and root)."
+  },
+  {
+    id: 83,
+    subject: "Pedodontics",
+    difficulty: "Hard",
+    question: "What is the primary active ingredient and role of Formocresol in primary tooth pulpotomy?",
+    answer: "Formaldehyde. It fixes and devitalizes the uppermost pulp tissue, neutralizing bacteriological contamination."
+  },
+  {
+    id: 84,
+    subject: "Pedodontics",
+    difficulty: "Easy",
+    question: "What is the 'Tell-Show-Do' technique in pediatric behavioral management?",
+    answer: "A desensitization sequence: Explain the procedure (Tell), demonstrate on a model (Show), and perform the action on the patient (Do)."
+  },
+  {
+    id: 85,
+    subject: "Pedodontics",
+    difficulty: "Easy",
+    question: "When is a Stainless Steel Crown (SSC) preferred over composite fillings for primary teeth?",
+    answer: "For teeth with extensive decay, restorations following pulpotomy/pulpectomy, or developmental defects."
+  },
+  {
+    id: 86,
+    subject: "Pedodontics",
+    difficulty: "Easy",
+    question: "What is the rule of thumb for fluoride supplementation in children?",
+    answer: "Supplementation depends on the child's age, fluoride concentration in local drinking water, and caries risk status."
+  },
+  {
+    id: 87,
+    subject: "Pedodontics",
+    difficulty: "Medium",
+    question: "What is the Frankl Behavior Rating Scale?",
+    answer: "A scale classifying child behavior into four categories: Definitely Negative (- -), Negative (-), Positive (+), and Definitely Positive (+ +)."
+  },
+  {
+    id: 88,
+    subject: "Pedodontics",
+    difficulty: "Hard",
+    question: "Describe the eruptive sequence of permanent teeth in the mandible.",
+    answer: "First molar, central incisor, lateral incisor, canine, first premolar, second premolar, second molar, third molar (6-1-2-3-4-5-7-8)."
+  },
+  {
+    id: 89,
+    subject: "Pedodontics",
+    difficulty: "Medium",
+    question: "What is the difference between a distal shoe and a band-and-loop space maintainer?",
+    answer: "Distal shoe is used when a primary second molar is lost before eruption of the permanent first molar. Band-and-loop is for space maintenance after eruption."
+  },
+  {
+    id: 90,
+    subject: "Pedodontics",
+    difficulty: "Easy",
+    question: "What is the primary dental concern with thumb-sucking habits after age 4-5?",
+    answer: "Development of anterior open bite, maxillary constriction, increased overjet, and posterior crossbite due to muscle pressure."
+  },
+
+  // 7. Orthodontics (IDs 91-105)
+  {
+    id: 91,
     subject: "Orthodontics",
     difficulty: "Easy",
     question: "Define orthodontic 'anchorage' and why it is critical.",
     answer: "The resistance to unwanted reactionary tooth movement. It is critical to ensure only target teeth move while supporting teeth remain stable."
   },
   {
-    id: 20,
+    id: 92,
     subject: "Orthodontics",
     difficulty: "Medium",
     question: "Define the Leeway Space of Nance and state its average value in the mandibular arch.",
     answer: "The difference in width between primary canine/molars and permanent canine/premolars. Average is 1.7 to 2.0 mm per quadrant in the mandible."
   },
   {
-    id: 21,
+    id: 93,
     subject: "Orthodontics",
     difficulty: "Hard",
     question: "Explain the difference between skeletal malocclusion and dental malocclusion.",
     answer: "Skeletal malocclusion is caused by discrepancy in jaw size or position (maxilla vs mandible). Dental malocclusion is purely a misalignment of the teeth within normally positioned jaws."
   },
   {
-    id: 22,
+    id: 94,
+    subject: "Orthodontics",
+    difficulty: "Easy",
+    question: "Describe Angle's classification of Class I, II, and III malocclusions.",
+    answer: "Class I: Normal molar relation. Class II: Mandible retrognathic (distocclusion). Class III: Mandible prognathic (mesiocclusion)."
+  },
+  {
+    id: 95,
+    subject: "Orthodontics",
+    difficulty: "Medium",
+    question: "Which active component is primarily responsible for clasp retention in removable appliances?",
+    answer: "The Adams Clasp, which engages the mesiobuccal and distobuccal undercuts of the anchor tooth."
+  },
+  {
+    id: 96,
+    subject: "Orthodontics",
+    difficulty: "Hard",
+    question: "What is the optimal force level recommended to induce orthodontic tooth movement without necrosis?",
+    answer: "Continuous, light forces measuring approximately 20 to 26 grams per square centimeter of root surface area."
+  },
+  {
+    id: 97,
+    subject: "Orthodontics",
+    difficulty: "Hard",
+    question: "Where is the center of resistance of a single-rooted tooth located?",
+    answer: "Approximately 1/3 to 1/2 of the root length measured from the alveolar crest margin."
+  },
+  {
+    id: 98,
+    subject: "Orthodontics",
+    difficulty: "Medium",
+    question: "Contrast physiological migration from orthodontic tooth movement.",
+    answer: "Physiological: Slow migration due to wear/eruption. Orthodontic: Mechanically induced bone remodeling (resorption on pressure, deposition on tension)."
+  },
+  {
+    id: 99,
+    subject: "Orthodontics",
+    difficulty: "Medium",
+    question: "Identify the cells responsible for bone remodeling on the pressure and tension sides of a tooth.",
+    answer: "Osteoclasts dissolve bone on the pressure side; Osteoblasts build bone on the tension side."
+  },
+  {
+    id: 100,
+    subject: "Orthodontics",
+    difficulty: "Easy",
+    question: "What components of a removable orthodontic appliance provide active force?",
+    answer: "Active elements like springs (e.g. finger/Z-spring), expansion screws, or orthodontic elastics."
+  },
+  {
+    id: 101,
+    subject: "Orthodontics",
+    difficulty: "Easy",
+    question: "What is the difference between active and passive orthodontic retainers?",
+    answer: "Active retainers apply force to make minor tooth movements. Passive retainers (e.g. Hawley or fixed lingual wire) hold teeth in their positions to prevent relapse."
+  },
+  {
+    id: 102,
+    subject: "Orthodontics",
+    difficulty: "Medium",
+    question: "What is the difference between tipping and translation (bodily movement) of teeth?",
+    answer: "Tipping: Crown and root move in opposite directions. Translation: The entire tooth moves in the same direction (force through center of resistance)."
+  },
+  {
+    id: 103,
+    subject: "Orthodontics",
+    difficulty: "Hard",
+    question: "What is the hyalinized zone in the periodontal ligament during orthodontic force application?",
+    answer: "An area of aseptic necrosis that forms on the pressure side when excessive force is applied, temporarily stopping tooth movement."
+  },
+  {
+    id: 104,
+    subject: "Orthodontics",
+    difficulty: "Medium",
+    question: "Define the term 'overbite' and differentiate it from 'overjet'.",
+    answer: "Overbite: Vertical overlap of the maxillary incisors over the mandibular incisors. Overjet: Horizontal distance between mandibular and maxillary incisors."
+  },
+  {
+    id: 105,
+    subject: "Orthodontics",
+    difficulty: "Easy",
+    question: "What is the primary purpose of a cephalometric radiograph in orthodontics?",
+    answer: "To evaluate skeletal relationships of the jaws to the cranium, track growth, and plan treatment."
+  },
+
+  // 8. Public Health Dentistry (IDs 106-120)
+  {
+    id: 106,
     subject: "Public Health Dentistry",
     difficulty: "Easy",
     question: "What is the optimal concentration of fluoride in drinking water recommended for dental caries prevention?",
     answer: "0.7 parts per million (ppm) or mg/L."
   },
   {
-    id: 23,
+    id: 107,
     subject: "Public Health Dentistry",
     difficulty: "Medium",
     question: "What does the DMFT index stand for, and what are its components?",
     answer: "Decayed, Missing, Filled Teeth index. It measures cumulative caries experience in permanent teeth by counting decayed, missing (due to caries), and filled teeth."
   },
   {
-    id: 24,
+    id: 108,
     subject: "Public Health Dentistry",
     difficulty: "Hard",
     question: "Differentiate between Primordial, Primary, Secondary, and Tertiary levels of prevention in public health.",
-    answer: "Primordial: Avoid risk factor emergence. Primary: Action before disease onset. Secondary: Early detection & treatment. Tertiary: Limit disability (e.g. dentures)."
+    answer: "Primordial: Avoid risk factor emergence. Primary: Action before disease. Secondary: Early detection & treatment. Tertiary: Limit disability (e.g. dentures)."
+  },
+  {
+    id: 109,
+    subject: "Public Health Dentistry",
+    difficulty: "Medium",
+    question: "What is Atraumatic Restorative Treatment (ART) and where is it indicated?",
+    answer: "A caries management method using hand instruments only for excavation, followed by GIC restoration. Ideal for low-resource community campaigns."
+  },
+  {
+    id: 110,
+    subject: "Public Health Dentistry",
+    difficulty: "Medium",
+    question: "Distinguish between disease prevalence and disease incidence.",
+    answer: "Prevalence: Proportion of total existing cases at a single point in time. Incidence: Rate of new cases developing over a specified period."
+  },
+  {
+    id: 111,
+    subject: "Public Health Dentistry",
+    difficulty: "Hard",
+    question: "What defluoridation technique developed in India uses Alum and Lime for rural water treatment?",
+    answer: "The Nalgonda Technique (involves rapid mixing, flocculation, sedimentation, and filtration)."
+  },
+  {
+    id: 112,
+    subject: "Public Health Dentistry",
+    difficulty: "Hard",
+    question: "Which index groups are standard for WHO global oral health monitoring?",
+    answer: "5 years, 12 years (global monitoring baseline), 15 years, 35-44 years, and 65-74 years."
+  },
+  {
+    id: 113,
+    subject: "Public Health Dentistry",
+    difficulty: "Medium",
+    question: "Explain sensitivity and specificity of a diagnostic screening test.",
+    answer: "Sensitivity: Probability of a positive test in diseased individuals. Specificity: Probability of a negative test in healthy individuals."
+  },
+  {
+    id: 114,
+    subject: "Public Health Dentistry",
+    difficulty: "Easy",
+    question: "What is the primary prevention mechanism of pit and fissure sealants?",
+    answer: "Acts as a physical barrier in deep groves to prevent bacterial plaque colonization and cut off nutrient supply."
+  },
+  {
+    id: 115,
+    subject: "Public Health Dentistry",
+    difficulty: "Medium",
+    question: "What is the primary source of community health statistics and surveys in India?",
+    answer: "The National Family Health Survey (NFHS) and the Decennial Census of India."
+  },
+  {
+    id: 116,
+    subject: "Public Health Dentistry",
+    difficulty: "Easy",
+    question: "What is the main objective of school dental health programs?",
+    answer: "To provide oral health education, screen for early dental disease, and apply preventive measures like fluoride gel or sealants."
+  },
+  {
+    id: 117,
+    subject: "Public Health Dentistry",
+    difficulty: "Medium",
+    question: "What is the difference between systemic fluoride and topical fluoride?",
+    answer: "Systemic: Ingested (e.g. water, tablets) and pre-eruptive. Topical: Applied directly to teeth post-eruptively (e.g. toothpaste, varnish)."
+  },
+  {
+    id: 118,
+    subject: "Public Health Dentistry",
+    difficulty: "Hard",
+    question: "Define 'environmental monitoring' in relation to dental fluorosis.",
+    answer: "Measuring fluoride levels in community drinking water supplies and soil to prevent endemic skeletal and dental fluorosis."
+  },
+  {
+    id: 119,
+    subject: "Public Health Dentistry",
+    difficulty: "Medium",
+    question: "What is the index used to assess dental fluorosis clinically?",
+    answer: "Dean's Fluorosis Index (classifies teeth as normal, questionable, very mild, mild, moderate, or severe)."
+  },
+  {
+    id: 120,
+    subject: "Public Health Dentistry",
+    difficulty: "Easy",
+    question: "What is the core message of the World Health Organization (WHO) regarding oral health?",
+    answer: "Oral health is integral to general health and well-being, and oral diseases are preventable through common risk factor interventions."
   }
 ];
 
@@ -360,6 +1047,16 @@ export default function GamesSection() {
     return parseInt(localStorage.getItem('smilance_fc_best_streak') || '0', 10);
   });
   const [fcExamAnswers, setFcExamAnswers] = useState<boolean[]>([]); // true for correct, false for incorrect
+  const [fcSubjectDropdownOpen, setFcSubjectDropdownOpen] = useState<boolean>(false);
+  const [fcIncorrectDeck, setFcIncorrectDeck] = useState<any[]>([]);
+  const [fcStats, setFcStats] = useState<Record<string, { attempts: number; correct: number }>>(() => {
+    try {
+      const saved = localStorage.getItem('smilance_fc_stats');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
 
   // Memory Match State
   const [cards, setCards] = useState<any[]>([]);
@@ -441,6 +1138,8 @@ export default function GamesSection() {
       setFcReviewList([]);
       setFcKnownList([]);
       setFcExamAnswers([]);
+      setFcSubjectDropdownOpen(false);
+      setFcIncorrectDeck([]);
     }
     
     // Clear reaction timer on unmount/switch
@@ -644,12 +1343,16 @@ export default function GamesSection() {
       return;
     }
 
-    setFcDeck(filtered);
+    // Auto-shuffle on session start
+    const shuffled = [...filtered].sort(() => Math.random() - 0.5);
+
+    setFcDeck(shuffled);
     setFcCurrentIdx(0);
     setFcFlipped(false);
     setFcExamAnswers([]);
     setFcReviewList([]);
     setFcKnownList([]);
+    setFcIncorrectDeck([]); // clear incorrect list for new session
     setFcEncouragement(DENTAL_ENCOURAGEMENTS[Math.floor(Math.random() * DENTAL_ENCOURAGEMENTS.length)]);
     setFcMode(mode);
   };
@@ -662,7 +1365,8 @@ export default function GamesSection() {
   };
 
   const handleDentalCardGrade = (isCorrectOrKnown: boolean) => {
-    const cardId = fcDeck[fcCurrentIdx].id;
+    const currentCard = fcDeck[fcCurrentIdx];
+    const cardId = currentCard.id;
 
     if (fcMode === 'study') {
       if (isCorrectOrKnown) {
@@ -691,6 +1395,7 @@ export default function GamesSection() {
         setFcMode('results');
       }
     } else {
+      // Exam Mode
       setFcExamAnswers(prev => [...prev, isCorrectOrKnown]);
       
       if (isCorrectOrKnown) {
@@ -704,7 +1409,24 @@ export default function GamesSection() {
       } else {
         setFcStreak(0);
         localStorage.setItem('smilance_fc_streak', '0');
+        // Track incorrect card
+        setFcIncorrectDeck(prev => [...prev, currentCard]);
       }
+
+      // Record subject stats in localStorage and state
+      setFcStats(prev => {
+        const sub = currentCard.subject;
+        const currentStats = prev[sub] || { attempts: 0, correct: 0 };
+        const nextStats = {
+          ...prev,
+          [sub]: {
+            attempts: currentStats.attempts + 1,
+            correct: currentStats.correct + (isCorrectOrKnown ? 1 : 0)
+          }
+        };
+        localStorage.setItem('smilance_fc_stats', JSON.stringify(nextStats));
+        return nextStats;
+      });
 
       if (fcCurrentIdx < fcDeck.length - 1) {
         setFcFlipped(false);
@@ -713,6 +1435,19 @@ export default function GamesSection() {
         setFcMode('results');
       }
     }
+  };
+
+  const startIncorrectReviewSession = () => {
+    if (fcIncorrectDeck.length === 0) return;
+    const shuffled = [...fcIncorrectDeck].sort(() => Math.random() - 0.5);
+    setFcDeck(shuffled);
+    setFcCurrentIdx(0);
+    setFcFlipped(false);
+    setFcExamAnswers([]);
+    setFcReviewList([]);
+    setFcKnownList([]);
+    setFcEncouragement(DENTAL_ENCOURAGEMENTS[Math.floor(Math.random() * DENTAL_ENCOURAGEMENTS.length)]);
+    setFcMode('study'); // Study Mode for reviewing mistakes
   };
 
   const nextDentalFlashcard = () => {
@@ -1266,23 +2001,49 @@ export default function GamesSection() {
 
               {/* Filters */}
               <div className="flex flex-col gap-4 text-left">
-                <div>
+                <div className="relative">
                   <label className="block text-xs font-bold text-rose-300 uppercase tracking-wider mb-2 font-sans">Filter by Subject</label>
-                  <select 
-                    value={fcSubjectFilter}
-                    onChange={(e) => setFcSubjectFilter(e.target.value)}
-                    className="w-full bg-black/80 border border-white/10 hover:border-white/20 rounded-xl p-3 text-sm text-white font-semibold outline-none focus:border-amber-500 transition-colors"
+                  <button
+                    type="button"
+                    onClick={() => setFcSubjectDropdownOpen(!fcSubjectDropdownOpen)}
+                    className="w-full bg-white/5 border border-white/10 hover:border-white/20 rounded-xl p-3 text-sm text-white font-semibold outline-none flex justify-between items-center transition-all focus:border-amber-500"
                   >
-                    <option value="All">All Subjects (8 subjects)</option>
-                    <option value="Oral Medicine & Radiology">Oral Medicine & Radiology</option>
-                    <option value="Oral Maxillofacial Surgery">Oral Maxillofacial Surgery</option>
-                    <option value="Conservative Dentistry & Endodontics">Conservative Dentistry & Endodontics</option>
-                    <option value="Prosthodontics">Prosthodontics</option>
-                    <option value="Periodontics">Periodontics</option>
-                    <option value="Pedodontics">Pedodontics</option>
-                    <option value="Orthodontics">Orthodontics</option>
-                    <option value="Public Health Dentistry">Public Health Dentistry</option>
-                  </select>
+                    <span>{fcSubjectFilter === 'All' ? 'All Subjects (8 subjects)' : fcSubjectFilter}</span>
+                    <ChevronDown className={`w-4 h-4 text-white/50 transition-transform ${fcSubjectDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {fcSubjectDropdownOpen && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setFcSubjectDropdownOpen(false)} />
+                      <div className="absolute left-0 right-0 mt-2 bg-neutral-900/95 border border-white/10 rounded-xl overflow-hidden shadow-2xl z-50 backdrop-blur-md animate-fadeIn max-h-60 overflow-y-auto">
+                        {[
+                          { value: 'All', label: 'All Subjects (8 subjects)' },
+                          { value: 'Oral Medicine & Radiology', label: 'Oral Medicine & Radiology' },
+                          { value: 'Oral Maxillofacial Surgery', label: 'Oral Maxillofacial Surgery' },
+                          { value: 'Conservative Dentistry & Endodontics', label: 'Conservative Dentistry & Endodontics' },
+                          { value: 'Prosthodontics', label: 'Prosthodontics' },
+                          { value: 'Periodontics', label: 'Periodontics' },
+                          { value: 'Pedodontics', label: 'Pedodontics' },
+                          { value: 'Orthodontics', label: 'Orthodontics' },
+                          { value: 'Public Health Dentistry', label: 'Public Health Dentistry' }
+                        ].map((sub) => (
+                          <button
+                            key={sub.value}
+                            type="button"
+                            onClick={() => {
+                              setFcSubjectFilter(sub.value);
+                              setFcSubjectDropdownOpen(false);
+                            }}
+                            className={`w-full text-left p-3 text-sm transition-colors hover:bg-white/10 ${
+                              fcSubjectFilter === sub.value ? 'bg-amber-500/20 text-amber-300 font-bold' : 'text-white/80'
+                            }`}
+                          >
+                            {sub.label}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 <div>
@@ -1304,6 +2065,59 @@ export default function GamesSection() {
                   </div>
                 </div>
               </div>
+
+              {/* Subject Mastery Dashboard */}
+              {Object.keys(fcStats).length > 0 && (
+                <div className="bg-white/5 border border-white/10 rounded-2xl p-4 font-sans text-left">
+                  <h3 className="text-xs font-black text-rose-300 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                    <Award className="w-4 h-4 text-amber-400" /> Subject Mastery Dashboard
+                  </h3>
+                  <div className="flex flex-col gap-3 max-h-[200px] overflow-y-auto pr-1">
+                    {[
+                      "Oral Medicine & Radiology",
+                      "Oral Maxillofacial Surgery",
+                      "Conservative Dentistry & Endodontics",
+                      "Prosthodontics",
+                      "Periodontics",
+                      "Pedodontics",
+                      "Orthodontics",
+                      "Public Health Dentistry"
+                    ].map(sub => {
+                      const stats = fcStats[sub] || { attempts: 0, correct: 0 };
+                      const pct = stats.attempts > 0 ? Math.round((stats.correct / stats.attempts) * 100) : 0;
+                      return (
+                        <div key={sub} className="text-xs">
+                          <div className="flex justify-between items-center text-white/80 mb-1">
+                            <span className="font-semibold truncate max-w-[240px]">{sub}</span>
+                            <span className="font-bold text-amber-400">
+                              {stats.attempts > 0 ? `${pct}% (${stats.correct}/${stats.attempts})` : '0% (no attempts)'}
+                            </span>
+                          </div>
+                          <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                            <div 
+                              className={`h-full rounded-full transition-all duration-500 ${
+                                pct >= 80 ? 'bg-emerald-500' : pct >= 50 ? 'bg-amber-500' : stats.attempts > 0 ? 'bg-rose-500' : 'bg-white/10'
+                              }`}
+                              style={{ width: `${stats.attempts > 0 ? pct : 0}%` }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <button 
+                    onClick={() => {
+                      if (confirm("Are you sure you want to reset your subject stats?")) {
+                        setFcStats({});
+                        localStorage.removeItem('smilance_fc_stats');
+                      }
+                    }}
+                    className="mt-3 text-[10px] text-white/40 hover:text-rose-400 transition-colors uppercase font-bold tracking-wider"
+                  >
+                    Reset Dashboard Stats
+                  </button>
+                </div>
+              )}
 
               {/* Start Buttons */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
@@ -1549,6 +2363,14 @@ export default function GamesSection() {
 
               {/* Retry / exit buttons */}
               <div className="flex flex-col gap-2">
+                {fcIncorrectDeck.length > 0 && (
+                  <button
+                    onClick={startIncorrectReviewSession}
+                    className="w-full bg-gradient-to-r from-rose-500 to-rose-600 text-white font-bold p-4 rounded-xl hover:scale-[1.02] transition-transform shadow-[0_0_20px_rgba(244,63,94,0.3)]"
+                  >
+                    🔄 Review Mistakes ({fcIncorrectDeck.length} {fcIncorrectDeck.length === 1 ? 'card' : 'cards'})
+                  </button>
+                )}
                 <button
                   onClick={() => {
                     setFcMode('menu');
