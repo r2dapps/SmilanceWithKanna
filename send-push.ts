@@ -46,6 +46,46 @@ async function run() {
   // 3. Calculate current date in IST (UTC + 5:30) to sync the exact quote of the day
   const nowUtc = new Date();
   const nowIst = new Date(nowUtc.getTime() + 5.5 * 60 * 60 * 1000);
+  
+  // Define scheduled times to handle GitHub Action delays
+  const SCHEDULED_TIMES = [
+    { h: 5, m: 40 }, { h: 8, m: 45 }, { h: 10, m: 0 },
+    { h: 12, m: 0 }, { h: 13, m: 10 }, { h: 14, m: 0 },
+    { h: 16, m: 0 }, { h: 18, m: 0 }, { h: 20, m: 0 }, { h: 22, m: 0 }
+  ];
+
+  let targetTime: Date | null = null;
+  let targetHour = nowIst.getHours();
+
+  // Find the nearest scheduled time (within 40 mins)
+  let minDiff = Infinity;
+  for (const t of SCHEDULED_TIMES) {
+    const scheduledIst = new Date(nowIst);
+    scheduledIst.setHours(t.h, t.m, 0, 0);
+    const diffMs = scheduledIst.getTime() - nowIst.getTime();
+    if (Math.abs(diffMs) < 40 * 60 * 1000) {
+      if (Math.abs(diffMs) < minDiff) {
+        minDiff = diffMs;
+        targetTime = scheduledIst;
+        targetHour = t.h;
+      }
+    }
+  }
+
+  if (targetTime) {
+    const waitMs = targetTime.getTime() - new Date(new Date().getTime() + 5.5 * 60 * 60 * 1000).getTime();
+    if (process.env.IS_GITHUB_ACTION === 'true') {
+      if (waitMs > 0) {
+        console.log(`Action ran early. Waiting ${Math.round(waitMs / 1000 / 60)} minutes until exactly ${targetTime.getHours()}:${targetTime.getMinutes().toString().padStart(2, '0')} IST...`);
+        await new Promise(r => setTimeout(r, waitMs));
+      } else {
+        console.log(`Action is running slightly late or exactly on time. Sending immediately.`);
+      }
+    } else {
+      console.log(`Local run detected. Skipping the ${Math.round(waitMs / 1000 / 60)} minute wait delay.`);
+    }
+  }
+
   const start = new Date(nowIst.getFullYear(), 0, 0);
   const diff = nowIst.getTime() - start.getTime();
   const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -53,7 +93,8 @@ async function run() {
 
   const nickname = NICKNAMES[Math.floor(Math.random() * NICKNAMES.length)];
 
-  const hour = nowIst.getHours();
+  // Use targetHour so we select the correct message even if the action ran in the previous hour
+  const hour = targetHour;
   let title = 'Hello Smiley! 💖';
   let body = 'Thinking of you!';
   let url = './';
