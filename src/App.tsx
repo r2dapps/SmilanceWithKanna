@@ -37,6 +37,7 @@ import {
   DAILY_QUOTES,
   BIBLE_VERSES
 } from './data';
+import { MUSIC_TRACKS } from './musicData';
 
 export default function App() {
   const [appUnlocked, setAppUnlocked] = useState(() => {
@@ -192,8 +193,8 @@ export default function App() {
     }
   };
 
-  const handleNextTrack = () => setCurrentSongIdx(p => p + 1);
-  const handlePrevTrack = () => setCurrentSongIdx(p => Math.max(1, p - 1));
+  const handleNextTrack = () => setCurrentSongIdx(p => (p % MUSIC_TRACKS.length) + 1);
+  const handlePrevTrack = () => setCurrentSongIdx(p => (p === 1 ? MUSIC_TRACKS.length : p - 1));
 
   const handleAudioError = () => {
     // If the song doesn't exist, loop back to the first song.
@@ -574,7 +575,7 @@ export default function App() {
       {/* Global Audio Player */}
       <audio
         ref={audioRef}
-        src={`music/Love (${currentSongIdx}).mp3`}
+        src={`music/${encodeURIComponent(MUSIC_TRACKS[currentSongIdx - 1].file)}`}
         onTimeUpdate={() => audioRef.current && setCurrentTimeProgress(audioRef.current.currentTime)}
         onLoadedMetadata={() => audioRef.current && setDuration(audioRef.current.duration)}
         onEnded={handleNextTrack}

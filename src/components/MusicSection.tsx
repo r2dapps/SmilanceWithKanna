@@ -1,5 +1,6 @@
 import React from 'react';
 import { Play, Pause, SkipForward, SkipBack, Music, Volume2, Radio } from 'lucide-react';
+import { MUSIC_TRACKS } from '../musicData';
 
 interface MusicSectionProps {
   isPlaying: boolean;
@@ -19,20 +20,8 @@ export default function MusicSection({
   currentTimeProgress, duration, volume, setVolume, audioRef
 }: MusicSectionProps) {
   
-  const tracks = [
-    { title: "Kanna's Anchor", artist: "Divine Strings" },
-    { title: "Walking on Campus", artist: "Smiley Beats" },
-    { title: "Sweet Midnight Talk", artist: "Acoustic Love" },
-    { title: "Lost in Your Eyes", artist: "Divine Strings" },
-    { title: "Always Yours", artist: "Smiley Beats" },
-    { title: "Together Forever", artist: "Acoustic Love" },
-    { title: "You Are My Sunshine", artist: "Divine Strings" },
-    { title: "Safe in My Arms", artist: "Smiley Beats" },
-    { title: "Beautiful Journey", artist: "Acoustic Love" },
-  ];
-
   // currentTrack maps directly to currentSongIdx - 1
-  const displayTrack = tracks[currentSongIdx - 1] || { title: `Love Melody #${currentSongIdx}`, artist: "Smilance Radio" };
+  const displayTrack = MUSIC_TRACKS[currentSongIdx - 1] || { title: `Love Melody #${currentSongIdx}`, artist: "Smilance Radio" };
   const trackProgress = duration > 0 ? (currentTimeProgress / duration) * 100 : 0;
 
   const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
