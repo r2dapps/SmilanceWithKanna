@@ -193,8 +193,18 @@ export default function App() {
     }
   };
 
-  const handleNextTrack = () => setCurrentSongIdx(p => (p % MUSIC_TRACKS.length) + 1);
-  const handlePrevTrack = () => setCurrentSongIdx(p => (p === 1 ? MUSIC_TRACKS.length : p - 1));
+  const handleNextTrack = () => {
+    setCurrentSongIdx(p => {
+      if (MUSIC_TRACKS.length <= 1) return 1;
+      let nextIdx;
+      do {
+        nextIdx = Math.floor(Math.random() * MUSIC_TRACKS.length) + 1;
+      } while (nextIdx === p);
+      return nextIdx;
+    });
+  };
+  
+  const handlePrevTrack = handleNextTrack;
 
   const handleAudioError = () => {
     // If the song doesn't exist, loop back to the first song.

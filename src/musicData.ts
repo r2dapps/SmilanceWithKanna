@@ -8,10 +8,10 @@ export const MUSIC_TRACKS = [
   { title: "You Are My Sunshine", artist: "Divine Strings", file: "Love (7).mp3" },
   { title: "Safe in My Arms", artist: "Smiley Beats", file: "Love (8).mp3" },
   { title: "Beautiful Journey", artist: "Acoustic Love", file: "Love (9).mp3" },
-  { title: "Baby He Loves You", artist: "SenSongs", file: "3-Baby He Loves You-SenSongsMp3.Co.mp3" },
-  { title: "Ammaadi", artist: "Telugu Melody", file: "Ammaadi.mp3" },
-  { title: "Guruvaram", artist: "SenSongs", file: "Guruvaram-SenSongsMp3.Co.mp3" },
-  { title: "Hoyna Hoyna", artist: "SenSongs", file: "Hoyna Hoyna - SenSongsMp3.Co.mp3" },
-  { title: "Collide", artist: "Justine Skye ft. Tyga", file: "Justine_Skye_-_Collide_feat._Tyga_Prod._DJ_Mustard_(mp3.pm).mp3" },
-  { title: "Sweety", artist: "SenSongs", file: "Sweety-SenSongsMp3.Com.mp3" }
+  { title: "Baby He Loves You", artist: "SenSongs", file: "Love (10).mp3" },
+  { title: "Ammaadi", artist: "Telugu Melody", file: "Love (11).mp3" },
+  { title: "Guruvaram", artist: "SenSongs", file: "Love (12).mp3" },
+  { title: "Hoyna Hoyna", artist: "SenSongs", file: "Love (13).mp3" },
+  { title: "Collide", artist: "Justine Skye ft. Tyga", file: "Love (14).mp3" },
+  { title: "Sweety", artist: "SenSongs", file: "Love (15).mp3" }
 ];
