@@ -1,7 +1,7 @@
 // Smilance Progressive Web App (PWA) Automated Offline Service Worker
 // Merges offline caching shells, dynamic fetch interceptors, and robust push notifications.
 
-const CACHE_NAME = 'smilance-offline-cache-v4';
+const CACHE_NAME = 'smilance-offline-cache-v5';
 
 // Helper to determine if current time (IST) is within September (Birthday Month)
 const isSeptemberMonth = () => {

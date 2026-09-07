@@ -858,26 +858,52 @@ export default function BirthdaySurpriseModal({ isOpen, onClose }: BirthdaySurpr
               <div className="flex flex-col items-center w-full animate-fadeIn pb-24">
                 <div
                   ref={letterPaperRef}
-                  className="relative w-full rounded-3xl p-5 sm:p-7 text-left shadow-[0_20px_60px_rgba(0,0,0,0.8)] border border-[#e5d4bc] overflow-hidden max-h-[58vh] overflow-y-auto custom-scrollbar"
+                  className="relative w-full rounded-3xl p-5 sm:p-7 text-left shadow-[0_20px_70px_rgba(225,29,72,0.2)] border overflow-hidden max-h-[58vh] overflow-y-auto custom-scrollbar"
                   style={{
-                    backgroundColor: '#fffcf7',
-                    backgroundImage: 'linear-gradient(180deg, #fffefb 0%, #fdf6eb 100%)'
+                    backgroundColor: activeLetterTab === 'main' ? '#fff7f9' : '#fffcf7',
+                    backgroundImage: activeLetterTab === 'main'
+                      ? 'linear-gradient(180deg, #fff7f9 0%, #fef1f5 40%, #fde8ef 100%)'
+                      : 'linear-gradient(180deg, #fffefb 0%, #fdf6eb 100%)',
+                    borderColor: activeLetterTab === 'main' ? 'rgba(244, 63, 94, 0.25)' : '#e5d4bc'
                   }}
                 >
-                  {/* Full-Cover Seamless Cathedral & Couple Watermark */}
-                  <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden rounded-3xl">
-                    <img
-                      src="./couple-bg.jpg"
-                      alt=""
-                      className="w-full h-full object-cover object-[center_25%] pointer-events-none select-none"
-                      style={{
-                        opacity: 0.14,
-                        filter: 'sepia(0.2) contrast(1.05)'
-                      }}
-                      loading="eager"
-                      crossOrigin="anonymous"
-                    />
-                  </div>
+                  {/* Eve Letter Watermark (only shown on Eve tab) */}
+                  {activeLetterTab === 'eve' && (
+                    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden rounded-3xl">
+                      <img
+                        src="./couple-bg.jpg"
+                        alt=""
+                        className="w-full h-full object-cover object-[center_25%] pointer-events-none select-none"
+                        style={{
+                          opacity: 0.14,
+                          filter: 'sepia(0.2) contrast(1.05)'
+                        }}
+                        loading="eager"
+                        crossOrigin="anonymous"
+                      />
+                    </div>
+                  )}
+
+                  {/* Background Layer: Blended Couple-Photo starting below the banner with gradient fade edges */}
+                  {activeLetterTab === 'main' && (
+                    <div
+                      className="absolute inset-x-0 bottom-0 pointer-events-none z-0 overflow-hidden rounded-b-3xl"
+                      style={{ top: '155px' }}
+                    >
+                      <img
+                        src="./couple-photo.png"
+                        alt=""
+                        className="w-full h-full object-cover object-[center_28%] pointer-events-none select-none"
+                        style={{
+                          opacity: 0.20,
+                          maskImage: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.9) 12%, rgba(0,0,0,0.9) 82%, transparent 100%)',
+                          WebkitMaskImage: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.9) 12%, rgba(0,0,0,0.9) 82%, transparent 100%)'
+                        }}
+                        loading="eager"
+                        crossOrigin="anonymous"
+                      />
+                    </div>
+                  )}
 
                   {/* Two-Letter Switcher Pill Tabs (hidden in exported image) */}
                   <div className="no-export relative z-10 flex items-center justify-center gap-1.5 p-1 bg-amber-900/10 rounded-full mb-3.5 border border-amber-900/15">
@@ -930,55 +956,166 @@ export default function BirthdaySurpriseModal({ isOpen, onClose }: BirthdaySurpr
                   </div>
 
                   <div className="relative z-10">
+                    {/* Romantic Stationery Header Art (Maintained without collapsing, blends seamlessly into text) */}
+                    {activeLetterTab === 'main' && (
+                      <div className="w-full flex justify-center mb-3.5 select-none">
+                        <img
+                          src="./letter-header-art.png"
+                          alt="Happy Birthday My Smiley"
+                          className="w-full max-w-xs sm:max-w-sm h-auto object-contain drop-shadow-sm pointer-events-none"
+                          loading="eager"
+                        />
+                      </div>
+                    )}
+
                     {/* Salutation */}
                     <h3 className="font-serif italic font-bold text-xl sm:text-2xl text-[#3b1222] tracking-tight mb-2">
                       {letterData.salutation}
                     </h3>
 
-                    <p className="text-[11px] font-bold text-rose-800/80 mb-4 uppercase tracking-wider">
+                    <p className="text-[11px] font-bold text-rose-800/90 mb-4 uppercase tracking-wider">
                       {letterData.title}
                     </p>
 
-                    {/* Paragraphs with Evenly Distributed Cutout Stickers */}
+                    {/* Paragraphs with Separately Distributed Cutout Stickers */}
                     <div className="space-y-3 font-serif text-[#3f1929] leading-relaxed text-xs sm:text-sm">
                       {letterData.paragraphs.map((para, pIdx) => (
                         <div key={pIdx} className="overflow-hidden">
-                          {/* Cutout 1: Peace sign in car (Upper right margin beside Paragraph 2) */}
-                          {pIdx === 1 && (
-                            <div className="float-right ml-3 mb-1 w-20 sm:w-24 select-none group">
-                              <img
-                                src="./cutout-1.png"
-                                alt="Us"
-                                className="w-full h-auto drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)] rotate-2 group-hover:rotate-0 group-hover:scale-105 transition-all duration-300 pointer-events-auto"
-                                loading="eager"
-                              />
-                            </div>
+                          {/* ============ MAIN BIRTHDAY LETTER STICKERS (SEPT 8) ============ */}
+                          {activeLetterTab === 'main' && (
+                            <>
+                              {/* 1. Two Roses Cutout (Beside Paragraph 1: June 6th Church & 2nd Meet Today) */}
+                              {pIdx === 1 && (
+                                <div className="float-right ml-3 mb-1 w-22 sm:w-26 select-none group text-center">
+                                  <img
+                                    src="./two-roses.png"
+                                    alt="Two Years Celebrating Together"
+                                    className="w-full h-auto drop-shadow-[0_4px_12px_rgba(0,0,0,0.18)] rotate-2 group-hover:rotate-0 group-hover:scale-105 transition-all duration-300 pointer-events-auto"
+                                    loading="eager"
+                                  />
+                                  <span className="inline-block text-[9px] font-serif font-bold text-rose-800/90 bg-rose-100/90 px-2 py-0.5 rounded-full mt-0.5 shadow-xs">
+                                    Our 2nd Meet 🌹
+                                  </span>
+                                </div>
+                              )}
+
+                              {/* 2. Chibi Couple Cutout (Beside Paragraph 2: Flaws, Cold Wars & Holding Each Other) */}
+                              {pIdx === 2 && (
+                                <div className="float-left mr-3 mb-1 w-22 sm:w-26 select-none group text-center">
+                                  <img
+                                    src="./chibi-couple.png"
+                                    alt="Us Chibi"
+                                    className="w-full h-auto drop-shadow-[0_4px_12px_rgba(0,0,0,0.2)] -rotate-2 group-hover:rotate-0 group-hover:scale-105 transition-all duration-300 pointer-events-auto"
+                                    loading="eager"
+                                  />
+                                  <span className="inline-block text-[9px] font-serif font-bold text-rose-800/90 bg-rose-100/90 px-2 py-0.5 rounded-full mt-0.5 shadow-xs">
+                                    Always Together 💖
+                                  </span>
+                                </div>
+                              )}
+
+                              {/* 3. Dum Biryani Cutout (Beside Paragraph 3: Her Dental Cases, Exhaustion & Home) */}
+                              {pIdx === 3 && (
+                                <div className="float-right ml-3 mb-1 w-20 sm:w-24 select-none group text-center">
+                                  <img
+                                    src="./biryani-cutout.png"
+                                    alt="Dum Biryani"
+                                    className="w-full h-auto drop-shadow-md rotate-2 group-hover:scale-110 transition-transform cursor-pointer pointer-events-auto"
+                                    title="Steaming Chicken Dum Biryani"
+                                    loading="eager"
+                                  />
+                                  <span className="inline-block text-[9px] font-sans font-bold text-amber-950/90 bg-amber-100/90 px-2 py-0.5 rounded-full mt-0.5 shadow-xs">
+                                    Chicken Biryani ❤️
+                                  </span>
+                                </div>
+                              )}
+
+                              {/* 4. Panipuri Cutout (Beside Paragraph 4: Little Things - Panipuri, Jhumkas & Hair Clips) */}
+                              {pIdx === 4 && (
+                                <div className="float-left mr-3 mb-1 w-20 sm:w-24 select-none group text-center">
+                                  <img
+                                    src="./panipuri-cutout.png"
+                                    alt="Crisp Panipuri"
+                                    className="w-full h-auto drop-shadow-md -rotate-3 group-hover:scale-110 transition-transform cursor-pointer pointer-events-auto"
+                                    title="Crisp Panipuri with Mint Water"
+                                    loading="eager"
+                                  />
+                                  <span className="inline-block text-[9px] font-sans font-bold text-amber-950/90 bg-amber-100/90 px-2 py-0.5 rounded-full mt-0.5 shadow-xs">
+                                    Panipuri Cravings 💖
+                                  </span>
+                                </div>
+                              )}
+
+                              {/* 5. Munch Chocolate Cutout (Beside Paragraph 5: In the Car, Hugs & Loving You) */}
+                              {pIdx === 5 && (
+                                <div className="float-right ml-3 mb-1 w-22 sm:w-26 select-none group text-center">
+                                  <img
+                                    src="./munch-cutout.png"
+                                    alt="Crunchy Munch"
+                                    className="w-full h-auto drop-shadow-md -rotate-6 group-hover:scale-110 transition-transform cursor-pointer pointer-events-auto"
+                                    title="Crunchy Munch Bar"
+                                    loading="eager"
+                                  />
+                                  <span className="inline-block text-[9px] font-sans font-bold text-amber-950/90 bg-amber-100/90 px-2 py-0.5 rounded-full mt-0.5 shadow-xs">
+                                    Munch Sweetener 💖
+                                  </span>
+                                </div>
+                              )}
+
+                              {/* 6. Real Couple Photo in Polaroid (Beside Paragraph 6: Best Friend, Love & Future Wife) */}
+                              {pIdx === 6 && (
+                                <div className="float-left mr-3 mb-1 w-20 sm:w-24 select-none group">
+                                  <div className="p-1 bg-white rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.18)] rotate-2 group-hover:rotate-0 group-hover:scale-105 transition-all duration-300">
+                                    <img
+                                      src="./letter-bg-bottom.jpg"
+                                      alt="Us"
+                                      className="w-full h-24 sm:h-28 object-cover object-[center_20%] rounded-xl pointer-events-auto"
+                                      loading="eager"
+                                    />
+                                  </div>
+                                </div>
+                              )}
+                            </>
                           )}
 
-                          {/* Cutout 2: Cuddle with hearts (Middle left margin beside Paragraph 4 - Leaning on Each Other) */}
-                          {pIdx === 3 && (
-                            <div className="float-left mr-3 mb-1 w-20 sm:w-24 select-none group">
-                              <img
-                                src="./cutout-2.png"
-                                alt="Us"
-                                className="w-full h-auto drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)] -rotate-3 group-hover:rotate-0 group-hover:scale-105 transition-all duration-300 pointer-events-auto"
-                                loading="eager"
-                              />
-                            </div>
-                          )}
+                          {/* ============ EVE LETTER STICKERS (SEPT 7) ============ */}
+                          {activeLetterTab === 'eve' && (
+                            <>
+                              {pIdx === 1 && (
+                                <div className="float-right ml-3 mb-1 w-20 sm:w-24 select-none group">
+                                  <img
+                                    src="./cutout-1.png"
+                                    alt="Us"
+                                    className="w-full h-auto drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)] rotate-2 group-hover:rotate-0 group-hover:scale-105 transition-all duration-300 pointer-events-auto"
+                                    loading="eager"
+                                  />
+                                </div>
+                              )}
 
-                          {/* Photo Cutout: Couple in white with brick wall (Lower right margin beside Paragraph 6) */}
-                          {pIdx === 5 && (
-                            <div className="float-right ml-3 mb-1 w-20 sm:w-24 select-none group">
-                              <div className="p-1 bg-white rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.18)] rotate-2 group-hover:rotate-0 group-hover:scale-105 transition-all duration-300">
-                                <img
-                                   src="./letter-bg-bottom.jpg"
-                                   alt="Us"
-                                   className="w-full h-24 sm:h-28 object-cover object-[center_20%] rounded-xl pointer-events-auto"
-                                   loading="eager"
-                                />
-                              </div>
-                            </div>
+                              {pIdx === 3 && (
+                                <div className="float-left mr-3 mb-1 w-20 sm:w-24 select-none group">
+                                  <img
+                                    src="./cutout-2.png"
+                                    alt="Us"
+                                    className="w-full h-auto drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)] -rotate-3 group-hover:rotate-0 group-hover:scale-105 transition-all duration-300 pointer-events-auto"
+                                    loading="eager"
+                                  />
+                                </div>
+                              )}
+
+                              {pIdx === 5 && (
+                                <div className="float-right ml-3 mb-1 w-20 sm:w-24 select-none group">
+                                  <div className="p-1 bg-white rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.18)] rotate-2 group-hover:rotate-0 group-hover:scale-105 transition-all duration-300">
+                                    <img
+                                      src="./letter-bg-bottom.jpg"
+                                      alt="Us"
+                                      className="w-full h-24 sm:h-28 object-cover object-[center_20%] rounded-xl pointer-events-auto"
+                                      loading="eager"
+                                    />
+                                  </div>
+                                </div>
+                              )}
+                            </>
                           )}
 
                           <p className="indent-3 text-justify">
@@ -988,26 +1125,41 @@ export default function BirthdaySurpriseModal({ isOpen, onClose }: BirthdaySurpr
                       ))}
                     </div>
 
-                    {/* Signature Area with Cutout 3 on Bottom Left */}
+                    {/* Signature Area with Kanna's Winking Chibi on Bottom Left */}
                     <div className="flex items-end justify-between mt-6 font-serif">
-                      <div className="w-20 sm:w-24 select-none group">
-                        <img
-                          src="./cutout-3.png"
-                          alt="Us"
-                          className="w-full h-auto drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)] rotate-1 group-hover:scale-105 transition-all duration-300 pointer-events-auto"
-                          loading="eager"
-                        />
+                      <div className="w-22 sm:w-26 select-none group text-left">
+                        {activeLetterTab === 'main' ? (
+                          <div className="relative">
+                            <img
+                              src="./my-chibi.png"
+                              alt="Yours Kanna"
+                              className="w-full h-auto drop-shadow-[0_6px_14px_rgba(0,0,0,0.22)] -rotate-3 group-hover:rotate-0 group-hover:scale-105 transition-all duration-300 pointer-events-auto cursor-pointer"
+                              title="Your Kanna 💖"
+                              loading="eager"
+                            />
+                            <span className="inline-block text-[9px] font-sans font-bold text-rose-950 bg-rose-100/90 px-2 py-0.5 rounded-full mt-0.5 shadow-xs">
+                              Yours Kanna 💖
+                            </span>
+                          </div>
+                        ) : (
+                          <img
+                            src="./cutout-3.png"
+                            alt="Us"
+                            className="w-full h-auto drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)] rotate-1 group-hover:scale-105 transition-all duration-300 pointer-events-auto"
+                            loading="eager"
+                          />
+                        )}
                       </div>
 
                       <div className="text-right flex flex-col items-end">
-                        <p className="italic text-[11px] text-amber-950/70 mb-0.5">
+                        <p className="italic text-[11px] text-rose-950/70 mb-0.5">
                           {letterData.closing}
                         </p>
                         <div className="flex items-center gap-2">
                           <p className="font-bold italic text-base text-[#3b1222]">
                             {letterData.signature}
                           </p>
-                          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-rose-700 via-rose-800 to-rose-950 flex items-center justify-center shadow-md border border-amber-300/50 shrink-0">
+                          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-rose-700 via-rose-800 to-rose-950 flex items-center justify-center shadow-md border border-rose-300/50 shrink-0">
                             <Heart className="w-3.5 h-3.5 text-rose-200 fill-rose-300" />
                           </div>
                         </div>
@@ -1015,9 +1167,21 @@ export default function BirthdaySurpriseModal({ isOpen, onClose }: BirthdaySurpr
                     </div>
 
                     {/* P.S. Note */}
-                    <div className="mt-5 pt-3 border-t border-amber-900/15 text-[11px] text-rose-900/80 font-serif italic bg-rose-50/60 p-2.5 rounded-xl">
+                    <div className="mt-5 pt-3 border-t border-rose-900/15 text-[11px] text-rose-900/90 font-serif italic bg-rose-100/50 p-2.5 rounded-xl">
                       {letterData.postscript}
                     </div>
+
+                    {/* Single Velvet Red Rose on the Bottom Right Corner */}
+                    {activeLetterTab === 'main' && (
+                      <div className="absolute -bottom-4 -right-4 w-16 sm:w-20 pointer-events-none select-none z-20">
+                        <img
+                          src="./single-rose.png"
+                          alt="Red Rose"
+                          className="w-full h-auto drop-shadow-md rotate-12"
+                          loading="eager"
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
 

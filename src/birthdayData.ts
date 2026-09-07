@@ -253,27 +253,28 @@ export const BIRTHDAY_EVE_LETTER_DATA: BirthdayLetterContent = {
     "Thank you for being born, my bujji kannoda. Thank you for choosing me, for trusting me with your gentle heart, and for making this journey so profoundly beautiful. No matter where life leads us or how many years go by, my hand will always be holding yours."
   ],
   closing: "Forever and always yours,",
-  signature: "Your Smiley 💖",
+  signature: "Yours Kanna 💖",
   date: `September 7th, ${new Date().getFullYear()}`,
-  postscript: "P.S. Sleep peacefully tonight knowing someone out here is counting every single second until midnight to celebrate you."
+  postscript: "P.S. Sleep peacefully tonight knowing your Kanna is counting every single second until midnight to celebrate you."
 };
 
 // 🎂 Letter 2: The Grand Birthday Letter (September 8th - Feast & Forever Vows)
 export const BIRTHDAY_MAIN_LETTER_DATA: BirthdayLetterContent = {
-  salutation: "To My Dearest Birthday Queen, Kanna,",
-  title: "Happy Birthday, My Everything • The Official September 8th Letter",
+  salutation: "To My Dearest Birthday Queen, Smiley,",
+  title: "Happy Birthday, My Smiloda • From Online Friends to My Whole World & Future Wife",
   paragraphs: [
-    "Midnight has officially struck, and the most anticipated day of my year is finally here! September 8th belongs entirely to you, my sweet chinnoda. Today is the sacred celebration of the purest, kindest, and most captivating girl heaven ever sent to earth. My life found its true purpose, its warmth, and its eternal smile the day our paths crossed.",
-    "Now, let's talk about our royal celebration menu—because you know I could never let your birthday pass without our absolute favorite food adventures! I am already daydreaming about our endless panipuri dates, where we compete over spicy, tangy puris and I get to watch that cute little victory crunch you do after every bite. I promise you steaming, fragrant plates of your favorite biryani where I'll happily give you all the best pieces just to see your eyes sparkle with pure contentment. And hidden in every little corner of our journey, there will always be a special stash of crunchy Munch chocolates—ready to sweeten your lips whenever long clinic days get exhausting or whenever you need an instant burst of joy.",
-    "I see how hard you work every single day, walking through hospital corridors with your dental scrubs and patient logs. You are going to be the most gentle, skilled, and brilliant dentist the world has ever known. Every time you face a tough clinical case or a tiring lecture, remember that your Smiley is looking at you with infinite pride, cheering the loudest for you from the bottom of my heart.",
-    "No matter how many cold wars we have walked through, or whatever petty silences and misunderstandings try to test us in the future, hear this promise clearly: we will never give up on each other. We will hold hands tighter, look into each other's eyes, and walk together into every new day with forgiveness and deeper love. We are building a sanctuary where we can lean on one another without hesitation—and with every passing day, I will learn new ways to make you feel cherished, protected, and endlessly adored.",
-    "On this beautiful birthday, my deepest prayer before God is that He wraps your life in overflowing peace, radiant laughter, unshakeable health, and blessings that exceed your wildest dreams. You are my greatest miracle and my safest harbor.",
-    "Thank you for being born, my bujji nannalu. Thank you for blessing my life with your gentle heart, your sweet laugh, and your unwavering trust. Put on your prettiest smile today, because the whole world is celebrating the arrival of my queen. Happy Birthday, Kanna!"
+    "Midnight has officially arrived, and with it comes the most sacred day of my year. Happy Birthday, my dearest Smiley. Looking back at where our story began on April 6th, 2025, when we first met online, it feels like destiny had already written our names together. On your last birthday, I wished you as my closest friend—never imagining that before that year came to an end, you would become the love of my life, the keeper of my heart, and my entire world.",
+    "June 6th, 2026 will forever remain etched in my soul. Stepping into that church with you, seeing you in real life for the very first time, gave me a feeling of pure peace and wonder that I had never experienced in my lifetime. And today, God has blessed us to meet for the second time to celebrate your birthday together in real life. This is our very first birthday celebrating as lovers, on our way to becoming lifelong partners.",
+    "I know who I am. I can be a rude, difficult person, and you are the sweetest, most caring soul heaven ever made. I have hurt you badly at times, yet you looked past my flaws and chose me again and again. Your silence is my living hell, and a single notification from you is the only spark of joy that rescues me on my darkest, roughest days. Even though you are younger than me, you have shown so much maturity—learning how to handle me, teaching me how we should communicate, and standing by me with every breath I take. We have had our flaws and our share of painful cold wars, crying for each other's attention. Yet we always sit together, discuss, and learn. The way you always hold us together through every storm is the most beautiful thing about you. We fight, but the moment we talk for just a few minutes, all the anger dissolves and only pure love remains.",
+    "I look at everything you carry every single day—your demanding 4th-year dental education, exhausting clinic postings, complex patient cases, and family responsibilities—and yet you never once fail to give me your time. You never fail to make sure I go to sleep peacefully. On top of having the most radiant, generous heart, you are so breathtakingly beautiful, unusually hot and sexy, and the only place on this earth that feels like home. If a day passes without talking to you, I feel completely lost, wondering whether I am even living.",
+    "You have never once asked for expensive gifts or shallow things. In a world full of noise, all you ever asked for was me and my honest love. You find your purest happiness in the little things—our cravings for tangy panipuri, sharing steaming chicken biryani, keeping stashes of crunchy Munch chocolate, wearing pretty jhumkas, and clipping your hair. Your simplicity and pure heart make me thank God every single second for placing you into my life.",
+    "While you are reading these words, I might be sitting right beside you... or read them again when we are sitting together in the car. You can hit me as much as you want for every time I have hurt you, and once you are done, pull me into your hug. I promise you that I will keep learning how to love you in every possible way to make you feel like the most special queen alive, while this below-average guy continues to work on fixing himself for you.",
+    "You are my best friend, you are my greatest love, and you are going to be my wife. I stubbornly wish to celebrate every single birthday of our lives together until our hair turns white and our hands grow old. Happy Birthday, my beautiful Smiley."
   ],
-  closing: "Forever your biggest fan, protector, and forever love,",
-  signature: "Your Smiley 💖 (Nanna)",
+  closing: "Forever and always yours, with all my heart and every breath,",
+  signature: "Yours Kanna 💖",
   date: `September 8th, ${new Date().getFullYear()}`,
-  postscript: "P.S. Now come over to the cake and blow out your candle... make a wish from the deepest part of your heart! (And get ready, our panipuri, biryani & munch date is waiting for us! 😋💖)"
+  postscript: "P.S. Now come make a wish, blow out your candle, and hold my hand tight. Our journey is just beginning. 💋💖"
 };
 
 // Default export uses the Grand Birthday Letter
