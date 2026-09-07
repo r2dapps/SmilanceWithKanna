@@ -1,7 +1,15 @@
 // Smilance Progressive Web App (PWA) Automated Offline Service Worker
 // Merges offline caching shells, dynamic fetch interceptors, and robust push notifications.
 
-const CACHE_NAME = 'smilance-offline-cache-v3';
+const CACHE_NAME = 'smilance-offline-cache-v4';
+
+// Helper to determine if current time (IST) is within September (Birthday Month)
+const isSeptemberMonth = () => {
+  const now = new Date();
+  const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+  const ist = new Date(utc + 5.5 * 3600000);
+  return ist.getMonth() === 8; // Month index 8 is September
+};
 
 // Core static assets to precache immediately on install
 const PRECACHE_ASSETS = [
@@ -9,7 +17,11 @@ const PRECACHE_ASSETS = [
   'index.html',
   'favicon.svg',
   'smilance-192.png',
-  'smilance-512.png'
+  'smilance-512.png',
+  'smilance-bday-192.png',
+  'smilance-bday-512.png',
+  'smilance-default-192.png',
+  'smilance-default-512.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -48,6 +60,23 @@ self.addEventListener('fetch', (event) => {
     !event.request.url.startsWith('http') ||
     event.request.url.includes('kvdb.io')
   ) {
+    return;
+  }
+
+  // Dynamic Birthday Month icon routing
+  const requestUrl = event.request.url;
+  if (requestUrl.includes('smilance-192.png') || requestUrl.includes('smilance-512.png')) {
+    const isBday = isSeptemberMonth();
+    const is512 = requestUrl.includes('512');
+    const targetAsset = isBday 
+      ? (is512 ? 'smilance-bday-512.png' : 'smilance-bday-192.png')
+      : (is512 ? 'smilance-default-512.png' : 'smilance-default-192.png');
+
+    event.respondWith(
+      caches.match(targetAsset).then((cached) => {
+        return cached || fetch(targetAsset).catch(() => caches.match(event.request));
+      })
+    );
     return;
   }
 
@@ -91,11 +120,14 @@ self.addEventListener('fetch', (event) => {
 
 // 🔔 PWA Web Push Notification Receivers
 self.addEventListener('push', (event) => {
+  const isBday = isSeptemberMonth();
+  const notificationIcon = isBday ? 'smilance-bday-192.png' : 'smilance-default-192.png';
+
   let data = {
     title: 'Smilance 💖',
     body: 'Daily check-in reminder for Smiley!',
-    icon: 'smilance-192.png',
-    badge: 'smilance-192.png',
+    icon: notificationIcon,
+    badge: notificationIcon,
     url: '/'
   };
 
