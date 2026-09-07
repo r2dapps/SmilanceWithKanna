@@ -237,13 +237,15 @@ export const getRandomChallengeQuestions = (count: number = 3): ChallengeQuestio
 };
 
 /* ==========================================================================
-   ACT 2: The 3D Wax-Sealed Birthday Love Letter
+   ACT 2: The 3D Wax-Sealed Birthday Love Letters
    ========================================================================== */
-export const BIRTHDAY_LETTER_DATA: BirthdayLetterContent = {
+
+// 🌙 Letter 1: Birthday Eve Letter (September 7th)
+export const BIRTHDAY_EVE_LETTER_DATA: BirthdayLetterContent = {
   salutation: "My Dearest, Sweetest Chinnoda,",
-  title: "To the Girl Who Fills My Life With Sunshine",
+  title: "A Midnight Eve Whisper • Waiting For Your Special Day",
   paragraphs: [
-    "Today the entire universe celebrates the arrival of the most beautiful soul I have ever known. September 8th is not just another date on a calendar to me—it is the anniversary of the day God blessed this world with the person who would one day become my smile, my peace, and my entire heart.",
+    "Today the entire universe prepares to celebrate the arrival of the most beautiful soul I have ever known. September 8th is not just another date on a calendar to me—it is the anniversary of the day God blessed this world with the person who would one day become my smile, my peace, and my entire heart.",
     "Every day spent loving you feels like reading my favorite poetry and living my dream life. You have this rare, tender grace about you that softens the hardest days and turns ordinary moments into memories I treasure with all my soul. Your laughter is my favorite melody, and your happiness will forever be my highest purpose.",
     "I couldn't imagine my life without you, and the thought of it is just unbearable. I just want you to be happy and to know that I am always here for you no matter what. I'll always love you and take care of you.",
     "No matter how many cold wars we have walked through, or whatever storms we might face in the future, we will always stand together and walk hand in hand into every new day with love. We will live our lives caring for and cherishing each other. Soon, we will build a world where we can lean on each other without the slightest hesitation—and with every passing day, I promise to keep learning how to make you feel even more deeply loved than the day before.",
@@ -251,10 +253,31 @@ export const BIRTHDAY_LETTER_DATA: BirthdayLetterContent = {
     "Thank you for being born, my bujji kannoda. Thank you for choosing me, for trusting me with your gentle heart, and for making this journey so profoundly beautiful. No matter where life leads us or how many years go by, my hand will always be holding yours."
   ],
   closing: "Forever and always yours,",
-  signature: "Your Kanna 💖",
-  date: `September 8th, ${new Date().getFullYear()}`,
-  postscript: "P.S. Make sure you make a big, beautiful wish at the cake... because every prayer of mine already has your name written upon it, and i mean it."
+  signature: "Your Smiley 💖",
+  date: `September 7th, ${new Date().getFullYear()}`,
+  postscript: "P.S. Sleep peacefully tonight knowing someone out here is counting every single second until midnight to celebrate you."
 };
+
+// 🎂 Letter 2: The Grand Birthday Letter (September 8th - Feast & Forever Vows)
+export const BIRTHDAY_MAIN_LETTER_DATA: BirthdayLetterContent = {
+  salutation: "To My Dearest Birthday Queen, Kanna,",
+  title: "Happy Birthday, My Everything • The Official September 8th Letter",
+  paragraphs: [
+    "Midnight has officially struck, and the most anticipated day of my year is finally here! September 8th belongs entirely to you, my sweet chinnoda. Today is the sacred celebration of the purest, kindest, and most captivating girl heaven ever sent to earth. My life found its true purpose, its warmth, and its eternal smile the day our paths crossed.",
+    "Now, let's talk about our royal celebration menu—because you know I could never let your birthday pass without our absolute favorite food adventures! I am already daydreaming about our endless panipuri dates, where we compete over spicy, tangy puris and I get to watch that cute little victory crunch you do after every bite. I promise you steaming, fragrant plates of your favorite biryani where I'll happily give you all the best pieces just to see your eyes sparkle with pure contentment. And hidden in every little corner of our journey, there will always be a special stash of crunchy Munch chocolates—ready to sweeten your lips whenever long clinic days get exhausting or whenever you need an instant burst of joy.",
+    "I see how hard you work every single day, walking through hospital corridors with your dental scrubs and patient logs. You are going to be the most gentle, skilled, and brilliant dentist the world has ever known. Every time you face a tough clinical case or a tiring lecture, remember that your Smiley is looking at you with infinite pride, cheering the loudest for you from the bottom of my heart.",
+    "No matter how many cold wars we have walked through, or whatever petty silences and misunderstandings try to test us in the future, hear this promise clearly: we will never give up on each other. We will hold hands tighter, look into each other's eyes, and walk together into every new day with forgiveness and deeper love. We are building a sanctuary where we can lean on one another without hesitation—and with every passing day, I will learn new ways to make you feel cherished, protected, and endlessly adored.",
+    "On this beautiful birthday, my deepest prayer before God is that He wraps your life in overflowing peace, radiant laughter, unshakeable health, and blessings that exceed your wildest dreams. You are my greatest miracle and my safest harbor.",
+    "Thank you for being born, my bujji nannalu. Thank you for blessing my life with your gentle heart, your sweet laugh, and your unwavering trust. Put on your prettiest smile today, because the whole world is celebrating the arrival of my queen. Happy Birthday, Kanna!"
+  ],
+  closing: "Forever your biggest fan, protector, and forever love,",
+  signature: "Your Smiley 💖 (Nanna)",
+  date: `September 8th, ${new Date().getFullYear()}`,
+  postscript: "P.S. Now come over to the cake and blow out your candle... make a wish from the deepest part of your heart! (And get ready, our panipuri, biryani & munch date is waiting for us! 😋💖)"
+};
+
+// Default export uses the Grand Birthday Letter
+export const BIRTHDAY_LETTER_DATA: BirthdayLetterContent = BIRTHDAY_MAIN_LETTER_DATA;
 
 /* ==========================================================================
    ACT 3: The Virtual Candle Cake Ceremony & Confetti

@@ -159,15 +159,18 @@ export default function FloatingGiftBox({ forceShow = false, onOpenBirthdaySurpr
       const ist = getISTDate();
       const currentYear = ist.getFullYear();
       
-      // Target: Sept 8, 00:00:00 IST of current year (Sept 7 18:30 UTC)
-      const targetMidnight = new Date(Date.UTC(currentYear, 8, 7, 18, 30, 0));
-      
-      const diffMs = targetMidnight.getTime() - ist.getTime();
+      // Target: Sept 8, 00:00:00 IST of current year
+      const currentIstMs = Date.UTC(currentYear, ist.getMonth(), ist.getDate(), ist.getHours(), ist.getMinutes(), ist.getSeconds());
+      const targetIstMs = Date.UTC(currentYear, 8, 8, 0, 0, 0); // Month index 8 is September
+      const diffMs = targetIstMs - currentIstMs;
 
-      if (diffMs <= 0) {
+      const isPassedMidnight = diffMs <= 0 || isSept8BirthdayDay();
+
+      if (isPassedMidnight) {
         setIsBirthdayToday(true);
         setTimeLeft({ hours: '00', minutes: '00', seconds: '00' });
       } else {
+        setIsBirthdayToday(false);
         const totalSeconds = Math.floor(diffMs / 1000);
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -191,7 +194,8 @@ export default function FloatingGiftBox({ forceShow = false, onOpenBirthdaySurpr
   // Auto-pick a fresh random quote from the 80+ bank on every click
   const handleBoxClick = () => {
     playSuccessChime();
-    if (isBirthdayToday && onOpenBirthdaySurprise) {
+    const isUnlocked = isSept8BirthdayDay();
+    if (isUnlocked && onOpenBirthdaySurprise) {
       onOpenBirthdaySurprise();
     } else {
       const randomIndex = Math.floor(Math.random() * ADVANCE_BIRTHDAY_QUOTES.length);
@@ -661,24 +665,6 @@ export default function FloatingGiftBox({ forceShow = false, onOpenBirthdaySurpr
               <span>I will wait for you, my love</span>
               <Heart className="w-4 h-4 fill-white text-white" />
             </button>
-
-            {/* Discreet Preview Gateway (for instant testing) */}
-            <div className="mt-3 flex justify-center">
-              <button
-                onClick={() => {
-                  handleCloseModal();
-                  if (onOpenBirthdaySurprise) {
-                    onOpenBirthdaySurprise();
-                  } else if ((window as any).openBirthdaySurprise) {
-                    (window as any).openBirthdaySurprise();
-                  }
-                }}
-                className="text-[11px] font-bold text-rose-300/60 hover:text-rose-200 uppercase tracking-widest flex items-center gap-1.5 transition-colors cursor-pointer py-1"
-                title="Preview Kanna's Birthday World"
-              >
-                <span>💖 Preview Birthday World</span>
-              </button>
-            </div>
           </div>
         </div>
       )}

@@ -24,7 +24,7 @@ import BibleSection from './components/BibleSection';
 import SettingsSection from './components/SettingsSection';
 import JourneySection from './components/JourneySection';
 import GamesSection from './components/GamesSection';
-import FloatingGiftBox from './components/FloatingGiftBox';
+import FloatingGiftBox, { isSept8BirthdayDay } from './components/FloatingGiftBox';
 import BirthdaySurpriseModal from './components/BirthdaySurpriseModal';
 
 import { 
@@ -185,17 +185,26 @@ export default function App() {
 
   const [toast, setToast] = useState<{ message: string; visible: boolean; id: string } | null>(null);
 
-  // Birthday Surprise Portal State (Locked until Sept 8 or preview triggered)
+  // Birthday Surprise Portal State (Strictly locked until Sept 8 00:00:00 IST)
   const [showSurpriseModal, setShowSurpriseModal] = useState(() => {
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
-      return url.searchParams.get('surprise') === 'true' || url.searchParams.get('preview') === 'birthday';
+      if (url.searchParams.get('dev_test') === 'secret89') return true;
+      if (isSept8BirthdayDay()) {
+        return url.searchParams.get('surprise') === 'true';
+      }
     }
     return false;
   });
 
   useEffect(() => {
-    (window as any).openBirthdaySurprise = () => setShowSurpriseModal(true);
+    (window as any).openBirthdaySurprise = () => {
+      if (isSept8BirthdayDay() || (typeof window !== 'undefined' && window.location.search.includes('dev_test=secret89'))) {
+        setShowSurpriseModal(true);
+      } else {
+        (window as any).showSmilanceToast?.("🌙 Unlocks tonight at midnight for Kanna's Birthday!");
+      }
+    };
     return () => {
       delete (window as any).openBirthdaySurprise;
     };

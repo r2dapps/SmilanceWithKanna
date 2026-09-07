@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Heart, X, ChevronRight, Mail, RefreshCw, Wind, Download } from 'lucide-react';
+import { Heart, X, ChevronRight, Mail, RefreshCw, Wind, Download, Lock } from 'lucide-react';
 import Confetti from 'react-confetti';
 import { toPng } from 'html-to-image';
 import {
@@ -10,10 +10,12 @@ import {
 import {
   BIRTHDAY_PORTAL_CONFIG,
   getRandomChallengeQuestions,
-  BIRTHDAY_LETTER_DATA,
+  BIRTHDAY_MAIN_LETTER_DATA,
+  BIRTHDAY_EVE_LETTER_DATA,
   BIRTHDAY_CAKE_DATA,
   ChallengeQuestion
 } from '../birthdayData';
+import { isSept8BirthdayDay } from './FloatingGiftBox';
 
 interface BirthdaySurpriseModalProps {
   isOpen: boolean;
@@ -21,8 +23,15 @@ interface BirthdaySurpriseModalProps {
 }
 
 export default function BirthdaySurpriseModal({ isOpen, onClose }: BirthdaySurpriseModalProps) {
+  // Safety Gate: Must be on or after Sept 8 00:00:00 IST (or secret dev_test flag)
+  const isUnlocked = isSept8BirthdayDay() || (typeof window !== 'undefined' && window.location.search.includes('dev_test=secret89'));
+
   // Scenes: 0 = Portal Gate, 1 = Romantic Whispers Quiz, 2 = 3D Love Letter, 3 = Birthday Cake & Wish
   const [currentScene, setCurrentScene] = useState<0 | 1 | 2 | 3>(0);
+
+  // Active Letter Tab: Default to Sept 8 Grand Birthday Letter with Panipuri & Biryani, toggleable to Eve letter
+  const [activeLetterTab, setActiveLetterTab] = useState<'main' | 'eve'>('main');
+  const letterData = activeLetterTab === 'main' ? BIRTHDAY_MAIN_LETTER_DATA : BIRTHDAY_EVE_LETTER_DATA;
 
   // Scene 1: Randomized 3-Question State
   const [questions, setQuestions] = useState<ChallengeQuestion[]>(() => getRandomChallengeQuestions(3));
@@ -165,6 +174,29 @@ export default function BirthdaySurpriseModal({ isOpen, onClose }: BirthdaySurpr
   }, [currentScene, envelopePhase]);
 
   if (!isOpen) return null;
+
+  // Protective Guard: If opened before Sept 8 midnight (and not in dev preview), show locked gate
+  if (!isUnlocked) {
+    return (
+      <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl animate-fadeIn">
+        <div className="relative w-full max-w-sm rounded-3xl bg-gradient-to-b from-[#1c0814] via-[#12050c] to-[#0a0206] border border-rose-500/30 p-6 text-center text-white shadow-2xl">
+          <div className="w-16 h-16 rounded-full bg-rose-950/80 border border-rose-400/40 flex items-center justify-center mx-auto mb-3 shadow-[0_0_20px_rgba(244,63,94,0.4)]">
+            <Lock className="w-8 h-8 text-rose-300 animate-pulse" />
+          </div>
+          <h3 className="font-serif text-xl font-bold text-rose-100 mb-1">Almost Time, My Sweet Kanna</h3>
+          <p className="text-xs text-rose-200/80 font-serif italic mb-5 leading-relaxed">
+            Your Grand Birthday Sanctuary & Love Letter are locked tight until the clock strikes midnight on September 8th! A little more patience, my princess... 💖
+          </p>
+          <button
+            onClick={onClose}
+            className="w-full py-2.5 rounded-xl bg-gradient-to-r from-rose-600 via-pink-600 to-rose-700 text-white font-bold text-xs shadow-md cursor-pointer hover:brightness-110 active:scale-95"
+          >
+            I'll wait for midnight 💖
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const currentQ = questions[questionIdx] || questions[0];
 
@@ -755,11 +787,11 @@ export default function BirthdaySurpriseModal({ isOpen, onClose }: BirthdaySurpr
                   >
                     <div className="w-full h-1 bg-gradient-to-r from-amber-300 via-rose-400 to-amber-300 rounded-full mb-2" />
                     <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[9px] font-bold text-amber-900/60 uppercase">September 8, {new Date().getFullYear()} • Kanna</span>
+                      <span className="text-[9px] font-bold text-amber-900/60 uppercase">{letterData.date} • Kanna</span>
                       <Heart className="w-3 h-3 text-rose-500 fill-rose-500" />
                     </div>
                     <p className="font-serif italic text-[11px] text-[#3b1222] line-clamp-3 leading-relaxed">
-                      "Today the entire universe celebrates the arrival of the most beautiful soul..."
+                      "{letterData.paragraphs[0]}"
                     </p>
                   </div>
 
@@ -847,12 +879,36 @@ export default function BirthdaySurpriseModal({ isOpen, onClose }: BirthdaySurpr
                     />
                   </div>
 
+                  {/* Two-Letter Switcher Pill Tabs (hidden in exported image) */}
+                  <div className="no-export relative z-10 flex items-center justify-center gap-1.5 p-1 bg-amber-900/10 rounded-full mb-3.5 border border-amber-900/15">
+                    <button
+                      onClick={() => { playTapChime(); setActiveLetterTab('main'); }}
+                      className={`flex-1 py-1.5 px-3 rounded-full text-[10px] font-bold tracking-wide transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                        activeLetterTab === 'main'
+                          ? 'bg-gradient-to-r from-rose-600 via-pink-600 to-rose-700 text-white shadow-md'
+                          : 'text-amber-950/70 hover:text-amber-950 hover:bg-amber-900/5'
+                      }`}
+                    >
+                      <span>🎂 Sept 8 Birthday Letter</span>
+                    </button>
+                    <button
+                      onClick={() => { playTapChime(); setActiveLetterTab('eve'); }}
+                      className={`flex-1 py-1.5 px-3 rounded-full text-[10px] font-bold tracking-wide transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                        activeLetterTab === 'eve'
+                          ? 'bg-gradient-to-r from-rose-600 via-pink-600 to-rose-700 text-white shadow-md'
+                          : 'text-amber-950/70 hover:text-amber-950 hover:bg-amber-900/5'
+                      }`}
+                    >
+                      <span>🌙 Sept 7 Eve Letter</span>
+                    </button>
+                  </div>
+
                   {/* Header */}
                   <div className="relative z-10 flex items-center justify-between border-b border-amber-900/15 pb-3 mb-4">
                     <div className="flex items-center gap-1.5">
                       <Heart className="w-3.5 h-3.5 text-rose-600 fill-rose-600" />
                       <span className="text-[10px] font-bold uppercase tracking-wider text-amber-900/60">
-                        {BIRTHDAY_LETTER_DATA.date}
+                        {letterData.date}
                       </span>
                     </div>
 
@@ -876,16 +932,16 @@ export default function BirthdaySurpriseModal({ isOpen, onClose }: BirthdaySurpr
                   <div className="relative z-10">
                     {/* Salutation */}
                     <h3 className="font-serif italic font-bold text-xl sm:text-2xl text-[#3b1222] tracking-tight mb-2">
-                      {BIRTHDAY_LETTER_DATA.salutation}
+                      {letterData.salutation}
                     </h3>
 
                     <p className="text-[11px] font-bold text-rose-800/80 mb-4 uppercase tracking-wider">
-                      {BIRTHDAY_LETTER_DATA.title}
+                      {letterData.title}
                     </p>
 
                     {/* Paragraphs with Evenly Distributed Cutout Stickers */}
                     <div className="space-y-3 font-serif text-[#3f1929] leading-relaxed text-xs sm:text-sm">
-                      {BIRTHDAY_LETTER_DATA.paragraphs.map((para, pIdx) => (
+                      {letterData.paragraphs.map((para, pIdx) => (
                         <div key={pIdx} className="overflow-hidden">
                           {/* Cutout 1: Peace sign in car (Upper right margin beside Paragraph 2) */}
                           {pIdx === 1 && (
@@ -916,10 +972,10 @@ export default function BirthdaySurpriseModal({ isOpen, onClose }: BirthdaySurpr
                             <div className="float-right ml-3 mb-1 w-20 sm:w-24 select-none group">
                               <div className="p-1 bg-white rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.18)] rotate-2 group-hover:rotate-0 group-hover:scale-105 transition-all duration-300">
                                 <img
-                                  src="./letter-bg-bottom.jpg"
-                                  alt="Us"
-                                  className="w-full h-24 sm:h-28 object-cover object-[center_20%] rounded-xl pointer-events-auto"
-                                  loading="eager"
+                                   src="./letter-bg-bottom.jpg"
+                                   alt="Us"
+                                   className="w-full h-24 sm:h-28 object-cover object-[center_20%] rounded-xl pointer-events-auto"
+                                   loading="eager"
                                 />
                               </div>
                             </div>
@@ -945,11 +1001,11 @@ export default function BirthdaySurpriseModal({ isOpen, onClose }: BirthdaySurpr
 
                       <div className="text-right flex flex-col items-end">
                         <p className="italic text-[11px] text-amber-950/70 mb-0.5">
-                          {BIRTHDAY_LETTER_DATA.closing}
+                          {letterData.closing}
                         </p>
                         <div className="flex items-center gap-2">
                           <p className="font-bold italic text-base text-[#3b1222]">
-                            {BIRTHDAY_LETTER_DATA.signature}
+                            {letterData.signature}
                           </p>
                           <div className="w-7 h-7 rounded-full bg-gradient-to-br from-rose-700 via-rose-800 to-rose-950 flex items-center justify-center shadow-md border border-amber-300/50 shrink-0">
                             <Heart className="w-3.5 h-3.5 text-rose-200 fill-rose-300" />
@@ -960,7 +1016,7 @@ export default function BirthdaySurpriseModal({ isOpen, onClose }: BirthdaySurpr
 
                     {/* P.S. Note */}
                     <div className="mt-5 pt-3 border-t border-amber-900/15 text-[11px] text-rose-900/80 font-serif italic bg-rose-50/60 p-2.5 rounded-xl">
-                      {BIRTHDAY_LETTER_DATA.postscript}
+                      {letterData.postscript}
                     </div>
                   </div>
                 </div>
