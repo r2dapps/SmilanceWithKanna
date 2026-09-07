@@ -5,7 +5,7 @@ const INITIAL_TIMELINE = [
   {
     id: 'fixed-1',
     date: "APRIL 6, 2025 (SUNDAY)",
-    title: "The Day We Met online ✨",
+    title: "The Day We Met online 💖",
     description: "The beautiful Sunday our paths first crossed digitally. A divine spark that marked the beginning of our Smilance story.",
     isFixed: true
   },

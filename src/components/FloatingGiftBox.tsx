@@ -14,12 +14,12 @@ export const getISTDate = (): Date => {
   return new Date(utcMs + 5.5 * 3600000);
 };
 
-// Check if current IST date matches Birthday Season (Sept 7 or Sept 8 of any year)
+// Check if current IST date matches Birthday Season (Sept 7 through all of September)
 export const isBirthdaySeason = (): boolean => {
   const ist = getISTDate();
   const month = ist.getMonth() + 1; // 9 = September (1-indexed)
   const date = ist.getDate();
-  return month === 9 && (date === 7 || date === 8);
+  return month === 9 && date >= 7;
 };
 
 export const isSept7TeaserDay = (): boolean => {
@@ -29,7 +29,7 @@ export const isSept7TeaserDay = (): boolean => {
 
 export const isSept8BirthdayDay = (): boolean => {
   const ist = getISTDate();
-  return (ist.getMonth() + 1) === 9 && ist.getDate() === 8;
+  return (ist.getMonth() + 1) === 9 && ist.getDate() >= 8;
 };
 
 // Massive bank of 80+ romantic advance birthday thoughts, countdown notes, and sweet love whispers
@@ -661,6 +661,24 @@ export default function FloatingGiftBox({ forceShow = false, onOpenBirthdaySurpr
               <span>I will wait for you, my love</span>
               <Heart className="w-4 h-4 fill-white text-white" />
             </button>
+
+            {/* Discreet Preview Gateway (for instant testing) */}
+            <div className="mt-3 flex justify-center">
+              <button
+                onClick={() => {
+                  handleCloseModal();
+                  if (onOpenBirthdaySurprise) {
+                    onOpenBirthdaySurprise();
+                  } else if ((window as any).openBirthdaySurprise) {
+                    (window as any).openBirthdaySurprise();
+                  }
+                }}
+                className="text-[11px] font-bold text-rose-300/60 hover:text-rose-200 uppercase tracking-widest flex items-center gap-1.5 transition-colors cursor-pointer py-1"
+                title="Preview Kanna's Birthday World"
+              >
+                <span>💖 Preview Birthday World</span>
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -25,6 +25,7 @@ import SettingsSection from './components/SettingsSection';
 import JourneySection from './components/JourneySection';
 import GamesSection from './components/GamesSection';
 import FloatingGiftBox from './components/FloatingGiftBox';
+import BirthdaySurpriseModal from './components/BirthdaySurpriseModal';
 
 import { 
   playTapChime,
@@ -177,6 +178,22 @@ export default function App() {
   const [currentEffect, setCurrentEffect] = useState(() => localStorage.getItem('smilance_effect') || 'hearts');
 
   const [toast, setToast] = useState<{ message: string; visible: boolean; id: string } | null>(null);
+
+  // Birthday Surprise Portal State (Locked until Sept 8 or preview triggered)
+  const [showSurpriseModal, setShowSurpriseModal] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      return url.searchParams.get('surprise') === 'true' || url.searchParams.get('preview') === 'birthday';
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    (window as any).openBirthdaySurprise = () => setShowSurpriseModal(true);
+    return () => {
+      delete (window as any).openBirthdaySurprise;
+    };
+  }, []);
 
   const showGlobalToast = (message: string) => {
     setToast({ message, visible: true, id: Date.now().toString() });
@@ -492,7 +509,7 @@ export default function App() {
     } else if (theme === 'sakura') {
       items = ['🌸', '💖', '❤️', '💝'];
     } else if (theme === 'ocean') {
-      items = ['🫧', '💧', '💙', '✨'];
+      items = ['🫧', '💧', '💙', '💖'];
     }
     
     const index = Math.abs(parseInt(id, 10) || 0) % items.length;
@@ -1031,7 +1048,13 @@ export default function App() {
       )}
 
       {/* Floating Birthday Gift Box & Teaser Portal (Active Sept 7 & 8 in IST) */}
-      <FloatingGiftBox />
+      <FloatingGiftBox onOpenBirthdaySurprise={() => setShowSurpriseModal(true)} />
+
+      {/* Birthday Surprise "Another World" Portal (Active on Sept 8 or via Preview) */}
+      <BirthdaySurpriseModal 
+        isOpen={showSurpriseModal} 
+        onClose={() => setShowSurpriseModal(false)} 
+      />
 
       {/* Beautiful Pop-up Heart Toast Notification */}
       {toast && toast.visible && (

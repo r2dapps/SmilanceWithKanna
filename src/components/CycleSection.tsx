@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { 
   CalendarHeart, Check, Smile, RefreshCw, Heart, Droplets, 
   ChevronLeft, ChevronRight, Calendar, History, Trash2, 
-  AlertCircle, Settings, Sparkles, Download, Upload, Activity, Clock 
+  AlertCircle, Settings, HeartPulse, Download, Upload, Activity, Clock 
 } from 'lucide-react';
 import CycleAnalytics from './CycleAnalytics';
 import CycleInsightsView from './CycleInsightsView';
@@ -176,7 +176,7 @@ export default function CycleSection({
     safeSetItem('smilance_period_history', JSON.stringify(newHistory));
 
     setShowDatePicker(false);
-    setLogMessage('✨ Start date updated in cycle history.');
+    setLogMessage('💖 Start date updated in cycle history.');
     (window as any).showSmilanceToast?.("📅 Start date updated! 💖");
     setTimeout(() => setLogMessage(''), 4000);
   };
@@ -375,8 +375,8 @@ export default function CycleSection({
     setCycleSymptoms({});
     safeRemoveItem('smilance_cycle_symptoms');
     setShowResetConfirm(false);
-    setLogMessage('✨ Cycle history fully reset.');
-    (window as any).showSmilanceToast?.("✨ Cycle history fully reset! 💖");
+    setLogMessage('💖 Cycle history fully reset.');
+    (window as any).showSmilanceToast?.("💖 Cycle history fully reset! 💖");
     setTimeout(() => setLogMessage(''), 4000);
   };
 
@@ -675,7 +675,7 @@ export default function CycleSection({
             {/* Smart Prediction Accuracies Header */}
             <div className="flex justify-between items-center w-full px-2 mb-3">
               <div className="flex items-center gap-1.5 uppercase font-black text-[9px] tracking-wider text-rose-300">
-                <Sparkles className="w-3 h-3 text-rose-400" /> Confidence: <span className="text-white bg-rose-500/20 px-2 py-0.5 rounded ml-1 font-black">{smarterMetrics.predictionConfidence}</span>
+                <HeartPulse className="w-3 h-3 text-rose-400" /> Confidence: <span className="text-white bg-rose-500/20 px-2 py-0.5 rounded ml-1 font-black">{smarterMetrics.predictionConfidence}</span>
               </div>
               <div className="text-[9px] text-gray-400 uppercase font-bold">
                 Avg Cycle: <span className="text-white font-black">{smarterMetrics.avgCycleLength}d</span> {smarterMetrics.variability > 0 && <span className="text-gray-500">(±{smarterMetrics.variability}d)</span>}

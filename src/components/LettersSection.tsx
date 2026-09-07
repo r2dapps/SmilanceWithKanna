@@ -112,7 +112,7 @@ export default function LettersSection({ theme }: { theme: string }) {
             title: titleVal || 'Diary Letter',
             text: `Shared from Smilance 💖`
           });
-          (window as any).showSmilanceToast?.("✨ Shared successfully!");
+          (window as any).showSmilanceToast?.("💖 Shared successfully!");
         } else {
           // Fallback to standard download if share API not supported
           const link = document.createElement('a');
@@ -234,7 +234,7 @@ export default function LettersSection({ theme }: { theme: string }) {
                  title="Share Text to WhatsApp"
                  className="w-10 h-10 font-bold rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.5)] active:scale-95 transition-all cursor-pointer bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30 border border-emerald-500/30"
                >
-                 <FaWhatsapp className="w-4.5 h-4.5" />
+                 <FaWhatsapp size={18} />
                </button>
                
                <button 
@@ -286,7 +286,7 @@ export default function LettersSection({ theme }: { theme: string }) {
                    title="Share Text to WhatsApp"
                    className="w-10 h-10 font-bold rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.5)] active:scale-95 transition-all cursor-pointer bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30 border border-emerald-500/30"
                  >
-                   <FaWhatsapp className="w-4.5 h-4.5" />
+                   <FaWhatsapp size={18} />
                  </button>
                  
                  <button 
@@ -388,7 +388,7 @@ export default function LettersSection({ theme }: { theme: string }) {
                      title="Share Text to WhatsApp"
                      className="w-10 h-10 font-bold rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.5)] disabled:opacity-50 active:scale-95 transition-all cursor-pointer bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30 border border-emerald-500/30"
                    >
-                     <FaWhatsapp className="w-4.5 h-4.5" />
+                     <FaWhatsapp size={18} />
                    </button>
                    
                    {/* Share Image (WhatsApp / System) */}
@@ -434,19 +434,52 @@ export default function LettersSection({ theme }: { theme: string }) {
           )}
 
           {activeTab === 'received' && (
-            <div className="grid grid-cols-2 gap-3">
-              {LETTERS.map(letter => (
-                <button
-                  key={letter.id}
-                  onClick={() => setSelectedLetter(letter)}
-                  className="flex flex-col items-center justify-center p-6 rounded-3xl bg-black/40 border border-white/5 transition gap-4 backdrop-blur-md hover:bg-white/5 cursor-pointer"
-                >
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center shadow-md border" style={{ backgroundColor: 'var(--accent-light)', borderColor: 'var(--card-border)' }}>
-                    <Mail className="w-5 h-5" style={{ color: 'var(--accent-text)' }} />
+            <div className="flex flex-col gap-3">
+              {/* Pinned Birthday Surprise Sanctuary Letter */}
+              <button
+                onClick={() => {
+                  if ((window as any).openBirthdaySurprise) {
+                    (window as any).openBirthdaySurprise();
+                  }
+                }}
+                className="w-full relative overflow-hidden p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-rose-950/70 via-[#2a081a]/60 to-rose-950/70 border border-amber-400/40 shadow-[0_8px_30px_rgba(244,63,94,0.25)] flex items-center justify-between text-left hover:scale-[1.01] active:scale-98 transition-all cursor-pointer group"
+              >
+                <div className="flex items-center gap-3.5">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rose-600 to-amber-500 flex items-center justify-center shadow-lg border border-amber-200/50 shrink-0">
+                    <Heart className="w-6 h-6 text-white fill-white animate-pulse" />
                   </div>
-                  <span className="text-[13px] font-bold text-white/90 tracking-wide">{letter.title}</span>
-                </button>
-              ))}
+                  <div>
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                        Birthday Sanctuary
+                      </span>
+                      <span className="text-[10px] text-rose-300/70 font-medium">Sept 8 • Special</span>
+                    </div>
+                    <h4 className="font-serif font-bold text-white text-sm sm:text-base group-hover:text-rose-200 transition-colors">
+                      Kanna's Birthday Love Letter 💌
+                    </h4>
+                    <p className="text-[11px] text-rose-200/70 italic font-serif">
+                      Relive your love letter, 3D envelope & candle ceremony anytime
+                    </p>
+                  </div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-amber-300/80 group-hover:translate-x-1 transition-transform shrink-0" />
+              </button>
+
+              <div className="grid grid-cols-2 gap-3">
+                {LETTERS.map(letter => (
+                  <button
+                    key={letter.id}
+                    onClick={() => setSelectedLetter(letter)}
+                    className="flex flex-col items-center justify-center p-6 rounded-3xl bg-black/40 border border-white/5 transition gap-4 backdrop-blur-md hover:bg-white/5 cursor-pointer"
+                  >
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center shadow-md border" style={{ backgroundColor: 'var(--accent-light)', borderColor: 'var(--card-border)' }}>
+                      <Mail className="w-5 h-5" style={{ color: 'var(--accent-text)' }} />
+                    </div>
+                    <span className="text-[13px] font-bold text-white/90 tracking-wide">{letter.title}</span>
+                  </button>
+                ))}
+              </div>
             </div>
           )}
         </>

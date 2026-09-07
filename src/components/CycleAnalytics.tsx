@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { DailyLog } from './CycleSection';
-import { Activity, Droplets, Smile, Clock, Zap, Sparkles, TrendingUp, Calendar, Info } from 'lucide-react';
+import { Activity, Droplets, Smile, Clock, Zap, HeartPulse, TrendingUp, Calendar, Info } from 'lucide-react';
 
 interface CycleAnalyticsProps {
   cycleSymptoms: Record<string, DailyLog>;
@@ -256,7 +256,7 @@ export default function CycleAnalytics({ cycleSymptoms }: CycleAnalyticsProps) {
             <p className="text-[11px] text-gray-400 mt-1">Continuous 4-Month forecast and logged history mapping.</p>
           </div>
           <span className="text-[9px] font-black uppercase text-rose-400 bg-rose-500/10 px-2.5 py-1 rounded-full flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-rose-400 animate-spin-slow" /> Machine Forecasts
+            <HeartPulse className="w-3 h-3 text-rose-400 animate-pulse" /> Machine Forecasts
           </span>
         </div>
 
@@ -275,7 +275,7 @@ export default function CycleAnalytics({ cycleSymptoms }: CycleAnalyticsProps) {
             <span className="uppercase">Fertile Window</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded bg-pink-600/95 block text-center text-[8px] leading-3 text-white font-black shadow-[0_0_8px_rgba(236,72,153,1)]">★</span>
+            <span className="w-3 h-3 rounded bg-pink-600/95 block text-center text-[8px] leading-3 text-white font-black shadow-[0_0_8px_rgba(236,72,153,1)]">♥</span>
             <span className="uppercase">Ovulation</span>
           </div>
           <div className="flex items-center gap-1.5">
@@ -306,7 +306,7 @@ export default function CycleAnalytics({ cycleSymptoms }: CycleAnalyticsProps) {
                     cellClass = "bg-pink-500/30 text-pink-200 border-pink-500/30 font-bold";
                   } else if (d.status === 'ovulation') {
                     cellClass = "bg-pink-600 text-white font-black shadow-[0_0_10px_rgba(236,72,153,0.8)]";
-                    cellContent = "★";
+                    cellContent = "♥";
                   } else if (d.status === 'has-log') {
                     cellClass = "bg-amber-400/10 text-amber-300 border-amber-400/30 shadow-[inset_0_0_4px_rgba(251,191,36,0.2)]";
                   }

@@ -1006,10 +1006,10 @@ const DENTAL_FLASHCARDS = [
 ];
 
 const DENTAL_ENCOURAGEMENTS = [
-  "Future dentist energy detected! 🦷✨",
+  "Future dentist energy detected! 🦷💖",
   "One more card down, future doctor! 👑🩺",
   "Your dedication is beautiful. Proud of your hard work! 💖",
-  "Keep going, chinnoda! You're going to be the best dentist. 🌟",
+  "Keep going, chinnoda! You're going to be the best dentist. 💖",
   "Studying hard looks so good on you, smiloda! 🥰",
   "Don't worry, you've got this exam in the bag! 💪🎒",
   "Just a quick reminder: your smile is brighter than a dental curing light! 💡💕",
