@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smilance Admin Console - Push Notification Manager</title>
+  <link rel="icon" type="image/png" href="smilance-192.png">
+  <style>
+    :root {
+      --bg-dark: #0f0408;
+      --card-bg: #1a0812;
+      --card-border: rgba(244, 63, 94, 0.25);
+      --accent: #e11d48;
+      --accent-glow: rgba(225, 29, 72, 0.4);
+      --text: #ffffff;
+      --text-muted: #fda4af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 48px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .header p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .status-badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+    .status-online {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+    }
+
+    .status-offline {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fda4af;
+      margin-bottom: 6px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(244, 63, 94, 0.25);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #f43f5e;
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .presets-label {
+      font-size: 11px;
+      color: #fda4af;
+      margin-bottom: 8px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .preset-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .chip {
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.25);
+      color: #fecdd3;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .chip:hover {
+      background: rgba(244, 63, 94, 0.25);
+      border-color: #f43f5e;
+      color: #fff;
+    }
+
+    .btn {
+      width: 100%;
+      background: linear-gradient(135deg, #e11d48, #be123c);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 20px var(--accent-glow);
+      transition: transform 0.15s, filter 0.15s;
+    }
+
+    .btn:hover {
+      filter: brightness(1.1);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .cli-box {
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 11px;
+      color: #4ade80;
+      word-break: break-all;
+      margin-top: 10px;
+      position: relative;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 10px;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      background: #10b981;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      display: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1>👑 Smilance Push Admin</h1>
+      <p>Send instant personalized surprises & notifications to Kanna</p>
+    </div>
+
+    <!-- Subscriber Status Card -->
+    <div class="card">
+      <div class="card-title">
+        <span>Kanna's Device Status</span>
+        <span id="subscriber-badge" class="status-badge status-offline">Checking...</span>
+      </div>
+      <div id="subscriber-details" style="font-size: 12px; color: #fda4af;">
+        Connecting to push registry...
+      </div>
+    </div>
+
+    <!-- Message Composer Card -->
+    <div class="card">
+      <div class="card-title">
+        <span>Compose Custom Notification</span>
+      </div>
+
+      <div class="presets-label">Quick Romantic Presets:</div>
+      <div class="preset-chips">
+        <button class="chip" onclick="applyPreset('Almost Your Birthday Kanna! 💖', 'Only a few hours left until midnight, my queen! A magical surprise is preparing inside the app... 🎁', './')">🎂 Birthday Countdown</button>
+        <button class="chip" onclick="applyPreset('Thinking of you, baby 💖', 'Just wanted to remind you that you are my favorite thought today!', './')">💌 Love Whisper</button>
+        <button class="chip" onclick="applyPreset('Hydration Check Kanna! 💧', 'Take a sip of water for your glow and your smile, my love!', './')">💧 Water Reminder</button>
+        <button class="chip" onclick="applyPreset('A Surprise Awaits 🎁', 'Open your Smilance app right now, something special is waiting for your touch...', './')">✨ Secret Gift</button>
+        <button class="chip" onclick="applyPreset('Good night, my princess 🌙', 'May your dreams be filled with gentle wonder. Tomorrow is all yours!', './')">🌙 Night Wish</button>
+      </div>
+
+      <form id="push-form" onsubmit="handleSendPush(event)">
+        <div class="form-group">
+          <label for="push-title">Notification Title</label>
+          <input type="text" id="push-title" required placeholder="e.g. Almost your birthday my love! 💖">
+        </div>
+
+        <div class="form-group">
+          <label for="push-body">Message Body</label>
+          <textarea id="push-body" required placeholder="Write your heartfelt note here..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="push-url">Tap Action URL</label>
+          <select id="push-url">
+            <option value="./">Home Screen (Gift Box & Countdown)</option>
+            <option value="./?tab=radio">Radio & Romantic Music</option>
+            <option value="./?tab=cycle">Cycle Calendar</option>
+            <option value="./?tab=journey">Love Journey</option>
+            <option value="./?tab=bible">Daily Bible Verse</option>
+            <option value="./?tab=games">Fun & Games</option>
+          </select>
+        </div>
+
+        <button type="submit" id="send-btn" class="btn">
+          🚀 Queue & Send Live Push
+        </button>
+      </form>
+    </div>
+
+    <!-- CLI Alternative Card -->
+    <div class="card">
+      <div class="card-title">
+        <span>Instant Terminal Command</span>
+      </div>
+      <p style="font-size: 12px; color: #fda4af;">
+        You can also run this command in your project terminal anytime:
+      </p>
+      <div class="cli-box">
+        <button class="copy-btn" onclick="copyCli()">Copy</button>
+        <span id="cli-cmd">npx tsx send-push.ts</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const KVDB_URL = 'https://kvdb.io/ZP1mwWeRkfGeafHJtg3yA';
+
+    function showToast(msg, isError = false) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.background = isError ? '#ef4444' : '#10b981';
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 3500);
+    }
+
+    async function checkSubscription() {
+      const badge = document.getElementById('subscriber-badge');
+      const details = document.getElementById('subscriber-details');
+
+      try {
+        const res = await fetch(`${KVDB_URL}/subscription`);
+        if (res.ok) {
+          const data = await res.text();
+          if (data && data.trim()) {
+            const sub = JSON.parse(data);
+            badge.textContent = 'Active & Connected';
+            badge.className = 'status-badge status-online';
+            const endpointHost = new URL(sub.endpoint).hostname;
+            details.textContent = `Device push channel verified (${endpointHost}). Ready to receive notifications!`;
+            return;
+          }
+        }
+        badge.textContent = 'No Device Registered';
+        badge.className = 'status-badge status-offline';
+        details.textContent = 'No device subscription found in KVDB. Make sure Daily Reminders is enabled in the app.';
+      } catch (err) {
+        badge.textContent = 'Check Failed';
+        badge.className = 'status-badge status-offline';
+        details.textContent = 'Could not verify status. Ensure your internet connection is active.';
+      }
+    }
+
+    function applyPreset(title, body, url) {
+      document.getElementById('push-title').value = title;
+      document.getElementById('push-body').value = body;
+      document.getElementById('push-url').value = url;
+      updateCli();
+    }
+
+    function updateCli() {
+      const title = document.getElementById('push-title').value || 'Hello';
+      const body = document.getElementById('push-body').value || 'Thinking of you!';
+      document.getElementById('cli-cmd').textContent = `npx tsx send-push.ts`;
+    }
+
+    document.getElementById('push-title').addEventListener('input', updateCli);
+    document.getElementById('push-body').addEventListener('input', updateCli);
+
+    async function handleSendPush(e) {
+      e.preventDefault();
+      const sendBtn = document.getElementById('send-btn');
+      const title = document.getElementById('push-title').value.trim();
+      const body = document.getElementById('push-body').value.trim();
+      const url = document.getElementById('push-url').value;
+
+      if (!title || !body) return;
+
+      sendBtn.disabled = true;
+      sendBtn.textContent = 'Broadcasting...';
+
+      try {
+        // 1. Write the custom push payload to KVDB queue
+        const payload = {
+          title,
+          body,
+          url,
+          timestamp: Date.now()
+        };
+
+        const res = await fetch(`${KVDB_URL}/custom_push`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          showToast('Notification queued successfully! Dispatching...');
+        } else {
+          showToast('Failed to queue push. Check KVDB connection.', true);
+        }
+      } catch (err) {
+        showToast('Network error while queuing notification.', true);
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.textContent = '🚀 Queue & Send Live Push';
+      }
+    }
+
+    function copyCli() {
+      const text = document.getElementById('cli-cmd').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Command copied to clipboard!');
+      });
+    }
+
+    // Initialize check
+    checkSubscription();
+  </script>
+</body>
+</html>

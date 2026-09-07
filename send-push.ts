@@ -29,8 +29,8 @@ async function run() {
   }
 
   // 2. Setup VAPID Credentials
-  const vapidPublicKey = process.env.VAPID_PUBLIC_KEY;
-  const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY;
+  const vapidPublicKey = process.env.VAPID_PUBLIC_KEY || "BHpbJJPWCjx_tee8Ep9CLwCTzdmHKV4H086ualf8vHZxYyi70dvhMQh8nVIKGt1ZB-1c2ldbRFP3TSmWHcR_kHk";
+  const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY || "B1_biQnifPSdD_ivghoS_RmuJ1X5L9Q9Yu3ME1bNGJo";
 
   if (!vapidPublicKey || !vapidPrivateKey) {
     console.error('Missing VAPID_PUBLIC_KEY or VAPID_PRIVATE_KEY environment variables');
@@ -99,7 +99,47 @@ async function run() {
   let body = 'Thinking of you!';
   let url = './';
 
-  if (hour === 5) {
+  // Check if a custom push message was queued from the Admin console
+  let isCustomPush = false;
+  try {
+    const customRes = await fetch('https://kvdb.io/ZP1mwWeRkfGeafHJtg3yA/custom_push');
+    if (customRes.ok) {
+      const text = await customRes.text();
+      if (text && text.trim()) {
+        const customData = JSON.parse(text);
+        if (customData && customData.title && customData.body) {
+          title = customData.title;
+          body = customData.body;
+          if (customData.url) url = customData.url;
+          isCustomPush = true;
+          console.log(`Discovered queued admin push: "${title}"`);
+          // Clean up consumed custom push
+          await fetch('https://kvdb.io/ZP1mwWeRkfGeafHJtg3yA/custom_push', { method: 'DELETE' });
+        }
+      }
+    }
+  } catch (err) {
+    // Silently continue to scheduled messages
+  }
+
+  // If not a custom push, use scheduled date-based messages
+  if (!isCustomPush) {
+    // Birthday Season Check (Annual recurrence in IST)
+    const isSept7 = (nowIst.getMonth() + 1) === 9 && nowIst.getDate() === 7;
+    const isSept8 = (nowIst.getMonth() + 1) === 9 && nowIst.getDate() === 8;
+
+  if (isSept8) {
+    title = `HAPPY BIRTHDAY ${nickname}! 🎂🎉💖`;
+    body = `Today is YOUR day, my love! A magical birthday surprise is waiting for you inside... open your gift! 🎁`;
+    url = './';
+  } else if (isSept7) {
+    // Calculate remaining hours until midnight Sept 8 (00:00 IST)
+    const targetMidnight = new Date(nowIst.getFullYear(), 8, 8, 0, 0, 0);
+    const diffHours = Math.max(1, Math.round((targetMidnight.getTime() - nowIst.getTime()) / (1000 * 60 * 60)));
+    title = `Almost Your Birthday ${nickname}! 💖`;
+    body = `Only ${diffHours} hours left until your special day, my love! A little magic is already ticking for you inside the app... 🎁`;
+    url = './';
+  } else if (hour === 5) {
     // 5:40 AM IST
     const dailyVerse = BIBLE_VERSES[dayOfYear % BIBLE_VERSES.length];
     const morningMsg = MORNING_MESSAGES[Math.floor(Math.random() * MORNING_MESSAGES.length)];
@@ -142,6 +182,7 @@ async function run() {
       url = './?tab=bible';
     }
   }
+}
 
   // 4. Payload Content
   const payload = {

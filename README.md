@@ -43,6 +43,12 @@ Smilance focuses on sensory delight through cohesive colors and refined physics:
 * ***Default Startup PIN:*** `0809`
 * **Deep Clean:** End-to-end data wipe utilities securely trapped behind authentication gates.
 
+### 7. 👑 Admin Push Notification Console
+* **Secret URL:** `https://r2dapps.github.io/SmilanceWithKanna/admin.html` (Local: `http://localhost:3000/admin.html`)
+* **Instant Custom Surprises:** Compose and queue custom push notifications directly to Kanna's phone.
+* **1-Click Presets:** Birthday countdown teasers, romantic whispers, water reminders, and secret surprise alerts.
+* **Direct Terminal Dispatch:** `npx tsx send-push.ts`
+
 ---
 
 ## 🚀 Deployment: Hosting on GitHub Pages

@@ -24,6 +24,7 @@ import BibleSection from './components/BibleSection';
 import SettingsSection from './components/SettingsSection';
 import JourneySection from './components/JourneySection';
 import GamesSection from './components/GamesSection';
+import FloatingGiftBox from './components/FloatingGiftBox';
 
 import { 
   playTapChime,
@@ -38,6 +39,21 @@ import {
   BIBLE_VERSES
 } from './data';
 import { MUSIC_TRACKS } from './musicData';
+
+// Special annual date-based themes (recurs every year, extensible for any date MM-DD in IST)
+const SPECIAL_DATE_THEMES: Record<string, string> = {
+  '09-07': 'birthday', // September 7: Birthday Eve
+  '09-08': 'birthday', // September 8: Kanna's Birthday
+};
+
+export const getActiveDateTheme = (date: Date = new Date()): string | null => {
+  const utc = date.getTime() + date.getTimezoneOffset() * 60000;
+  const ist = new Date(utc + 5.5 * 3600000);
+  // Month is 0-indexed in JS (Jan = 0, Sept = 8, so +1 gives 9)
+  const mm = (ist.getMonth() + 1).toString().padStart(2, '0');
+  const dd = ist.getDate().toString().padStart(2, '0');
+  return SPECIAL_DATE_THEMES[`${mm}-${dd}`] || null;
+};
 
 export default function App() {
   const [appUnlocked, setAppUnlocked] = useState(() => {
@@ -141,6 +157,10 @@ export default function App() {
     const saved = localStorage.getItem('smilance_theme_color') || 'dark';
     return saved === 'light' ? 'dark' : saved;
   });
+
+  const activeDateTheme = getActiveDateTheme(currentTime);
+  const effectiveTheme = activeDateTheme || theme;
+
   const [currentEffect, setCurrentEffect] = useState(() => localStorage.getItem('smilance_effect') || 'hearts');
 
   const [toast, setToast] = useState<{ message: string; visible: boolean; id: string } | null>(null);
@@ -247,70 +267,77 @@ export default function App() {
   // Apply Theme CSS variables
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === 'dark') {
+    if (effectiveTheme === 'birthday') {
+       root.style.setProperty('--bg-top', '#1a0510');
+       root.style.setProperty('--bg-bottom', '#2c081d');
+       root.style.setProperty('--card-border', 'rgba(251, 113, 133, 0.25)');
+       root.style.setProperty('--accent-color', '#f43f5e');
+       root.style.setProperty('--accent-light', 'rgba(244, 63, 94, 0.2)');
+       root.style.setProperty('--accent-text', '#fecdd3');
+    } else if (effectiveTheme === 'dark') {
        root.style.setProperty('--bg-top', '#15060b');
        root.style.setProperty('--bg-bottom', '#241119');
        root.style.setProperty('--card-border', 'rgba(244, 63, 94, 0.15)');
        root.style.setProperty('--accent-color', '#e11d48');
        root.style.setProperty('--accent-light', 'rgba(244, 63, 94, 0.15)');
        root.style.setProperty('--accent-text', '#fda4af');
-    } else if (theme === 'midnight') {
+    } else if (effectiveTheme === 'midnight') {
        root.style.setProperty('--bg-top', '#0b0c15');
        root.style.setProperty('--bg-bottom', '#171124');
        root.style.setProperty('--card-border', 'rgba(168, 85, 247, 0.15)');
        root.style.setProperty('--accent-color', '#9333ea');
        root.style.setProperty('--accent-light', 'rgba(168, 85, 247, 0.15)');
        root.style.setProperty('--accent-text', '#d8b4fe');
-    } else if (theme === 'ocean') {
+    } else if (effectiveTheme === 'ocean') {
        root.style.setProperty('--bg-top', '#03111a');
        root.style.setProperty('--bg-bottom', '#0f2231');
        root.style.setProperty('--card-border', 'rgba(56, 189, 248, 0.15)');
        root.style.setProperty('--accent-color', '#0284c7');
        root.style.setProperty('--accent-light', 'rgba(56, 189, 248, 0.15)');
        root.style.setProperty('--accent-text', '#7dd3fc');
-    } else if (theme === 'emerald') {
+    } else if (effectiveTheme === 'emerald') {
        root.style.setProperty('--bg-top', '#02130c');
        root.style.setProperty('--bg-bottom', '#0b2416');
        root.style.setProperty('--card-border', 'rgba(52, 211, 153, 0.15)');
        root.style.setProperty('--accent-color', '#059669');
        root.style.setProperty('--accent-light', 'rgba(52, 211, 153, 0.15)');
        root.style.setProperty('--accent-text', '#6ee7b7');
-    } else if (theme === 'gold') {
+    } else if (effectiveTheme === 'gold') {
        root.style.setProperty('--bg-top', '#1a1003');
        root.style.setProperty('--bg-bottom', '#31200f');
        root.style.setProperty('--card-border', 'rgba(251, 191, 36, 0.15)');
        root.style.setProperty('--accent-color', '#d97706');
        root.style.setProperty('--accent-light', 'rgba(251, 191, 36, 0.15)');
        root.style.setProperty('--accent-text', '#fcd34d');
-    } else if (theme === 'sunset') {
+    } else if (effectiveTheme === 'sunset') {
        root.style.setProperty('--bg-top', '#1f0d06');
        root.style.setProperty('--bg-bottom', '#291108');
        root.style.setProperty('--card-border', 'rgba(249, 115, 22, 0.15)');
        root.style.setProperty('--accent-color', '#ea580c');
        root.style.setProperty('--accent-light', 'rgba(249, 115, 22, 0.15)');
        root.style.setProperty('--accent-text', '#fdba74');
-    } else if (theme === 'sakura') {
+    } else if (effectiveTheme === 'sakura') {
        root.style.setProperty('--bg-top', '#1a0b12');
        root.style.setProperty('--bg-bottom', '#26121b');
        root.style.setProperty('--card-border', 'rgba(244, 114, 182, 0.15)');
        root.style.setProperty('--accent-color', '#db2777');
        root.style.setProperty('--accent-light', 'rgba(244, 114, 182, 0.15)');
        root.style.setProperty('--accent-text', '#f9a8d4');
-    } else if (theme === 'lavender') {
+    } else if (effectiveTheme === 'lavender') {
        root.style.setProperty('--bg-top', '#10061a');
        root.style.setProperty('--bg-bottom', '#1c092e');
        root.style.setProperty('--card-border', 'rgba(192, 132, 252, 0.15)');
        root.style.setProperty('--accent-color', '#c084fc');
        root.style.setProperty('--accent-light', 'rgba(192, 132, 252, 0.15)');
        root.style.setProperty('--accent-text', '#e9d5ff');
-    } else if (theme === 'candy') {
+    } else if (effectiveTheme === 'candy') {
        root.style.setProperty('--bg-top', '#1a0208');
        root.style.setProperty('--bg-bottom', '#300410');
        root.style.setProperty('--card-border', 'rgba(244, 63, 94, 0.2)');
        root.style.setProperty('--accent-color', '#e11d48');
        root.style.setProperty('--accent-light', 'rgba(244, 63, 94, 0.15)');
        root.style.setProperty('--accent-text', '#fecdd3');
-    } else if (theme === 'light') {
+    } else if (effectiveTheme === 'light') {
        root.style.setProperty('--bg-top', '#ffffff');
        root.style.setProperty('--bg-bottom', '#ffe4e6');
        root.style.setProperty('--card-border', 'rgba(251, 113, 133, 0.15)');
@@ -319,7 +346,7 @@ export default function App() {
        root.style.setProperty('--accent-text', '#fda4af');
     }
     localStorage.setItem('smilance_theme_color', theme);
-  }, [theme]);
+  }, [theme, effectiveTheme]);
 
   // Daily Data Logic
   useEffect(() => {
@@ -473,7 +500,7 @@ export default function App() {
 
   if (isAppLoading) {
     return (
-      <div className={`app-wrapper theme-${theme} flex flex-col items-center justify-center p-4`}>
+      <div className={`app-wrapper theme-${effectiveTheme} flex flex-col items-center justify-center p-4`}>
         <div className="flex flex-col items-center justify-center animate-fadeIn">
            <div className="w-24 h-24 bg-rose-500/10 rounded-full flex flex-col items-center justify-center mb-6 shadow-[0_0_40px_rgba(244,63,94,0.3)] border border-rose-500/20 relative">
              <Heart className="w-12 h-12 text-rose-500 fill-rose-500 animate-pulse" />
@@ -522,7 +549,7 @@ export default function App() {
     };
 
     return (
-      <div className={`app-wrapper theme-${theme} flex flex-col items-center justify-center p-4`}>
+      <div className={`app-wrapper theme-${effectiveTheme} flex flex-col items-center justify-center p-4`}>
         <div className={`dark-card p-8 flex flex-col items-center w-full max-w-sm rounded-[2rem] shadow-[0_20px_60px_rgba(244,63,94,0.15)] mb-20 ${appPinError ? 'animate-shake border-red-500/50' : 'animate-fadeIn'}`}>
           <div className="w-20 h-20 bg-rose-500/10 rounded-full flex items-center justify-center mb-4 shadow-inner border border-rose-500/20">
             <Heart className="w-10 h-10 text-rose-500 fill-rose-500" />
@@ -581,7 +608,7 @@ export default function App() {
   }
 
   return (
-    <div className={`app-wrapper theme-${theme}`} onClick={handleScreenTap}>
+    <div className={`app-wrapper theme-${effectiveTheme}`} onClick={handleScreenTap}>
       {/* Global Audio Player */}
       <audio
         ref={audioRef}
@@ -880,6 +907,9 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Floating Birthday Gift Box & Teaser Portal (Active Sept 7 & 8 in IST) */}
+      <FloatingGiftBox />
 
       {/* Beautiful Pop-up Heart Toast Notification */}
       {toast && toast.visible && (

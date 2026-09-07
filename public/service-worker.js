@@ -1,7 +1,7 @@
 // Smilance Progressive Web App (PWA) Automated Offline Service Worker
 // Merges offline caching shells, dynamic fetch interceptors, and robust push notifications.
 
-const CACHE_NAME = 'smilance-offline-cache-v2';
+const CACHE_NAME = 'smilance-offline-cache-v3';
 
 // Core static assets to precache immediately on install
 const PRECACHE_ASSETS = [
@@ -42,8 +42,12 @@ self.addEventListener('activate', (event) => {
 
 // Cache interceptor and network fallback strategy for offline stability
 self.addEventListener('fetch', (event) => {
-  // Do not intercept non-GET API or DB syncing requests (such as KVDB.io configuration updates)
-  if (event.request.method !== 'GET' || event.request.url.includes('kvdb.io')) {
+  // Do not intercept non-GET API, non-http(s) requests (e.g. chrome-extension://), or DB syncing requests
+  if (
+    event.request.method !== 'GET' ||
+    !event.request.url.startsWith('http') ||
+    event.request.url.includes('kvdb.io')
+  ) {
     return;
   }
 
