@@ -55,6 +55,16 @@ export const getActiveDateTheme = (date: Date = new Date()): string | null => {
   return SPECIAL_DATE_THEMES[`${mm}-${dd}`] || null;
 };
 
+export const getBirthdayStatus = (date: Date = new Date()): 'eve' | 'birthday' | null => {
+  const utc = date.getTime() + date.getTimezoneOffset() * 60000;
+  const ist = new Date(utc + 5.5 * 3600000);
+  const mm = ist.getMonth() + 1;
+  const dd = ist.getDate();
+  if (mm === 9 && dd === 7) return 'eve';
+  if (mm === 9 && dd === 8) return 'birthday';
+  return null;
+};
+
 export default function App() {
   const [appUnlocked, setAppUnlocked] = useState(() => {
     const isPinEnabled = localStorage.getItem('smilance_pin_enabled') !== 'false';
@@ -159,7 +169,10 @@ export default function App() {
   });
 
   const activeDateTheme = getActiveDateTheme(currentTime);
-  const effectiveTheme = activeDateTheme || theme;
+  const isBirthdaySeason = Boolean(activeDateTheme === 'birthday');
+  const birthdayStatus = getBirthdayStatus(currentTime);
+  // Preserve Kanna's selected theme; festive birthday decorations adapt dynamically to her active palette
+  const effectiveTheme = theme;
 
   const [currentEffect, setCurrentEffect] = useState(() => localStorage.getItem('smilance_effect') || 'hearts');
 
@@ -354,7 +367,14 @@ export default function App() {
     const diff = currentTime.getTime() - start.getTime();
     const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-    setWish(DAILY_QUOTES[dayOfYear % DAILY_QUOTES.length]);
+    const bStatus = getBirthdayStatus(currentTime);
+    if (bStatus === 'eve') {
+      setWish("Happy Birthday Eve, my sweet Kanna! The countdown to celebrating the most beautiful blessing in my universe has begun. I love you endlessly!");
+    } else if (bStatus === 'birthday') {
+      setWish("Happy Birthday to my precious Kanna! You are my smile, my peace, and my entire world. Today and forever, my heart is completely yours.");
+    } else {
+      setWish(DAILY_QUOTES[dayOfYear % DAILY_QUOTES.length]);
+    }
   }, []);
 
   // Background Hearts Spawner
@@ -500,13 +520,66 @@ export default function App() {
 
   if (isAppLoading) {
     return (
-      <div className={`app-wrapper theme-${effectiveTheme} flex flex-col items-center justify-center p-4`}>
-        <div className="flex flex-col items-center justify-center animate-fadeIn">
-           <div className="w-24 h-24 bg-rose-500/10 rounded-full flex flex-col items-center justify-center mb-6 shadow-[0_0_40px_rgba(244,63,94,0.3)] border border-rose-500/20 relative">
-             <Heart className="w-12 h-12 text-rose-500 fill-rose-500 animate-pulse" />
+      <div className={`app-wrapper theme-${effectiveTheme} ${isBirthdaySeason ? 'birthday-edition' : ''} flex flex-col items-center justify-center p-4`}>
+        <div className="flex flex-col items-center justify-center animate-fadeIn text-center max-w-sm px-4">
+           <div className="relative mb-6 flex items-center justify-center">
+             {isBirthdaySeason && (
+               <div 
+                 className="absolute -inset-3.5 rounded-full border-2 border-dashed animate-spin pointer-events-none" 
+                 style={{ 
+                   borderColor: 'var(--accent-color, #f43f5e)', 
+                   animationDuration: '10s',
+                   opacity: 0.75 
+                 }} 
+               />
+             )}
+             <div 
+               className="w-24 h-24 rounded-full flex flex-col items-center justify-center border relative"
+               style={{
+                 backgroundColor: 'var(--accent-light, rgba(244,63,94,0.12))',
+                 borderColor: 'var(--accent-color, #f43f5e)',
+                 boxShadow: '0 0 45px var(--accent-light, rgba(244,63,94,0.35))'
+               }}
+             >
+               <Heart 
+                 className="w-12 h-12 animate-lubdub" 
+                 style={{ color: 'var(--accent-color, #f43f5e)', fill: 'var(--accent-color, #f43f5e)' }} 
+               />
+             </div>
            </div>
-           <h2 className="text-4xl font-serif text-white mb-2 tracking-tight">Welcome, Smiley</h2>
-           <p className="text-rose-300/80 tracking-widest uppercase text-sm font-bold animate-pulse mt-2">Initializing</p>
+
+           {isBirthdaySeason && birthdayStatus && (
+             <span 
+               className="text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-3 border animate-pulse inline-flex items-center gap-1.5"
+               style={{
+                 backgroundColor: 'var(--accent-light, rgba(244,63,94,0.15))',
+                 borderColor: 'var(--accent-color, #f43f5e)',
+                 color: 'var(--accent-color, #f43f5e)',
+                 boxShadow: '0 0 12px var(--accent-light, rgba(244,63,94,0.25))'
+               }}
+             >
+               <Heart className="w-2.5 h-2.5 fill-current" />
+               {birthdayStatus === 'eve' ? 'Birthday Eve Edition' : 'Birthday Queen Edition'}
+             </span>
+           )}
+
+           <h2 className="text-3xl sm:text-4xl font-serif text-white mb-2 tracking-tight">
+             {birthdayStatus === 'birthday' 
+               ? 'Happy Birthday, Kanna!' 
+               : birthdayStatus === 'eve' 
+                 ? 'Welcome, Birthday Queen' 
+                 : 'Welcome, Smiley'}
+           </h2>
+           <p 
+             className="tracking-widest uppercase text-xs sm:text-sm font-bold animate-pulse mt-2"
+             style={{ color: 'var(--accent-text, #fecdd3)' }}
+           >
+             {birthdayStatus === 'birthday' 
+               ? 'Your special day has arrived...' 
+               : birthdayStatus === 'eve' 
+                 ? 'Counting down to midnight...' 
+                 : 'Initializing'}
+           </p>
         </div>
       </div>
     );
@@ -549,7 +622,7 @@ export default function App() {
     };
 
     return (
-      <div className={`app-wrapper theme-${effectiveTheme} flex flex-col items-center justify-center p-4`}>
+      <div className={`app-wrapper theme-${effectiveTheme} ${isBirthdaySeason ? 'birthday-edition' : ''} flex flex-col items-center justify-center p-4`}>
         <div className={`dark-card p-8 flex flex-col items-center w-full max-w-sm rounded-[2rem] shadow-[0_20px_60px_rgba(244,63,94,0.15)] mb-20 ${appPinError ? 'animate-shake border-red-500/50' : 'animate-fadeIn'}`}>
           <div className="w-20 h-20 bg-rose-500/10 rounded-full flex items-center justify-center mb-4 shadow-inner border border-rose-500/20">
             <Heart className="w-10 h-10 text-rose-500 fill-rose-500" />
@@ -608,7 +681,7 @@ export default function App() {
   }
 
   return (
-    <div className={`app-wrapper theme-${effectiveTheme}`} onClick={handleScreenTap}>
+    <div className={`app-wrapper theme-${effectiveTheme} ${isBirthdaySeason ? 'birthday-edition' : ''}`} onClick={handleScreenTap}>
       {/* Global Audio Player */}
       <audio
         ref={audioRef}
@@ -621,7 +694,7 @@ export default function App() {
 
       {/* Global Header */}
       <div className="sticky top-2 z-40 mx-4 mt-2">
-        <div className="dark-card flex items-center justify-between p-3.5 backdrop-blur-xl border rounded-[2rem] shadow-[0_8px_30px_rgba(244,63,94,0.15)] overflow-hidden relative" style={{ background: 'linear-gradient(to right, var(--bg-top) 0%, var(--bg-bottom) 100%)', borderColor: 'var(--card-border)' }}>
+        <div className={`dark-card flex items-center justify-between p-3.5 backdrop-blur-xl border rounded-[2rem] shadow-[0_8px_30px_rgba(244,63,94,0.15)] overflow-hidden relative ${isBirthdaySeason ? 'birthday-header-glow' : ''}`} style={{ background: 'linear-gradient(to right, var(--bg-top) 0%, var(--bg-bottom) 100%)', borderColor: 'var(--card-border)' }}>
           
           {/* Subtle light/glow effect */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-rose-400/30 to-transparent"></div>
@@ -759,36 +832,85 @@ export default function App() {
           <div className="flex flex-col gap-6 max-w-2xl mx-auto w-full animate-fadeIn pb-8">
             
             {/* 3. Touch My Heart Card */}
-            <div className="dark-card flex flex-col items-center py-10 px-6 bg-black/40 text-center border-t-2 border-t-amber-500/30">
-              <h3 className="font-serif text-[24px] text-amber-500 mb-6 font-semibold tracking-wide">
+            <div 
+              className="dark-card flex flex-col items-center py-10 px-6 bg-black/40 text-center relative overflow-hidden"
+              style={{
+                borderTop: '2px solid var(--accent-color, #f43f5e)'
+              }}
+            >
+              {isBirthdaySeason && (
+                <div 
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest mb-3 border animate-pulse"
+                  style={{
+                    backgroundColor: 'var(--accent-light, rgba(244,63,94,0.12))',
+                    borderColor: 'var(--accent-color, #f43f5e)',
+                    color: 'var(--accent-color, #f43f5e)'
+                  }}
+                >
+                  <Heart className="w-3 h-3 fill-current" />
+                  <span>{birthdayStatus === 'eve' ? 'Birthday Eve Special' : 'Happy Birthday Kanna'}</span>
+                  <Heart className="w-3 h-3 fill-current" />
+                </div>
+              )}
+
+              <h3 
+                className="font-serif text-[24px] mb-6 font-semibold tracking-wide"
+                style={{ color: 'var(--accent-color, #f43f5e)' }}
+              >
                 Touch My Heart
               </h3>
               
-              <button
-                onClick={(e) => {
-                  playSuccessChime();
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const cx = rect.left + rect.width / 2;
-                  const cy = rect.top + rect.height / 2;
-                  const bursts = Array.from({ length: 12 }).map((_, i) => ({
-                    id: Math.random() + i,
-                    x: cx + (Math.random() - 0.5) * 200,
-                    y: cy + (Math.random() - 0.5) * 200,
-                    rotation: Math.random() * 360,
-                    scale: Math.random() * 0.8 + 0.5,
-                    variant: Math.floor(Math.random() * 5)
-                  }));
-                  setTapHearts(prev => [...prev.slice(-30), ...bursts]);
-                  setTimeout(() => {
-                    const ids = new Set(bursts.map(b => b.id));
-                    setTapHearts(prev => prev.filter(h => !ids.has(h.id)));
-                  }, 1200);
-                  setShowWish(!showWish);
-                }}
-                className="w-28 h-28 rounded-full bg-gradient-to-br from-rose-500 to-rose-600 flex items-center justify-center shadow-[0_0_40px_rgba(244,63,94,0.4)] transition-transform hover:scale-105 active:scale-95 mb-6 cursor-pointer"
-              >
-                <Heart className="w-12 h-12 text-white fill-white" />
-              </button>
+              <div className="relative mb-6 flex items-center justify-center">
+                {/* Birthday celebratory rotating dashed ring */}
+                {isBirthdaySeason && (
+                  <div 
+                    className="absolute -inset-3.5 rounded-full border-2 border-dashed animate-spin pointer-events-none" 
+                    style={{ 
+                      borderColor: 'var(--accent-color, #f43f5e)', 
+                      animationDuration: '16s',
+                      opacity: 0.65
+                    }} 
+                  />
+                )}
+                {/* Subtle soft ambient glow halo */}
+                <div 
+                  className="absolute -inset-2 rounded-full animate-ping pointer-events-none"
+                  style={{
+                    backgroundColor: 'var(--accent-color, #f43f5e)',
+                    opacity: 0.15,
+                    animationDuration: '3s'
+                  }}
+                />
+                <button
+                  onClick={(e) => {
+                    playSuccessChime();
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const cx = rect.left + rect.width / 2;
+                    const cy = rect.top + rect.height / 2;
+                    const bursts = Array.from({ length: 12 }).map((_, i) => ({
+                      id: Math.random() + i,
+                      x: cx + (Math.random() - 0.5) * 200,
+                      y: cy + (Math.random() - 0.5) * 200,
+                      rotation: Math.random() * 360,
+                      scale: Math.random() * 0.8 + 0.5,
+                      variant: Math.floor(Math.random() * 5)
+                    }));
+                    setTapHearts(prev => [...prev.slice(-30), ...bursts]);
+                    setTimeout(() => {
+                      const ids = new Set(bursts.map(b => b.id));
+                      setTapHearts(prev => prev.filter(h => !ids.has(h.id)));
+                    }, 1200);
+                    setShowWish(!showWish);
+                  }}
+                  className="w-28 h-28 rounded-full flex items-center justify-center transition-transform hover:scale-105 active:scale-95 cursor-pointer relative z-10"
+                  style={{
+                    background: 'linear-gradient(135deg, var(--accent-color, #f43f5e), var(--accent-dark, #be123c))',
+                    boxShadow: '0 0 35px var(--accent-light, rgba(244,63,94,0.45))'
+                  }}
+                >
+                  <Heart className="w-12 h-12 text-white fill-white animate-lubdub" />
+                </button>
+              </div>
               
               <p className="text-sm text-gray-400 italic">
                 Click to unlock today's message, Smiley
@@ -942,9 +1064,13 @@ export default function App() {
               }} 
               className={`flex flex-col items-center justify-center gap-1.5 transition-all duration-300 w-16 cursor-pointer ${
                 isActive 
-                  ? 'text-rose-500 drop-shadow-[0_0_10px_rgba(244,63,94,0.6)] scale-105' 
+                  ? 'scale-105' 
                   : 'text-white/40 hover:text-white/60 hover:scale-105'
               }`}
+              style={isActive ? {
+                color: 'var(--accent-color, #f43f5e)',
+                filter: 'drop-shadow(0 0 10px var(--accent-light, rgba(244,63,94,0.5)))'
+              } : undefined}
             >
                <Icon className={`w-6 h-6 transition-transform duration-300 ${isActive ? 'stroke-[2.5px]' : 'stroke-2'}`} />
                <span className={`text-[10px] tracking-wide ${isActive ? 'font-bold' : 'font-medium'}`}>{tab.label}</span>

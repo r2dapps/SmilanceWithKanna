@@ -336,20 +336,25 @@ export default function FloatingGiftBox({ forceShow = false, onOpenBirthdaySurpr
         }
       `}</style>
 
-      {/* 2. FALLING CONFETTI OVERLAY */}
+      {/* 2. FALLING CONFETTI & PAPER SLIPS OVERLAY (Gentle festive drift) */}
       <div className="fixed inset-0 pointer-events-none z-[105] overflow-hidden">
         {[
-          { left: 8, delay: 0.2, duration: 6, color: 'var(--accent-color, #f43f5e)', width: 6, height: 14 },
-          { left: 22, delay: 2.1, duration: 7.5, color: '#f59e0b', width: 8, height: 10 },
-          { left: 38, delay: 1.0, duration: 5.5, color: '#ec4899', width: 5, height: 16 },
-          { left: 54, delay: 3.2, duration: 8, color: '#fb7185', width: 7, height: 12 },
-          { left: 68, delay: 0.5, duration: 6.8, color: '#e11d48', width: 6, height: 15 },
-          { left: 82, delay: 2.8, duration: 7, color: '#f59e0b', width: 8, height: 11 },
-          { left: 93, delay: 1.5, duration: 6.2, color: 'var(--accent-color, #f43f5e)', width: 6, height: 14 }
+          { left: 5, delay: 0.2, duration: 6.5, color: 'var(--accent-color, #f43f5e)', width: 6, height: 15 },
+          { left: 14, delay: 3.5, duration: 8.0, color: '#f59e0b', width: 7, height: 11 },
+          { left: 22, delay: 1.8, duration: 7.2, color: '#ec4899', width: 5, height: 16 },
+          { left: 31, delay: 4.2, duration: 9.0, color: '#fb7185', width: 8, height: 12 },
+          { left: 40, delay: 0.8, duration: 6.0, color: 'var(--accent-color, #f43f5e)', width: 6, height: 14 },
+          { left: 49, delay: 2.7, duration: 7.8, color: '#f59e0b', width: 7, height: 13 },
+          { left: 58, delay: 1.2, duration: 6.8, color: '#f43f5e', width: 5, height: 17 },
+          { left: 66, delay: 3.9, duration: 8.5, color: '#d946ef', width: 8, height: 11 },
+          { left: 74, delay: 0.5, duration: 7.0, color: '#fb7185', width: 6, height: 15 },
+          { left: 82, delay: 2.3, duration: 6.4, color: '#f59e0b', width: 7, height: 12 },
+          { left: 89, delay: 4.7, duration: 8.2, color: 'var(--accent-color, #f43f5e)', width: 6, height: 16 },
+          { left: 95, delay: 1.5, duration: 7.5, color: '#ec4899', width: 5, height: 14 }
         ].map((c, i) => (
           <div
             key={`confetti-${i}`}
-            className="absolute -top-6 rounded-sm shadow-sm opacity-80 pointer-events-none"
+            className="absolute -top-6 rounded-sm shadow-sm opacity-75 pointer-events-none"
             style={{
               left: `${c.left}%`,
               width: `${c.width}px`,

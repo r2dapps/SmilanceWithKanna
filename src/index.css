@@ -76,10 +76,10 @@
 .theme-light .bg-\[\#12050A\]\/95 {
   background-color: rgba(255, 252, 253, 0.95) !important;
 }
-.theme-light .bg-[#12050A]/95 {
+.theme-light .bg-\[\#12050A\]\/95 {
   background-color: rgba(255, 252, 253, 0.95) !important;
 }
-.theme-light .bg-[#12050A]/90 {
+.theme-light .bg-\[\#12050A\]\/90 {
   background-color: rgba(255, 252, 253, 0.9) !important;
 }
 .theme-light .bg-white\/5 {
@@ -441,5 +441,40 @@ input:focus, textarea:focus, select:focus {
 @keyframes textShimmer {
   0% { background-position: 200% center; }
   100% { background-position: 0% center; }
+}
+
+/* ==========================================================================
+   🎂 Birthday Season App-Wide Visual Polish (Blends With Any Active Theme)
+   ========================================================================== */
+
+/* Enhanced Cards Across All Pages (Home, Radio, Journey, Cycle, Settings) */
+.birthday-edition .dark-card {
+  border-color: var(--accent-color, rgba(244, 63, 94, 0.4)) !important;
+  box-shadow: 0 8px 32px var(--accent-light, rgba(244, 63, 94, 0.15)), inset 0 0 16px var(--accent-light, rgba(244, 63, 94, 0.04)) !important;
+  position: relative;
+}
+
+/* Top Glow Lip on Every Card */
+.birthday-edition .dark-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--accent-color, #f43f5e), transparent);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* Glowing Top Card Header */
+.birthday-edition .birthday-header-glow {
+  box-shadow: 0 8px 35px var(--accent-light, rgba(244, 63, 94, 0.25)), 0 0 15px var(--accent-light, rgba(244, 63, 94, 0.1)) !important;
+}
+
+/* Bottom Navigation Bar Birthday Accent */
+.birthday-edition nav {
+  border-top: 1.5px solid var(--accent-color, #f43f5e) !important;
+  box-shadow: 0 -12px 40px var(--accent-light, rgba(244, 63, 94, 0.22)) !important;
 }
 

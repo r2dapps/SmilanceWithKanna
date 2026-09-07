@@ -75,12 +75,28 @@ Smilance is developed as a standalone React SPA (Single Page Application), makin
 
 ---
 
+## 🎨 Personalization & Content Customization Map
+
+Here is the quick guide to all files where you can customize messages, dates, music, and secrets:
+
+| Feature / Content | Exact File Location | Details |
+|---|---|---|
+| **Annual Special Dates & Seasons** | [`src/App.tsx`](file:///d:/ReactApps2Git/SmilanceWithKanna/src/App.tsx#L44-L57) & [`src/components/FloatingGiftBox.tsx`](file:///d:/ReactApps2Git/SmilanceWithKanna/src/components/FloatingGiftBox.tsx#L17-L34) | Modify `SPECIAL_DATE_THEMES` (`'09-07': 'birthday'`) and `isBirthdaySeason()` to change or add anniversary/birthday dates. |
+| **80+ Romantic Birthday Countdown Quotes** | [`src/components/FloatingGiftBox.tsx`](file:///d:/ReactApps2Git/SmilanceWithKanna/src/components/FloatingGiftBox.tsx#L36-L125) | Edit the `ADVANCE_BIRTHDAY_QUOTES` array to customize the love whispers randomized every time she opens the gift box. |
+| **Daily Home Quotes & Romantic Wishes** | [`src/data.ts`](file:///d:/ReactApps2Git/SmilanceWithKanna/src/data.ts) | Edit `DAILY_QUOTES` for the daily rotating wishes revealed by tapping the "Touch My Heart" button. |
+| **Splash Screen Greetings & Spinner** | [`src/App.tsx`](file:///d:/ReactApps2Git/SmilanceWithKanna/src/App.tsx#L521-L570) | Customize the startup greeting, birthday edition subtitle, and loading spinner animation inside `if (isAppLoading)`. |
+| **Music Lounge & Audio Tracks** | [`src/musicData.ts`](file:///d:/ReactApps2Git/SmilanceWithKanna/src/musicData.ts) & [`public/music/`](file:///d:/ReactApps2Git/SmilanceWithKanna/public/music/) | Place audio `.mp3` files in `public/music/` and register their title & artist in `src/musicData.ts`. |
+| **App Passcode / Security PIN** | [`src/App.tsx`](file:///d:/ReactApps2Git/SmilanceWithKanna/src/App.tsx#L595) & Settings UI | Default PIN is `0809`. Can be updated by the user in Settings or altered in code. |
+| **Live Push Notification Sender** | [`public/admin.html`](file:///d:/ReactApps2Git/SmilanceWithKanna/public/admin.html) & [`send-push.ts`](file:///d:/ReactApps2Git/SmilanceWithKanna/send-push.ts) | Secret console to dispatch instant custom push messages and 1-tap birthday countdown alerts. |
+
+---
+
 ## 🛠 Developer Quick-Start
 
 Smilance leverages **React 18**, **TypeScript**, and **Tailwind CSS**, energized by **Vite**.
 
 1. **Install Dependencies:** `npm install`
-2. **Run Dev Environment:** `npm run dev` (Runs on `localhost:3000`)
+2. **Run Dev Environment:** `npm run dev` (Runs on `localhost:3000` / `localhost:3001`)
 3. **Build Static Bundle:** `npm run build`
 
 ---
