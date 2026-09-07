@@ -66,6 +66,12 @@ export const getBirthdayStatus = (date: Date = new Date()): 'eve' | 'birthday' |
   return null;
 };
 
+export const isSeptemberMonth = (date: Date = new Date()): boolean => {
+  const utc = date.getTime() + date.getTimezoneOffset() * 60000;
+  const ist = new Date(utc + 5.5 * 3600000);
+  return ist.getMonth() === 8;
+};
+
 export default function App() {
   const [appUnlocked, setAppUnlocked] = useState(() => {
     const isPinEnabled = localStorage.getItem('smilance_pin_enabled') !== 'false';
@@ -558,6 +564,22 @@ export default function App() {
                  boxShadow: '0 0 45px var(--accent-light, rgba(244,63,94,0.35))'
                }}
              >
+               {isSeptemberMonth() && (
+                 <div className="absolute -top-3 -left-1 z-20 pointer-events-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]">
+                   <svg width="28" height="28" viewBox="0 0 24 24" className="transform -rotate-12">
+                     <polygon points="12,2 4,20 20,20" fill="url(#splash-hat-grad)" stroke="#fef08a" strokeWidth="1.2" />
+                     <line x1="8" y1="12" x2="16" y2="12" stroke="#fde047" strokeWidth="1.2" />
+                     <line x1="6" y1="16" x2="18" y2="16" stroke="#fde047" strokeWidth="1.2" />
+                     <circle cx="12" cy="2" r="2.8" fill="#fda4af" />
+                     <defs>
+                       <linearGradient id="splash-hat-grad" x1="0" y1="0" x2="1" y2="1">
+                         <stop offset="0%" stopColor="#fbbf24" />
+                         <stop offset="100%" stopColor="#f43f5e" />
+                       </linearGradient>
+                     </defs>
+                   </svg>
+                 </div>
+               )}
                <Heart 
                  className="w-12 h-12 animate-lubdub" 
                  style={{ color: 'var(--accent-color, #f43f5e)', fill: 'var(--accent-color, #f43f5e)' }} 
@@ -722,6 +744,26 @@ export default function App() {
               {/* Concentric expanding background pulse rings matching Lub & Dub beats */}
               <div className="absolute w-4 h-4 rounded-full animate-lubEcho pointer-events-none" style={{ backgroundColor: 'var(--accent-color)', opacity: 0.35 }}></div>
               <div className="absolute w-4 h-4 rounded-full animate-dubEcho pointer-events-none" style={{ backgroundColor: 'var(--accent-color)', opacity: 0.2 }}></div>
+              {/* September Birthday Month Edition Party Hat */}
+              {isSeptemberMonth() && (
+                <div 
+                  className="absolute -top-2.5 -left-1.5 z-20 pointer-events-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]"
+                  title="September Birthday Month Edition"
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" className="transform -rotate-12">
+                    <polygon points="12,2 4,20 20,20" fill="url(#header-hat-grad)" stroke="#fef08a" strokeWidth="1" />
+                    <line x1="8" y1="12" x2="16" y2="12" stroke="#fde047" strokeWidth="1.2" />
+                    <line x1="6" y1="16" x2="18" y2="16" stroke="#fde047" strokeWidth="1.2" />
+                    <circle cx="12" cy="2" r="2.5" fill="#fda4af" />
+                    <defs>
+                      <linearGradient id="header-hat-grad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stopColor="#fbbf24" />
+                        <stop offset="100%" stopColor="#f43f5e" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+              )}
               <Heart className="w-5 h-5 animate-lubdub z-10" style={{ color: 'var(--accent-color)', fill: 'var(--accent-color)', filter: 'drop-shadow(0 0 8px var(--accent-color))' }} />
             </div>
             

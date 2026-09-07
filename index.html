@@ -6,11 +6,24 @@
     <meta name="theme-color" content="#12050A" />
     
     <!-- SEO & PWA Assets -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" id="app-favicon" />
     <link rel="apple-touch-icon" href="smilance-192.png" />
     <link rel="manifest" href="manifest.json" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <script>
+      (function() {
+        try {
+          var now = new Date();
+          var ist = new Date(now.getTime() + now.getTimezoneOffset() * 60000 + 5.5 * 3600000);
+          var isSept = ist.getMonth() === 8;
+          var iconLink = document.getElementById('app-favicon');
+          if (iconLink) {
+            iconLink.href = isSept ? 'favicon-bday.svg' : 'favicon.svg';
+          }
+        } catch(e) {}
+      })();
+    </script>
     
     <!-- Primary SEO Meta Tags -->
     <title>Smilance - Daily Wishes & Sweet Messages</title>
