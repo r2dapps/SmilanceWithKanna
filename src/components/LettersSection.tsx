@@ -1,21 +1,59 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Mail, Send, Book, Plus, ChevronRight, Save, Download, Heart, Share2 } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { ArrowLeft, Mail, Send, Book, Plus, ChevronRight, Save, Download, Heart, Share2 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { LETTERS } from '../data';
+import { BIRTHDAY_EVE_LETTER_DATA, BIRTHDAY_MAIN_LETTER_DATA } from '../birthdayData';
 import { db } from '../db';
 import { useLiveQuery } from 'dexie-react-hooks';
 import * as htmlToImage from 'html-to-image';
 
 export default function LettersSection({ theme }: { theme: string }) {
   const [selectedLetter, setSelectedLetter] = useState<any>(null);
+  const [selectedSpecialLetter, setSelectedSpecialLetter] = useState<'eve' | 'birthday' | null>(null);
   const [selectedLocalLetter, setSelectedLocalLetter] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<'write' | 'saved' | 'received'>('write');
+  const [showCinematicLetter, setShowCinematicLetter] = useState(false);
+  
+  useEffect(() => {
+    if (showCinematicLetter) {
+      document.body.classList.add('cinematic-letter-open');
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.classList.remove('cinematic-letter-open');
+        document.body.style.overflow = prevOverflow;
+      };
+    }
+  }, [showCinematicLetter]);
   
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const downloadRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleLetterMessage = (event: MessageEvent) => {
+      if (event.data?.type === 'DOWNLOAD_COMPLETE') {
+        (window as any).showSmilanceToast?.("📥 Love Letter image downloaded! 💖");
+      } else if (event.data?.type === 'DOWNLOAD_FAILED') {
+        (window as any).showSmilanceToast?.("❌ Download failed. Please try again.");
+      }
+    };
+    window.addEventListener('message', handleLetterMessage);
+    return () => window.removeEventListener('message', handleLetterMessage);
+  }, []);
+
+  const handleDownloadCinematicLetter = () => {
+    const iframe = document.getElementById('cinematic-letter-iframe') as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      (window as any).showSmilanceToast?.("⏳ Saving high-definition Love Letter image...");
+      iframe.contentWindow.postMessage({ type: 'TRIGGER_DOWNLOAD' }, '*');
+    } else {
+      (window as any).showSmilanceToast?.("❌ Letter viewer not ready.");
+    }
+  };
 
   // States for tracking letter edits
   const [editingLetterId, setEditingLetterId] = useState<number | null>(null);
@@ -252,6 +290,89 @@ export default function LettersSection({ theme }: { theme: string }) {
             </div>
           </div>
         </div>
+      ) : selectedSpecialLetter ? (
+        <div className="flex flex-col animate-fadeIn">
+          <div className="flex items-center justify-between pb-4">
+             <button onClick={() => setSelectedSpecialLetter(null)} className="text-gray-400 font-bold uppercase tracking-widest text-xs px-2.5 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 cursor-pointer flex items-center gap-1">
+               <ArrowLeft className="w-3.5 h-3.5" /> Back
+             </button>
+             <span className="text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--accent-text)' }}>
+               {selectedSpecialLetter === 'eve' ? '🌙 Sept 7th Eve Letter' : '🎂 Sept 8th Birthday Letter'}
+             </span>
+          </div>
+          <div className="flex-1 flex items-center justify-center">
+            <div className="w-full mx-auto relative overflow-hidden backdrop-blur-3xl bg-black/75 border rounded-3xl p-6 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.5)] max-h-[78vh] overflow-y-auto" style={{ borderColor: 'var(--card-border)' }}>
+              <div className="absolute top-0 right-0 w-32 h-32 blur-[40px] translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none" style={{ backgroundColor: 'var(--accent-light)' }} />
+              <Heart className="absolute bottom-10 -left-10 w-24 h-24 -rotate-12 pointer-events-none" style={{ color: 'var(--accent-light)' }} strokeWidth={1} fill="currentColor" />
+              
+              <div className="text-center mb-6 relative z-10">
+                <span className="text-[11px] font-bold tracking-widest uppercase text-rose-300">
+                  {selectedSpecialLetter === 'eve' ? BIRTHDAY_EVE_LETTER_DATA.date : BIRTHDAY_MAIN_LETTER_DATA.date}
+                </span>
+                <h3 className="font-serif text-xl sm:text-2xl font-bold mt-1 text-white">
+                  {selectedSpecialLetter === 'eve' ? BIRTHDAY_EVE_LETTER_DATA.title : BIRTHDAY_MAIN_LETTER_DATA.title}
+                </h3>
+              </div>
+
+              <div className="font-serif italic text-white/90 leading-relaxed text-sm sm:text-base mb-6 relative z-10 space-y-4 text-left">
+                <p className="font-bold text-rose-200 not-italic text-base sm:text-lg">
+                  {selectedSpecialLetter === 'eve' ? BIRTHDAY_EVE_LETTER_DATA.salutation : BIRTHDAY_MAIN_LETTER_DATA.salutation}
+                </p>
+                {(selectedSpecialLetter === 'eve' ? BIRTHDAY_EVE_LETTER_DATA.paragraphs : BIRTHDAY_MAIN_LETTER_DATA.paragraphs).map((p, idx) => (
+                  <p key={idx}>{p}</p>
+                ))}
+                <div className="pt-4 border-t border-white/10 not-italic">
+                  <p className="text-xs text-rose-300 font-bold">
+                    {selectedSpecialLetter === 'eve' ? BIRTHDAY_EVE_LETTER_DATA.closing : BIRTHDAY_MAIN_LETTER_DATA.closing}
+                  </p>
+                  <p className="text-2xl font-bold text-rose-100 mt-1" style={{ fontFamily: "'Great Vibes', cursive" }}>
+                    {selectedSpecialLetter === 'eve' ? BIRTHDAY_EVE_LETTER_DATA.signature : BIRTHDAY_MAIN_LETTER_DATA.signature}
+                  </p>
+                  <p className="text-xs text-white/60 mt-3 italic">
+                    {selectedSpecialLetter === 'eve' ? BIRTHDAY_EVE_LETTER_DATA.postscript : BIRTHDAY_MAIN_LETTER_DATA.postscript}
+                  </p>
+                </div>
+              </div>
+
+              {/* Share & Download Actions */}
+              <div className="border-t border-white/5 pt-4 flex justify-center gap-3.5 relative z-20">
+                 <button 
+                   onClick={() => {
+                     const data = selectedSpecialLetter === 'eve' ? BIRTHDAY_EVE_LETTER_DATA : BIRTHDAY_MAIN_LETTER_DATA;
+                     executeImageAction(data.title, data.paragraphs.join('\n\n'), 'Kanna', data.date, '', 'download');
+                   }}
+                   title="Download Image"
+                   className="w-10 h-10 font-bold rounded-full flex items-center justify-center border active:scale-95 transition-all cursor-pointer"
+                   style={{ backgroundColor: 'var(--accent-light)', color: 'var(--accent-text)', borderColor: 'var(--card-border)' }}
+                 >
+                   <Download className="w-4 h-4" />
+                 </button>
+                 
+                 <button 
+                   onClick={() => {
+                     const data = selectedSpecialLetter === 'eve' ? BIRTHDAY_EVE_LETTER_DATA : BIRTHDAY_MAIN_LETTER_DATA;
+                     shareText(`💖 ${data.title.toUpperCase()} 💖\n\n"${data.paragraphs[0]}"\n\n💌 Shared from Smilance`);
+                   }}
+                   title="Share Text to WhatsApp"
+                   className="w-10 h-10 font-bold rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.5)] active:scale-95 transition-all cursor-pointer bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30 border border-emerald-500/30"
+                 >
+                   <FaWhatsapp size={18} />
+                 </button>
+                 
+                 <button 
+                   onClick={() => {
+                     const data = selectedSpecialLetter === 'eve' ? BIRTHDAY_EVE_LETTER_DATA : BIRTHDAY_MAIN_LETTER_DATA;
+                     executeImageAction(data.title, data.paragraphs.join('\n\n'), 'Kanna', data.date, '', 'share');
+                   }}
+                   title="Share Image"
+                   className="w-10 h-10 font-bold rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.5)] active:scale-95 transition-all cursor-pointer bg-teal-600/20 text-teal-400 hover:bg-teal-600/30 border border-teal-500/30"
+                 >
+                   <Share2 className="w-4 h-4" />
+                 </button>
+              </div>
+            </div>
+          </div>
+        </div>
       ) : selectedLetter ? (
         <div className="flex flex-col animate-fadeIn">
           <div className="flex items-center justify-between pb-4">
@@ -434,55 +555,141 @@ export default function LettersSection({ theme }: { theme: string }) {
           )}
 
           {activeTab === 'received' && (
-            <div className="flex flex-col gap-3">
-              {/* Pinned Birthday Surprise Sanctuary Letter */}
+            <div className="flex flex-col gap-3.5">
+              {/* 1. Letter 1: September 7th — 7th Letter (Birthday Eve Letter) */}
               <button
-                onClick={() => {
-                  if ((window as any).openBirthdaySurprise) {
-                    (window as any).openBirthdaySurprise();
-                  }
-                }}
-                className="w-full relative overflow-hidden p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-rose-950/70 via-[#2a081a]/60 to-rose-950/70 border border-amber-400/40 shadow-[0_8px_30px_rgba(244,63,94,0.25)] flex items-center justify-between text-left hover:scale-[1.01] active:scale-98 transition-all cursor-pointer group"
+                onClick={() => setSelectedSpecialLetter('eve')}
+                className="w-full relative overflow-hidden p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-purple-950/80 via-[#26081c]/70 to-rose-950/80 border border-purple-400/40 shadow-[0_8px_30px_rgba(168,85,247,0.2)] flex items-center justify-between text-left hover:scale-[1.01] active:scale-98 transition-all cursor-pointer group"
               >
                 <div className="flex items-center gap-3.5">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rose-600 to-amber-500 flex items-center justify-center shadow-lg border border-amber-200/50 shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center shadow-lg border border-purple-200/50 shrink-0">
+                    <Heart className="w-6 h-6 text-white fill-white animate-pulse" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full bg-purple-400/20 text-purple-200 border border-purple-400/30">
+                        7th Letter • Sept 7 Eve
+                      </span>
+                      <span className="text-[10px] text-purple-300/80 font-medium">1st Letter</span>
+                    </div>
+                    <h4 className="font-serif font-bold text-white text-sm sm:text-base group-hover:text-purple-200 transition-colors">
+                      A Midnight Eve Whisper 🌙
+                    </h4>
+                    <p className="text-[11px] text-purple-200/75 italic font-serif">
+                      Waiting for your special day • Counting every second for you
+                    </p>
+                  </div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-purple-300/80 group-hover:translate-x-1 transition-transform shrink-0" />
+              </button>
+
+              {/* 2. Letter 2: September 8th — 8th Letter (Grand Birthday Sanctuary Letter) */}
+              <button
+                onClick={() => setSelectedSpecialLetter('birthday')}
+                className="w-full relative overflow-hidden p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-rose-950/80 via-[#2a081a]/70 to-amber-950/80 border border-amber-400/40 shadow-[0_8px_30px_rgba(244,63,94,0.25)] flex items-center justify-between text-left hover:scale-[1.01] active:scale-98 transition-all cursor-pointer group"
+              >
+                <div className="flex items-center gap-3.5">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rose-600 via-pink-600 to-amber-500 flex items-center justify-center shadow-lg border border-amber-200/50 shrink-0">
                     <Heart className="w-6 h-6 text-white fill-white animate-pulse" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2 mb-0.5">
                       <span className="text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30">
-                        Birthday Sanctuary
+                        8th Letter • Sept 8 Birthday
                       </span>
-                      <span className="text-[10px] text-rose-300/70 font-medium">Sept 8 • Special</span>
+                      <span className="text-[10px] text-amber-300/80 font-medium">2nd Letter</span>
                     </div>
-                    <h4 className="font-serif font-bold text-white text-sm sm:text-base group-hover:text-rose-200 transition-colors">
-                      Kanna's Birthday Love Letter 💌
+                    <h4 className="font-serif font-bold text-white text-sm sm:text-base group-hover:text-amber-200 transition-colors">
+                      Kanna's Birthday Love Letter 🎂💌
                     </h4>
                     <p className="text-[11px] text-rose-200/70 italic font-serif">
-                      Relive your love letter, 3D envelope & candle ceremony anytime
+                      From online friends to my future wife • Unbroken vows
                     </p>
                   </div>
                 </div>
                 <ChevronRight className="w-5 h-5 text-amber-300/80 group-hover:translate-x-1 transition-transform shrink-0" />
               </button>
 
-              <div className="grid grid-cols-2 gap-3">
-                {LETTERS.map(letter => (
-                  <button
-                    key={letter.id}
-                    onClick={() => setSelectedLetter(letter)}
-                    className="flex flex-col items-center justify-center p-6 rounded-3xl bg-black/40 border border-white/5 transition gap-4 backdrop-blur-md hover:bg-white/5 cursor-pointer"
-                  >
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center shadow-md border" style={{ backgroundColor: 'var(--accent-light)', borderColor: 'var(--card-border)' }}>
-                      <Mail className="w-5 h-5" style={{ color: 'var(--accent-text)' }} />
+              {/* 3. Letter 3: September 12th — Today's 12th Letter (3rd Letter) */}
+              <button
+                onClick={() => setShowCinematicLetter(true)}
+                className="w-full relative overflow-hidden p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-rose-950/85 via-[#380b24]/75 to-rose-950/85 border border-rose-400/40 shadow-[0_8px_30px_rgba(230,57,110,0.25)] flex items-center justify-between text-left hover:scale-[1.01] active:scale-98 transition-all cursor-pointer group"
+              >
+                <div className="flex items-center gap-3.5">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-500 via-rose-600 to-amber-400 flex items-center justify-center shadow-lg border border-rose-200/50 shrink-0">
+                    <Heart className="w-6 h-6 text-white fill-white animate-pulse" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full bg-rose-400/20 text-rose-200 border border-rose-400/30">
+                        12th Letter • Today's Letter
+                      </span>
+                      <span className="text-[10px] text-rose-300/80 font-medium">3rd Letter</span>
                     </div>
-                    <span className="text-[13px] font-bold text-white/90 tracking-wide">{letter.title}</span>
-                  </button>
-                ))}
+                    <h4 className="font-serif font-bold text-white text-sm sm:text-base group-hover:text-rose-200 transition-colors">
+                      To My Forever Smiley — An Endless Dream 🌸
+                    </h4>
+                    <p className="text-[11px] text-rose-200/75 italic font-serif">
+                      Our Journey • June 6 Sanctuary & Sept 8 Birthday Queen
+                    </p>
+                  </div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-rose-300/80 group-hover:translate-x-1 transition-transform shrink-0" />
+              </button>
+
+              {/* Daily Love Notes Grid */}
+              <div className="pt-2">
+                <span className="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-2 block text-left">
+                  Daily Notes From Him
+                </span>
+                <div className="grid grid-cols-2 gap-3">
+                  {LETTERS.map(letter => (
+                    <button
+                      key={letter.id}
+                      onClick={() => setSelectedLetter(letter)}
+                      className="flex flex-col items-center justify-center p-6 rounded-3xl bg-black/40 border border-white/5 transition gap-4 backdrop-blur-md hover:bg-white/5 cursor-pointer"
+                    >
+                      <div className="w-12 h-12 rounded-full flex items-center justify-center shadow-md border" style={{ backgroundColor: 'var(--accent-light)', borderColor: 'var(--card-border)' }}>
+                        <Mail className="w-5 h-5" style={{ color: 'var(--accent-text)' }} />
+                      </div>
+                      <span className="text-[13px] font-bold text-white/90 tracking-wide">{letter.title}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           )}
         </>
+      )}
+      {/* Full-Screen Cinematic Letter Modal rendered via Portal directly on document.body:
+          App Title Header and Footer Card are completely hidden, with only small side arrow for back and download button */}
+      {showCinematicLetter && typeof document !== 'undefined' && createPortal(
+        <div className="fixed inset-0 w-screen h-screen z-[99999999] bg-[#fff5f8] flex flex-col animate-fadeIn overflow-hidden">
+          {/* Top Floating Control Bar: Small side arrow for back + Download button ONLY */}
+          <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-[100000000] flex items-center gap-2">
+            <button
+              onClick={() => setShowCinematicLetter(false)}
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/95 backdrop-blur-md border border-rose-300/60 shadow-lg flex items-center justify-center text-rose-800 hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              title="Back to Letters"
+            >
+              <ArrowLeft className="w-5 h-5 text-rose-700" />
+            </button>
+            <button
+              onClick={handleDownloadCinematicLetter}
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/95 backdrop-blur-md border border-rose-300/60 shadow-lg flex items-center justify-center text-rose-800 hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              title="Download Letter as PNG"
+            >
+              <Download className="w-4 h-4 text-rose-700" />
+            </button>
+          </div>
+          <iframe
+            id="cinematic-letter-iframe"
+            src="./letterforsmiley.html"
+            className="w-full h-full border-none"
+            title="To My Forever Smiley — An Endless Dream"
+          />
+        </div>,
+        document.body
       )}
     </div>
   );

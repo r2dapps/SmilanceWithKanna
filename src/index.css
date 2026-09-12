@@ -478,3 +478,15 @@ input:focus, textarea:focus, select:focus {
   box-shadow: 0 -12px 40px var(--accent-light, rgba(244, 63, 94, 0.22)) !important;
 }
 
+/* Cinematic Letter Mode: Completely Hide App Title Header and Footer Navigation Card */
+body.cinematic-letter-open {
+  overflow: hidden !important;
+}
+
+body.cinematic-letter-open nav,
+body.cinematic-letter-open .app-wrapper > div.sticky,
+body.cinematic-letter-open .app-wrapper > div > div.sticky {
+  display: none !important;
+}
+
+
