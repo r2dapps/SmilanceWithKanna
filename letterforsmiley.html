@@ -6,12 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>To My Smiley — An Endless Dream</title>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Marcellus&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
-        rel="stylesheet">
+    <!-- Local CORS-Safe Typography (Cinzel, Great Vibes, Marcellus, Plus Jakarta Sans, Playfair Display) -->
+    <link rel="stylesheet" href="./fonts_inline.css">
 
     <style>
         :root {
@@ -255,13 +251,13 @@
         .church-dual-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, 
-                rgba(255, 245, 248, 0.72) 0%, 
-                rgba(255, 245, 248, 0.52) 16%, 
-                rgba(255, 245, 248, 0.46) 45%, 
-                rgba(255, 245, 248, 0.54) 68%, 
-                rgba(255, 245, 248, 0.86) 88%, 
-                var(--bg-base) 100%);
+            background: linear-gradient(180deg,
+                    rgba(255, 245, 248, 0.72) 0%,
+                    rgba(255, 245, 248, 0.52) 16%,
+                    rgba(255, 245, 248, 0.46) 45%,
+                    rgba(255, 245, 248, 0.54) 68%,
+                    rgba(255, 245, 248, 0.86) 88%,
+                    var(--bg-base) 100%);
             pointer-events: none;
         }
 
@@ -393,11 +389,11 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, 
-                var(--bg-base) 0%, 
-                transparent 35%, 
-                transparent 65%, 
-                var(--bg-base) 100%);
+            background: linear-gradient(180deg,
+                    var(--bg-base) 0%,
+                    transparent 35%,
+                    transparent 65%,
+                    var(--bg-base) 100%);
             z-index: 2;
             pointer-events: none;
         }
@@ -406,13 +402,24 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 65%; /* Shows faces and cute emotions, masks out upper doorway lintel line */
-            transform: scale(1.1);
-            /* Deep top and bottom fade so no edge can ever be seen */
-            mask-image: linear-gradient(180deg, transparent 0%, transparent 18%, black 42%, black 68%, transparent 92%, transparent 100%);
-            -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 18%, black 42%, black 68%, transparent 92%, transparent 100%);
+            object-position: center 32%;
+            /* Shows Kanna & Smiley's faces clearly across all viewports */
+            transform: scale(1.08);
+            /* Smooth fade preserving faces */
+            mask-image: linear-gradient(180deg, transparent 0%, transparent 4%, black 18%, black 82%, transparent 96%, transparent 100%);
+            -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 4%, black 18%, black 82%, transparent 96%, transparent 100%);
             transition: transform 0.35s ease-out, opacity 0.35s ease-out;
             will-change: transform, opacity;
+        }
+
+        @media (max-width: 768px) {
+            #scene-growth {
+                padding-top: 4.5rem !important;
+            }
+
+            #scene-growth .seamless-bg-photo {
+                object-position: center 22% !important;
+            }
         }
 
         /* Content Layer: 100% Transparent, No Box Containers */
@@ -622,9 +629,12 @@
         }
 
         @keyframes pulseHeartSmall {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(0.95);
             }
+
             50% {
                 transform: scale(1.2);
             }
@@ -753,6 +763,7 @@
                 right: -14%;
                 width: 80vw;
             }
+
             .letter-bg-kiss.bottom-kiss {
                 bottom: 12%;
                 left: -14%;
@@ -867,12 +878,19 @@
         }
 
         @keyframes bounceScroll {
-            0%, 20%, 50%, 80%, 100% {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
                 transform: translateY(0);
             }
+
             40% {
                 transform: translateY(8px);
             }
+
             60% {
                 transform: translateY(4px);
             }
@@ -935,6 +953,129 @@
                 display: none;
             }
         }
+
+        /* ==========================================================================
+           HIGH-DEFINITION EXPORT CAPTURE STYLES (EXACT 1:1 LETTER, NO BOXES, NO GAPS)
+           ========================================================================== */
+        .scroller-container.exporting-mode {
+            width: 820px !important;
+            max-width: 820px !important;
+            margin: 0 !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            left: 0 !important;
+            position: relative !important;
+            transform: none !important;
+            background: #fff5f8 !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .scroller-container.exporting-mode .top-nav-download,
+        .scroller-container.exporting-mode .audio-player-pill,
+        .scroller-container.exporting-mode #heartCanvas,
+        .scroller-container.exporting-mode .bokeh-container,
+        .scroller-container.exporting-mode .scroll-indicator,
+        .scroller-container.exporting-mode .interactive-tilt-hint {
+            display: none !important;
+        }
+
+        .scroller-container.exporting-mode .story-scene,
+        .scroller-container.exporting-mode .church-dual-stage,
+        .scroller-container.exporting-mode .letter-scene {
+            min-height: auto !important;
+            border: none !important;
+        }
+
+        .scroller-container.exporting-mode #scene-hero {
+            min-height: auto !important;
+            padding: 6.5rem 2rem 2rem 2rem !important;
+        }
+
+        .scroller-container.exporting-mode #scene-church {
+            min-height: auto !important;
+            padding: 1.5rem 2rem 2.8rem 2rem !important;
+        }
+
+        .scroller-container.exporting-mode #scene-growth {
+            min-height: auto !important;
+            padding: 3rem 2rem 3rem 2rem !important;
+        }
+
+        .scroller-container.exporting-mode #scene-queen {
+            min-height: auto !important;
+            padding: 3rem 2rem 3.5rem 2rem !important;
+        }
+
+        .scroller-container.exporting-mode #scene-magic {
+            padding: 2.5rem 2rem 3.5rem 2rem !important;
+        }
+
+        .scroller-container.exporting-mode #scene-letter {
+            min-height: auto !important;
+            padding: 3rem 2rem 4.5rem 2rem !important;
+        }
+
+        .scroller-container.exporting-mode .polaroid-scatter-stage {
+            height: auto !important;
+            min-height: auto !important;
+            display: flex !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            gap: 16px !important;
+            position: relative !important;
+            max-width: 780px !important;
+        }
+
+        .scroller-container.exporting-mode .scatter-card {
+            position: relative !important;
+            left: auto !important;
+            top: auto !important;
+            transform: none !important;
+            margin: 0 !important;
+            width: 170px !important;
+        }
+
+        .scroller-container.exporting-mode .scatter-card:nth-child(even) {
+            transform: rotate(2deg) !important;
+        }
+
+        .scroller-container.exporting-mode .scatter-card:nth-child(odd) {
+            transform: rotate(-2deg) !important;
+        }
+
+        .scroller-container.exporting-mode #scene-hero .script-hero {
+            font-size: 3.2rem !important;
+            margin-bottom: 0.8rem !important;
+            line-height: 1.25 !important;
+        }
+
+        .scroller-container.exporting-mode #scene-hero .scene-title {
+            margin-top: 0.6rem !important;
+            margin-bottom: 1.4rem !important;
+            font-size: 2.4rem !important;
+        }
+
+        .scroller-container.exporting-mode #scene-magic .retro-magic-pill {
+            padding: 14px 38px !important;
+            margin-bottom: 0.8rem !important;
+        }
+
+        .scroller-container.exporting-mode #scene-magic .retro-magic-title {
+            font-size: 2.2rem !important;
+            line-height: 1.2 !important;
+        }
+
+        .scroller-container.exporting-mode #scene-magic .magic-prompt-wrap {
+            gap: 16px !important;
+            margin-bottom: 2.5rem !important;
+        }
+
+        .scroller-container.exporting-mode #scene-magic .retro-magic-sub {
+            display: block !important;
+            margin-top: 14px !important;
+            font-size: 0.85rem !important;
+        }
     </style>
     <script src="./html-to-image.js"></script>
 </head>
@@ -949,7 +1090,12 @@
 
     <!-- Floating Download / Save Button -->
     <button class="top-nav-download" id="btnDownloadPage" title="Save / Download Love Letter" type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
         <span>Save Letter</span>
     </button>
 
@@ -1017,13 +1163,16 @@
                         entire soul was captivated by you.
                     </p>
                     <p class="scene-prose">
-                        When we met for the very first time at that quiet church on <strong>June 6, 2026</strong>, standing
-                        beside you in that holy sanctuary, a peace washed over me that I had never once experienced in my
+                        When we met for the very first time at that quiet church on <strong>June 6, 2026</strong>,
+                        standing
+                        beside you in that holy sanctuary, a peace washed over me that I had never once experienced in
+                        my
                         existence.
                     </p>
 
                     <div style="margin-top: 1rem;">
-                        <img src="./two-roses.png" alt="Two Roses - Celebrating Together" style="width: 125px; filter: drop-shadow(0 12px 24px rgba(181, 32, 79, 0.22));">
+                        <img src="./two-roses.png" alt="Two Roses - Celebrating Together"
+                            style="width: 125px; filter: drop-shadow(0 12px 24px rgba(181, 32, 79, 0.22));">
                     </div>
                 </div>
             </section>
@@ -1035,7 +1184,8 @@
              ================================================================== -->
         <section class="story-scene" id="scene-growth" data-scene="3">
             <div class="scene-bg-layer">
-                <img src="./letter-bg-bottom.jpg" class="seamless-bg-photo" style="opacity: 0.52;" alt="Brick Church Memory">
+                <img src="./letter-bg-bottom.jpg" class="seamless-bg-photo" style="opacity: 0.52;"
+                    alt="Brick Church Memory">
             </div>
 
             <div class="scene-content">
@@ -1048,14 +1198,18 @@
                 </p>
                 <p class="scene-prose">
                     No matter how bitter the argument, just five minutes of hearing your voice melts everything away.
-                    You never left; you sat, discussed, and taught me how two imperfect souls become one unbreakable home.
+                    You never left; you sat, discussed, and taught me how two imperfect souls become one unbreakable
+                    home.
                 </p>
 
                 <!-- Floating Memory Stickers (100% Transparent Cutouts, No Boxes) -->
                 <div class="organic-stickers-row">
-                    <img src="./memories/bday-kiss-her.png" alt="Forehead & Cheek Kiss" class="organic-sticker" title="Cherishing You Forever ♥">
-                    <img src="./memories/bday-playful.png" alt="Playful Winking Selfie" class="organic-sticker" title="Our Carefree Smiles ♥">
-                    <img src="./memories/bday-chin-pout.png" alt="Cute Chin Hold Pout" class="organic-sticker" title="Your Cutest Pout ♥">
+                    <img src="./memories/bday-kiss-her.png" alt="Forehead & Cheek Kiss" class="organic-sticker"
+                        title="Cherishing You Forever ♥">
+                    <img src="./memories/bday-playful.png" alt="Playful Winking Selfie" class="organic-sticker"
+                        title="Our Carefree Smiles ♥">
+                    <img src="./memories/bday-chin-pout.png" alt="Cute Chin Hold Pout" class="organic-sticker"
+                        title="Your Cutest Pout ♥">
                 </div>
             </div>
         </section>
@@ -1066,7 +1220,9 @@
              ================================================================== -->
         <section class="story-scene" id="scene-queen" data-scene="4">
             <div class="scene-bg-layer">
-                <img src="./memories/happybirthdaysmiley_bluedress.png" class="seamless-bg-photo" style="filter: blur(10px) brightness(0.92); opacity: 0.42; transform: scale(1.15);" alt="Atmosphere">
+                <img src="./memories/happybirthdaysmiley_bluedress.png" class="seamless-bg-photo"
+                    style="filter: blur(10px) brightness(0.92); opacity: 0.42; transform: scale(1.15);"
+                    alt="Atmosphere">
             </div>
 
             <div class="scene-content">
@@ -1086,14 +1242,16 @@
                     </div>
                 </div>
 
-                <p class="scene-prose" style="font-size: 0.95rem; opacity: 0.85; margin-top: 0.4rem;">
+                <p class="scene-prose interactive-tilt-hint" style="font-size: 0.95rem; opacity: 0.85; margin-top: 0.4rem;">
                     (Move your finger or mouse over her portrait to tilt in 3D depth)
                 </p>
 
                 <!-- Flanking Stickers -->
                 <div class="organic-stickers-row" style="margin-top: 1.5rem;">
-                    <img src="./memories/bday-kiss-him.png" alt="Smiley Kissing Kanna" class="organic-sticker" style="max-width: 175px;" title="Sweetest Cheek Kiss ♥">
-                    <img src="./memories/bday-mehendi-smile.png" alt="Mehendi Hug" class="organic-sticker" style="max-width: 175px;" title="Warmest Mehendi Hug ♥">
+                    <img src="./memories/bday-kiss-him.png" alt="Smiley Kissing Kanna" class="organic-sticker"
+                        style="max-width: 175px;" title="Sweetest Cheek Kiss ♥">
+                    <img src="./memories/bday-mehendi-smile.png" alt="Mehendi Hug" class="organic-sticker"
+                        style="max-width: 175px;" title="Warmest Mehendi Hug ♥">
                 </div>
             </div>
         </section>
@@ -1147,7 +1305,8 @@
                 </p>
 
                 <div class="letter-vow">
-                    "You were my closest friend, you became my greatest love, and before God and time, you are my future wife."
+                    "You were my closest friend, you became my greatest love, and before God and time, you are my future
+                    wife."
                 </div>
 
                 <p class="letter-paragraph">
@@ -1160,13 +1319,16 @@
                     <div class="kanna-chibi-signature">
                         <img src="./my-chibi.png" alt="Kanna Chibi">
                         <div>
-                            <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--rose-deep); font-weight: 700;">Forever Yours,</span>
+                            <span
+                                style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--rose-deep); font-weight: 700;">Forever
+                                Yours,</span>
                             <div class="signature-handwriting">Your Kanna</div>
                         </div>
                     </div>
 
                     <!-- Single Velvet Red Rose -->
-                    <img src="./single-rose.png" alt="Velvet Red Rose" class="corner-rose-accent" title="My Eternal Love ♥">
+                    <img src="./single-rose.png" alt="Velvet Red Rose" class="corner-rose-accent"
+                        title="My Eternal Love ♥">
                 </div>
             </div>
         </section>
@@ -1206,7 +1368,7 @@
                     isMusicPlaying = true;
                     musicPill.classList.add('playing');
                     vinylDisc.classList.add('playing');
-                }).catch(() => {});
+                }).catch(() => { });
             }
             window.removeEventListener('click', handleFirstTap);
             window.removeEventListener('touchstart', handleFirstTap);
@@ -1322,7 +1484,7 @@
                 const totalH = stageRect.height;
                 // Progress from top of Scene 1 to bottom of Scene 2
                 const progress = Math.max(0, Math.min(1, -stageRect.top / (totalH - vh || 1)));
-                
+
                 // Continuous gentle zoom & pan so church spires and couple transition smoothly
                 const scale = 1.02 + progress * 0.08;
                 const panY = -progress * 35;
@@ -1561,47 +1723,94 @@
             element.addEventListener('touchstart', onPointerDown, { passive: true });
         }
 
-        /* 8. DOWNLOAD / SAVE LOVE LETTER ACTION (PNG IMAGE) */
-        const btnDownloadPage = document.getElementById('btnDownloadPage');
-        if (btnDownloadPage) {
-            btnDownloadPage.addEventListener('click', async () => {
-                const label = btnDownloadPage.querySelector('span');
-                const origText = label ? label.textContent : '';
-                if (label) label.textContent = 'Saving PNG...';
-                try {
-                    const target = document.querySelector('.letter-flow-container') || document.querySelector('#scene-letter');
-                    if (window.htmlToImage && target) {
-                        const originalPadding = target.style.padding;
-                        target.style.padding = '2rem';
-                        const dataUrl = await window.htmlToImage.toPng(target, {
-                            pixelRatio: 2,
-                            skipFonts: true,
-                            backgroundColor: '#fff5f8',
-                            filter: (node) => {
-                                if (node.classList && (node.classList.contains('audio-player-pill') || node.classList.contains('top-nav-download'))) {
-                                    return false;
-                                }
-                                return true;
-                            }
-                        });
-                        target.style.padding = originalPadding;
-                        const a = document.createElement('a');
-                        a.href = dataUrl;
-                        a.download = 'To_My_Forever_Smiley_Love_Letter.png';
-                        a.click();
-                    } else {
-                        const a = document.createElement('a');
-                        a.href = './couple-bg.jpg';
-                        a.download = 'To_My_Forever_Smiley_Love_Letter.jpg';
-                        a.click();
-                    }
-                } catch (err) {
-                    console.error('Download error:', err);
-                } finally {
-                    if (label) label.textContent = origText || 'Save Letter';
+        /* 8. HIGH-DEFINITION LOVE LETTER DOWNLOAD (EXACT 1:1 SCENE CAPTURE) */
+        let isDownloading = false;
+
+        async function downloadLoveLetterPNG() {
+            if (isDownloading) return;
+            isDownloading = true;
+
+            const btn = document.getElementById('btnDownloadPage');
+            const label = btn ? btn.querySelector('span') : null;
+            const origText = label ? label.textContent : '';
+            if (label) label.textContent = 'Saving PNG...';
+
+            const prevScrollY = window.scrollY;
+            const prevScrollX = window.scrollX;
+
+            try {
+                const scroller = document.querySelector('.scroller-container');
+                if (!scroller || !window.htmlToImage) {
+                    throw new Error('Export container or htmlToImage not found');
                 }
-            });
+
+                // Reset scroll to top to prevent canvas coordinate translation offsets
+                window.scrollTo(0, 0);
+
+                // Activate export mode directly on scroller for seamless layout
+                scroller.classList.add('exporting-mode');
+
+                // Allow DOM to settle for layout calculation
+                await new Promise(r => setTimeout(r, 150));
+
+                // Capture high-definition 2x resolution PNG with authentic embedded typography
+                const dataUrl = await window.htmlToImage.toPng(scroller, {
+                    pixelRatio: 2,
+                    skipFonts: false,
+                    backgroundColor: '#fff5f8',
+                    cacheBust: true,
+                    width: 820,
+                    filter: (node) => {
+                        if (node.classList && (
+                            node.classList.contains('audio-player-pill') ||
+                            node.classList.contains('top-nav-download') ||
+                            node.classList.contains('scroll-indicator') ||
+                            node.id === 'heartCanvas' ||
+                            node.id === 'bokehLayer'
+                        )) {
+                            return false;
+                        }
+                        return true;
+                    }
+                });
+
+                // Trigger browser download
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = 'To_My_Forever_Smiley_Love_Letter.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Notify parent iframe if embedded
+                if (window.parent && window.parent !== window) {
+                    window.parent.postMessage({ type: 'DOWNLOAD_COMPLETE' }, '*');
+                }
+            } catch (err) {
+                console.error('Love letter export failed:', err);
+                if (window.parent && window.parent !== window) {
+                    window.parent.postMessage({ type: 'DOWNLOAD_FAILED', error: err.message }, '*');
+                }
+            } finally {
+                const scroller = document.querySelector('.scroller-container');
+                if (scroller) scroller.classList.remove('exporting-mode');
+                window.scrollTo(prevScrollX, prevScrollY);
+                if (label) label.textContent = origText || 'Save Letter';
+                isDownloading = false;
+            }
         }
+
+        // Hook up button inside letterforsmiley.html
+        if (btnDownloadPage) {
+            btnDownloadPage.addEventListener('click', downloadLoveLetterPNG);
+        }
+
+        // Listen for download triggers from the parent app iframe
+        window.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'TRIGGER_DOWNLOAD') {
+                downloadLoveLetterPNG();
+            }
+        });
 
         if (window.self !== window.top) {
             document.body.classList.add('in-iframe');
